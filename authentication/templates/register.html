@@ -1,0 +1,7 @@
+<form action="{% url 'auth:register' %}" method="post">
+{% csrf_token %}
+{{ form.as_ul }}
+<input type="submit" value="Register">
+</form>
+<a href="{% url 'auth:login' %}">Have an account?</a>
+
