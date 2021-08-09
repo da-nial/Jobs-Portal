@@ -19,4 +19,7 @@ class CustomUser(AbstractUser):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.email
+        if self.first_name or self.last_name:
+            return self.get_full_name()
+        else:
+            return self.email
