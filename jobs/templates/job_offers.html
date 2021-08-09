@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+        <h1 style="text-align:center;"> {{ joboffer.title }} </h1>
+        <h3> توضیحات </h3>
+        {{ joboffer.description }}
+
+
+        <h3>حداقل سابقه کار</h3>
+        {{ joboffer.minimum_work_experience }} سال
+
+        <h3> حقوق </h3>
+        {{ joboffer.salary }} تومن
+
+        <h3> نوع همکاری </h3>
+        {% if joboffer.type_of_cooperation == 'full_time' %}
+             تمام وقت
+        {% elif joboffer.type_of_cooperation == 'part_time' %}
+            پاره وقت
+        {% else %}
+            غیره
+        {% endif %}
+
+        <h3> حداقل مدرک </h3>
+        {% if joboffer.minimum_degree == 'Diploma' %}
+             دیپلم
+        {% elif joboffer.minimum_degree == 'Bachelor'%}
+            کارشناسی
+        {% elif joboffer.minimum_degree == 'Master'%}
+            کارشناسی ارشد
+        {% elif joboffer.minimum_degree == 'PHD'%}
+            دکتری
+        {% else %}
+            غیره
+        {% endif %}
+
+        <br/>
+        <br/>
+        <a href = {{ joboffer.company.link }} > لینک شرکت </a>
+
+        <h3> مهارت های مورد نیاز </h3>
+        <ul>
+            {% for tag_of_skill in joboffer.skills_required.all %}
+                <li> {{ tag_of_skill.skill }}</li>
+            {% endfor %}
+        </ul>
+
+
+    </body>
+</html>
+

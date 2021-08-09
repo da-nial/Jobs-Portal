@@ -35,6 +35,3 @@ class JobOffer(models.Model):
     minimum_degree = models.CharField(choices=CHOICES_DEGREE, max_length=1000, default='Diploma')
     skills_required = models.ManyToManyField(TagsOfSkill)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-
-
-
