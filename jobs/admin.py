@@ -1,8 +1,9 @@
 from django.contrib import admin
-# Register your models here.
-from .models import Company, JobOffer, TagsOfSkill
 
+from .models import Company, JobOffer, Skill, UserProfile, EducationalBackground
 
 admin.site.register(Company)
 admin.site.register(JobOffer)
-admin.site.register(TagsOfSkill)
+admin.site.register(Skill)
+admin.site.register(UserProfile)
+admin.site.register(EducationalBackground)

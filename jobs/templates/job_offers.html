@@ -45,8 +45,8 @@
 
         <h3> مهارت های مورد نیاز </h3>
         <ul>
-            {% for tag_of_skill in joboffer.skills_required.all %}
-                <li> {{ tag_of_skill.skill }}</li>
+            {% for skill in joboffer.skills_required.all %}
+                <li> {{ skill.title }}</li>
             {% endfor %}
         </ul>
 
