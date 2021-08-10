@@ -124,9 +124,10 @@ class EducationalBackground(models.Model):
 
     def __str__(self):
         _str = f"{str(self.user_profile)} Education"
+        if self.level:
+            _str += f" @ {self.get_level_display()}"
         if self.institute:
             _str += f" @ {self.institute}"
         if self.start_year:
-            _str += f" ({self.start_year}"
-
+            _str += f" ({self.start_year})"
         return _str
