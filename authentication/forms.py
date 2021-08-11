@@ -1,6 +1,7 @@
 from django import forms
 from django.core.validators import MinLengthValidator, RegexValidator
 
+from jobs.models import UserProfile
 from .models import CustomUser
 
 
@@ -25,5 +26,5 @@ class UserForm(forms.ModelForm):
         user.set_password(self.cleaned_data.get('password'))
         if commit:
             user.save()
-            # UserProfile(user=user).save() TODO: add UserProfile save here.
+            UserProfile(user=user).save()
         return user

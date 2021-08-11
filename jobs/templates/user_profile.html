@@ -72,8 +72,9 @@
         </ul>
         <br/>
         <br/>
-{#        <a href = {{  }} > edit </a>#}
-
+        {% if request.user.id ==  userprofile.user.id %}
+            <a href = "{% url 'jobs:edit_profile' %}" > edit </a>
+        {% endif %}
 
     </body>
 </html>
