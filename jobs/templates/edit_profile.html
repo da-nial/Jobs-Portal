@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>edit profile</title>
+</head>
+<body>
+<h1 style="text-align:center;"> edit profile {{ request.user.email }}</h1>
+<fieldset>
+    <h3>edit information</h3>
+    <form action="{% url 'jobs:edit_profile' %}" method="post">
+        {% csrf_token %}
+        {{ edit_profile_form.as_p }}
+        <input type="submit" value="edit" name="edit">
+    </form>
+</fieldset>
+<br/>
+<br/>
+<br/>
+<fieldset>
+    <h3>edit skills</h3>
+    {% for skill in request.user.profile.skills.all %}
+        <fieldset>
+            {{ skill.title }}
+            <form action="{% url 'jobs:delete_skill' skill.pk %}" method="get">
+                {% csrf_token %}
+                <input type="submit" name="delete_skill" value="delete">
+            </form>
+        </fieldset>
+    {% endfor %}
+    <fieldset>
+        <form action="{% url 'jobs:edit_profile' %}" method="post">
+            {% csrf_token %}
+            {{ skill_form.as_p }}
+            <input type="submit" value="add" name="add_skill">
+        </form>
+    </fieldset>
+    <h4> add skill </h4>
+</fieldset>
+<br/>
+<br/>
+<br/>
+<fieldset>
+    <h3>edit educational backgrounds </h3>
+    {% for educational_background in request.user.profile.educationalbackground_set.all %}
+        <fieldset>
+            <p> field: {{ educational_background.field }}</p>
+            <p> institute: {{ educational_background.institute }}</p>
+            <p> level: {{ educational_background.get_level_display }}</p>
+            <p> start_year: {{ educational_background.start_year }}</p>
+            <p> finish_year: {{ educational_background.finish_year }}</p>
+            <form action="{% url 'jobs:delete_educational_background' educational_background.pk %}" method="get">
+                {% csrf_token %}
+                <input type="submit" name="delete_educational_background" value="delete">
+            </form>
+        </fieldset>
+    {% endfor %}
+    <fieldset>
+        <h4> add educational background </h4>
+        <form action="{% url 'jobs:edit_profile' %}" method="post">
+            {% csrf_token %}
+            {{ educational_background_form.as_p }}
+            <input type="submit" value="add" name="add_educational_background">
+        </form>
+    </fieldset>
+</fieldset>
+</body>
+</html>
