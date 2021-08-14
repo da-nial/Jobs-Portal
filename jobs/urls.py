@@ -15,4 +15,6 @@ urlpatterns = [
     # ex: /edit_profile/delete_educational_background/5
     path('edit_profile/delete_educational_background/<educational_background_id>/',
          views.delete_educational_background, name='delete_educational_background'),
+    # ex: /job_offers/5/apply
+    path('job_offers/<int:pk>/apply/', views.apply, name='apply'),
 ]

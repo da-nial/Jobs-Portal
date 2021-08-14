@@ -1,13 +1,29 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-
-# Create your views here.
+from django.http import HttpResponseRedirect, HttpResponse, Http404
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import generic
-
-from .models import JobOffer, UserProfile, Company, EducationalBackground
+from .models import JobOffer, UserProfile, Company, EducationalBackground, Application
 from .forms import EducationalBackgroundForm, SkillForm, EditProfileForm
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib import messages
+
+
+@login_required
+def apply(request, pk):
+    if request.method == 'POST':
+        offer = get_object_or_404(JobOffer, pk=pk)
+        if request.user.profile is None:
+            messages.error(request, 'Complete your profile before application')
+            return HttpResponseRedirect(reverse('jobs:job_offers', kwargs={'pk': pk}))
+        elif request.user.has_pending_application_for_offer(offer):
+            messages.error(request, 'Already applied for this offer')
+            return HttpResponseRedirect(reverse('jobs:job_offers', kwargs={'pk': pk}))
+        else:
+            Application.objects.create(user=request.user, offer=offer)
+            messages.success(request, 'Successfully applied for this offer')
+            return HttpResponseRedirect(reverse('jobs:job_offers', kwargs={'pk': pk}))
+    return Http404('Apply request only accepts "POST" method')
 
 
 class JobOffersView(generic.DetailView):

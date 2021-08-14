@@ -27,6 +27,9 @@ class Company(models.Model):
     class Meta:
         verbose_name_plural = "Companies"
 
+    def __str__(self):
+        return self.name
+
 
 class Skill(models.Model):
     """
@@ -48,10 +51,14 @@ class JobOffer(models.Model):
         ('full_time', 'full time'),
         ('part_time', 'part time'),
     ]
+
     type_of_cooperation = models.CharField(choices=CHOICES_TIME, max_length=10)
     minimum_degree = models.CharField(max_length=2, choices=EducationalLevel.choices, null=True, blank=True)
     skills_required = models.ManyToManyField(Skill, blank=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
 
 
 class UserProfile(models.Model):
@@ -131,3 +138,15 @@ class EducationalBackground(models.Model):
         if self.start_year:
             _str += f" ({self.start_year})"
         return _str
+
+
+class Application(models.Model):
+    class State(models.TextChoices):
+        ACCEPTED = 'A', _('Accepted')
+        REJECTED = 'R', _('Rejected')
+        PENDING = 'P', _('Pending')
+
+    state = models.CharField(choices=State.choices, max_length=1, default=State.PENDING)
+    offer = models.ForeignKey(JobOffer, on_delete=models.CASCADE, related_name='applications')
+    user = models.ForeignKey('authentication.CustomUser', on_delete=models.CASCADE, related_name='applications')
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)

@@ -1,6 +1,7 @@
 from django.db import models
 
 from django.contrib.auth.models import AbstractUser
+
 from .managers import CustomUserManager
 
 
@@ -23,3 +24,10 @@ class CustomUser(AbstractUser):
             return self.get_full_name()
         else:
             return self.email
+
+    def has_pending_application_for_offer(self, offer):
+        from jobs.models import Application
+        return offer.applications.filter(user=self, state=Application.State.PENDING).exists()
+
+    def get_applications_for_offer(self, offer):
+        return offer.applications.filter(user=self)
