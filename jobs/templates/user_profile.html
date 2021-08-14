@@ -10,7 +10,6 @@
         <h3> email: </h3>
         {{ userprofile.user.email }}
 
-
         <h3> name: </h3>
         {{ userprofile.user.first_name }}
 
@@ -24,35 +23,13 @@
         {{ userprofile.phone_number }}
 
         <h3> military service status </h3>
-        {% if userprofile.military_service_status == 'CO' %}
-             Conscript
-        {% elif userprofile.military_service_status == 'EE' %}
-            Educational Exemption
-        {% elif userprofile.military_service_status == 'E' %}
-            Exempt
-        {% elif userprofile.military_service_status == 'D' %}
-            Discharge
-        {% else %}
-            Others
-        {% endif %}
+        {{ userprofile.get_military_service_status_display }}
 
         <h3> gender: </h3>
-        {% if userprofile.gender == 'F' %}
-             Female
-        {% elif userprofile.gender == 'M' %}
-            Male
-        {% else %}
-            Others
-        {% endif %}
+        {{ userprofile.get_gender_display }}
 
         <h3> marital status: </h3>
-        {% if userprofile.marital_status == 'S' %}
-            Single
-        {% elif userprofile.marital_status == 'M' %}
-            Married
-        {% else %}
-            Others
-        {% endif %}
+        {{userprofile.get_marital_status_display }}
 
         <h3> city of residence: </h3>
         {{ userprofile.city_of_residence }}
