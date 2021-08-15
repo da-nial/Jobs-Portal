@@ -1,9 +1,12 @@
+from django.contrib import admin
 from django.db import models
+from django.shortcuts import get_object_or_404
 
 from authentication.models import CustomUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 from django.utils.translation import gettext_lazy as _
+
 
 
 class EducationalLevel(models.TextChoices):
@@ -150,3 +153,4 @@ class Application(models.Model):
     offer = models.ForeignKey(JobOffer, on_delete=models.CASCADE, related_name='applications')
     user = models.ForeignKey('authentication.CustomUser', on_delete=models.CASCADE, related_name='applications')
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
+
