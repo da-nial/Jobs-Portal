@@ -122,3 +122,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 LOGIN_URL = '/auth/login/'
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'adams.job.offer@gmail.com'
+EMAIL_HOST_PASSWORD = 'S^\+FBsS<z,7w"_$'
+EMAIL_PORT = 587
