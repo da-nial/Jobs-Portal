@@ -22,7 +22,7 @@ class EditProfileForm(forms.ModelForm, EditProfilePageFormMixin):
     class Meta:
         model = UserProfile
         fields = ['mobile_number', 'phone_number', 'address', 'military_service_status', 'gender',
-                  'city_of_residence', 'bio']
+                  'marital_status', 'city_of_residence', 'bio']
 
     def save_profile_form(self, profile):
         profile = super(EditProfileForm, self).save()

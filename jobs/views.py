@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
@@ -74,6 +75,7 @@ def edit_profile_view(request):
             return render(request, template_name, get_edit_profile_context_data(request))
 
         form.save_profile_form(request.user.profile)
+        messages.success(request, 'Successfully edited')
         return render(request, template_name, get_edit_profile_context_data(request))
 
 
