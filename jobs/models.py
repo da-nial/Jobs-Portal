@@ -153,4 +153,6 @@ class Application(models.Model):
     offer = models.ForeignKey(JobOffer, on_delete=models.CASCADE, related_name='applications')
     user = models.ForeignKey('authentication.CustomUser', on_delete=models.CASCADE, related_name='applications')
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    resume = models.FileField(upload_to='resumes/', null=True)
+
 

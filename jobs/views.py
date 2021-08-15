@@ -21,7 +21,8 @@ def apply(request, pk):
             messages.error(request, 'Already applied for this offer')
             return HttpResponseRedirect(reverse('jobs:job_offers', kwargs={'pk': pk}))
         else:
-            Application.objects.create(user=request.user, offer=offer)
+            resume = request.FILES.get('resume')
+            Application.objects.create(user=request.user, offer=offer, resume=resume)
             messages.success(request, 'Successfully applied for this offer')
             return HttpResponseRedirect(reverse('jobs:job_offers', kwargs={'pk': pk}))
     return Http404('Apply request only accepts "POST" method')
