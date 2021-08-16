@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -92,9 +93,10 @@ def delete_educational_background(request, educational_background_id):
     return HttpResponseRedirect(reverse('jobs:edit_profile'))
 
 
-class MainView(generic.ListView, LoginRequiredMixin):
+class MainView(LoginRequiredMixin, generic.ListView):
     template_name = 'main.html'
     context_object_name = 'offers'
+    login_url = settings.LOGIN_URL
 
     def get_queryset(self):
         return JobOffer.objects.all().order_by('pk')

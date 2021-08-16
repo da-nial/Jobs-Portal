@@ -3,9 +3,14 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Adams</title>
+        <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
+        <nav style="background-color: gray; padding: 5px; border-radius: 3px">
+            <a href="{% url 'jobs:user_profile' request.user.pk %}" style="text-align: left">
+            {{ request.user.first_name }}
+            </a>
+        </nav>
         {% block content %}{% endblock content %}
     </body>
 </html>

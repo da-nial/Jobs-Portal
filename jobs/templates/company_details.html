@@ -1,23 +1,28 @@
-<h3>Company Detail</h3>
-<li>
-    <img src="{{ company.logo.url }}" alt="{{ company.name }}-logo">
-    <p>company name : {{ company.name }}</p>
-    <p>description : {{ company.description }}</p>
-</li>
+{% extends 'base.html' %}
+{% block title %}
+    company {{ company.name }}
+{% endblock %}
+{% block content %}
+    <li>
+        <img src="{{ company.logo.url }}" alt="{{ company.name }}-logo">
+        <p>company name : {{ company.name }}</p>
+        <p>description : {{ company.description }}</p>
+    </li>
 
-<h3>Job Offers List</h3>
-{% if company.joboffer_set.all %}
-    <ul>
-    {% for job_offer in company.joboffer_set.all %}
-        <li>
-        <a href="{% url 'jobs:job_offers' job_offer.pk %}">
-            <p>{{ job_offer.title }}</p>
-        </a>
-        <p>salary : {{ job_offer.salary }}</p>
-        <p>type of cooperation : {{ job_offer.type_of_cooperation }}</p>
-        </li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No job offer has added yet.</p>
-{% endif %}
+    <h3>Job Offers List</h3>
+    {% if company.joboffer_set.all %}
+        <ul>
+        {% for job_offer in company.joboffer_set.all %}
+            <li>
+            <a href="{% url 'jobs:job_offers' job_offer.pk %}">
+                <p>{{ job_offer.title }}</p>
+            </a>
+            <p>salary : {{ job_offer.salary }}</p>
+            <p>type of cooperation : {{ job_offer.type_of_cooperation }}</p>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No job offer has added yet.</p>
+    {% endif %}
+{% endblock %}
