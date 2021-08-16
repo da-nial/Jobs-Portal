@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -88,3 +89,16 @@ def delete_skill(request, skill_id):
 def delete_educational_background(request, educational_background_id):
     EducationalBackground.objects.get(pk=educational_background_id).delete()
     return HttpResponseRedirect(reverse('jobs:edit_profile'))
+
+
+class MainView(generic.ListView, LoginRequiredMixin):
+    template_name = 'main.html'
+    context_object_name = 'offers'
+
+    def get_queryset(self):
+        return JobOffer.objects.all().order_by('pk')
+
+    def get_context_data(self, **kwargs):
+        context = super(MainView, self).get_context_data(**kwargs)
+        context['companies'] = Company.objects.all().order_by('pk')
+        return context
