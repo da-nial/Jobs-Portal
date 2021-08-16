@@ -1,0 +1,32 @@
+<h3>Companies List</h3>
+{% if companies %}
+    <ul>
+    {% for company in companies %}
+        <li>
+            <a href="{% url 'jobs:company' company.pk %}">
+                <img src="{{ company.logo.url }}" alt="{{ company.name }}-logo" style="width: 100px; height: 100px">
+                <p style="display: inline">{{ company.name }}</p>
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No company has added yet.</p>
+{% endif %}
+
+<h3>Job Offers List</h3>
+{% if companies %}
+    <ul>
+    {% for offer in offers %}
+        <li>
+            <a href="{% url 'jobs:job_offers' offer.pk %}">
+                <p style="display: inline">{{ offer.title }}</p>
+            </a>
+            <p style="display: inline">salary: {{ offer.salary }}</p>
+            <p style="display: inline">cooperation type: {{ offer.type_of_cooperation }}</p>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No job offer has added yet.</p>
+{% endif %}
