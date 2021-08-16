@@ -44,9 +44,10 @@
                 {% endif %}
             {% endwith %}
             {% if not user|has_pending_application_for_offer:joboffer %}
-                <form method="post" action=" {% url 'jobs:apply' joboffer.pk %}">
-                    <input type="submit"  value="ارسال رزومه">
+                <form method="post" action=" {% url 'jobs:apply' joboffer.pk %}" enctype="multipart/form-data">
                     {% csrf_token %}
+                    <input type="file" name="resume" style="display: block; margin-bottom: 20px">
+                    <button type="submit">Send Application</button>
                 </form>
             {% endif %}
         {% endif %}
