@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load job_extras %}
-
+{% block title %}
+    offer {{ joboffer.title }}
+{% endblock %}
 {% block content %}
     <h1 style="text-align:center;"> {{ joboffer.title }} </h1>
     <h3> توضیحات </h3>
@@ -14,7 +16,7 @@
     {{ joboffer.salary }} تومن
 
     <h3> نوع همکاری </h3>
-    {{ joboffer.get_minimum_degree_display }}
+    {{ joboffer.get_type_of_cooperation_display }}
 
     <h3> حداقل مدرک </h3>
     {{ joboffer.get_minimum_degree_display }}
@@ -53,4 +55,4 @@
         {% endif %}
         {% include 'messages.html' %}
     {% endwith %}
-{% endblock content %}
+{% endblock %}

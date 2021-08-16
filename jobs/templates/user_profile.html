@@ -1,58 +1,50 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
+{% extends 'base.html' %}
+{% block title %}
+    profile {{ request.user.first_name }} {{ request.user.last_name }}
+{% endblock %}
+{% block content %}
+    <h1 style="text-align:center;"> {{ userprofile.user.first_name }} </h1>
+    <h3> email: </h3>
+    {{ userprofile.user.email }}
 
-    <body>
-        <h1 style="text-align:center;"> {{ userprofile.user.username }} </h1>
-        <h3> email: </h3>
-        {{ userprofile.user.email }}
 
-        <h3> name: </h3>
-        {{ userprofile.user.first_name }}
+    <h3> name: </h3>
+    {{ userprofile.user.first_name }}
 
-        <h3> last name: </h3>
-        {{ userprofile.user.last_name }}
+    <h3> last name: </h3>
+    {{ userprofile.user.last_name }}
 
-        <h3> phone number: </h3>
-        {{ userprofile.mobile_number }}
+    <h3> phone number: </h3>
+    {{ userprofile.mobile_number }}
 
-        <h3> dial number: </h3>
-        {{ userprofile.phone_number }}
+    <h3> dial number: </h3>
+    {{ userprofile.phone_number }}
 
-        <h3> military service status </h3>
-        {{ userprofile.get_military_service_status_display }}
+    <h3> military service status </h3>
+    {{ userprofile.get_military_service_status_display }}
 
-        <h3> gender: </h3>
-        {{ userprofile.get_gender_display }}
+    <h3> gender: </h3>
+    {{ userprofile.get_gender_display }}
 
-        <h3> marital status: </h3>
-        {{userprofile.get_marital_status_display }}
+    <h3> marital status: </h3>
+    {{userprofile.get_marital_status_display }}
 
-        <h3> city of residence: </h3>
-        {{ userprofile.city_of_residence }}
+    <h3> skills </h3>
+    <ul>
+        {% for skill in userprofile.skills.all %}
+            <li> {{ skill.title }}</li>
+        {% endfor %}
+    </ul>
 
-        <h3> skills </h3>
-        <ul>
-            {% for skill in userprofile.skills.all %}
-                <li> {{ skill.title }}</li>
-            {% endfor %}
-        </ul>
-
-        <h3> educational background </h3>
-        <ul>
-            {% for educational_background in userprofile.educationalbackground_set.all %}
-                <li> {{ educational_background }}</li>
-            {% endfor %}
-        </ul>
-        <br/>
-        <br/>
-        {% if request.user.id ==  userprofile.user.id %}
-            <a href = "{% url 'jobs:edit_profile' %}" > edit </a>
-        {% endif %}
-
-    </body>
-</html>
-
+    <h3> educational background </h3>
+    <ul>
+        {% for educational_background in userprofile.educationalbackground_set.all %}
+            <li> {{ educational_background }}</li>
+        {% endfor %}
+    </ul>
+    <br/>
+    <br/>
+    {% if request.user.id ==  userprofile.user.id %}
+        <a href = "{% url 'jobs:edit_profile' %}" > edit </a>
+    {% endif %}
+{% endblock %}
