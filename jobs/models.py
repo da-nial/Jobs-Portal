@@ -51,8 +51,8 @@ class JobOffer(models.Model):
     salary = models.IntegerField(blank=True, null=True)
     minimum_work_experience = models.IntegerField(default=0)
     CHOICES_TIME = [
-        ('full_time', 'full time'),
-        ('part_time', 'part time'),
+        ('full_time', _('full time')),
+        ('part_time', _('part time')),
     ]
 
     type_of_cooperation = models.CharField(choices=CHOICES_TIME, max_length=10)
