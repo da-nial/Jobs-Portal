@@ -3,6 +3,24 @@
     profile {{ request.user.first_name }} {{ request.user.last_name }}
 {% endblock %}
 {% block content %}
+    <div>
+        {% include 'messages.html' %}
+        <!-- Check to see is this profile is for the logged in user -->
+        {% if request.user == userprofile.user %}
+            {% if userprofile.user.is_email_verified %}
+                Email Verified
+            {% else %}
+                Your Email is not verified yet,
+                <form name="verification-form"
+                      method="post"
+                      action="{% url 'auth:send-email-verification' %}"
+                >
+                    {% csrf_token %}
+                    <button>Verify</button>
+                </form>
+            {% endif %}
+        {% endif %}
+    </div>
     <h1 style="text-align:center;"> {{ userprofile.user.first_name }} </h1>
     <h3> email: </h3>
     {{ userprofile.user.email }}
@@ -27,7 +45,7 @@
     {{ userprofile.get_gender_display }}
 
     <h3> marital status: </h3>
-    {{userprofile.get_marital_status_display }}
+    {{ userprofile.get_marital_status_display }}
 
     <h3> skills </h3>
     <ul>
@@ -45,6 +63,6 @@
     <br/>
     <br/>
     {% if request.user.id ==  userprofile.user.id %}
-        <a href = "{% url 'jobs:edit_profile' %}" > edit </a>
+        <a href="{% url 'jobs:edit_profile' %}"> edit </a>
     {% endif %}
 {% endblock %}
