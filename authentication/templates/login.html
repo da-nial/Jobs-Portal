@@ -10,6 +10,9 @@
         <label for="password">{% translate "Enter your password" %} : </label>
         <input type="password" name="password" id="password"><br>
     </fieldset>
+    {% if request.GET.next %}
+        <input type="hidden" name="next" value="{{ request.GET.next }}">
+    {% endif %}
     <input type="submit" value="{% translate 'Sign in' %}">
 </form>
 {#<a href="{% url 'auth:register' %}">{% translate "Create account here" %}.</a>#}
