@@ -40,7 +40,9 @@ def login_user(request):
 
         if user is not None:
             login(request, user)
-            return HttpResponse(f"Hey {str(user)}! You're now logged in.", status=200)
+            if 'next' in request.POST:
+                return HttpResponseRedirect(request.POST.get('next'))
+            return HttpResponseRedirect(reverse('jobs:main'))
         else:
             context['error'] = 'Wrong credentials.'
             return render(request, 'login.html', context, status=200)
