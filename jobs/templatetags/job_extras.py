@@ -1,5 +1,6 @@
 from django import template
 from authentication.models import CustomUser
+
 register = template.Library()
 
 
