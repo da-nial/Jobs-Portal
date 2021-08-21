@@ -1,6 +1,8 @@
 from django import forms
 
-from jobs.models import UserProfile, Skill, EducationalBackground
+from jobs.models import UserProfile, Skill, EducationalBackground, JobOffer
+from proxy.models.city_api import CitiesProxy
+from django.contrib import admin
 
 
 class EditProfilePageFormMixin:
@@ -12,6 +14,7 @@ class EditProfilePageFormMixin:
 class EditProfileForm(forms.ModelForm, EditProfilePageFormMixin):
     first_name = forms.CharField(label='first name', required=False)
     last_name = forms.CharField(label='last name', required=False)
+    city_of_residence = forms.ChoiceField(choices=CitiesProxy.get_instance().get_city_name_tuple())
 
     def __init__(self, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
@@ -52,3 +55,19 @@ class EducationalBackgroundForm(forms.ModelForm):
         educational_background.user_profile = profile
         educational_background.save()
         return educational_background
+
+
+class JobOfferForm(forms.ModelForm):
+    city = forms.ChoiceField(choices=CitiesProxy.get_instance().get_city_name_tuple())
+
+    class Meta:
+        model = JobOffer
+        exclude = []
+
+
+class UserProfileForm(forms.ModelForm):
+    city_of_residence = forms.ChoiceField(choices=CitiesProxy.get_instance().get_city_name_tuple())
+
+    class Meta:
+        model = UserProfile
+        exclude = []
