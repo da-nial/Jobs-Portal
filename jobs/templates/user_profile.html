@@ -3,6 +3,8 @@
     profile {{ request.user.first_name }} {{ request.user.last_name }}
 {% endblock %}
 {% block content %}
+    {% load i18n %}
+    {% load convert_numbers %}
     <div>
         {% include 'messages.html' %}
         <!-- Check to see is this profile is for the logged in user -->
@@ -22,39 +24,39 @@
         {% endif %}
     </div>
     <h1 style="text-align:center;"> {{ userprofile.user.first_name }} </h1>
-    <h3> email: </h3>
+    <h3> {% translate "Email" %} : </h3>
     {{ userprofile.user.email }}
 
 
-    <h3> name: </h3>
+    <h3> {% translate "Name" %} : </h3>
     {{ userprofile.user.first_name }}
 
-    <h3> last name: </h3>
+    <h3> {% translate "last name" %} : </h3>
     {{ userprofile.user.last_name }}
 
-    <h3> phone number: </h3>
-    {{ userprofile.mobile_number }}
+    <h3> {% translate "Mobile number" %} : </h3>
+    {{ userprofile.mobile_number|translate_numbers }}
 
-    <h3> dial number: </h3>
-    {{ userprofile.phone_number }}
+    <h3> {% translate "Phone number" %} : </h3>
+    {{ userprofile.phone_number|translate_numbers }}
 
-    <h3> military service status </h3>
+    <h3> {% translate "Military service status" %} : </h3>
     {{ userprofile.get_military_service_status_display }}
 
-    <h3> gender: </h3>
+    <h3> {% translate "Gender" %} : </h3>
     {{ userprofile.get_gender_display }}
 
-    <h3> marital status: </h3>
-    {{ userprofile.get_marital_status_display }}
+    <h3> {% translate "Marital status" %} : </h3>
+    {{userprofile.get_marital_status_display }}
 
-    <h3> skills </h3>
+    <h3> {% translate "Skills" %} : </h3>
     <ul>
         {% for skill in userprofile.skills.all %}
             <li> {{ skill.title }}</li>
         {% endfor %}
     </ul>
 
-    <h3> educational background </h3>
+    <h3> {% translate "Educational backgrounds" %} : </h3>
     <ul>
         {% for educational_background in userprofile.educationalbackground_set.all %}
             <li> {{ educational_background }}</li>
@@ -63,6 +65,6 @@
     <br/>
     <br/>
     {% if request.user.id ==  userprofile.user.id %}
-        <a href="{% url 'jobs:edit_profile' %}"> edit </a>
+        <a href = "{% url 'jobs:edit_profile' %}" > {% translate "Edit" %} </a>
     {% endif %}
 {% endblock %}

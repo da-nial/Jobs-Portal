@@ -2,7 +2,7 @@ from django import forms
 
 from jobs.models import UserProfile, Skill, EducationalBackground, JobOffer
 from proxy.models.city_api import CitiesProxy
-from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
 
 
 class EditProfilePageFormMixin:
@@ -12,8 +12,8 @@ class EditProfilePageFormMixin:
 
 
 class EditProfileForm(forms.ModelForm, EditProfilePageFormMixin):
-    first_name = forms.CharField(label='first name', required=False)
-    last_name = forms.CharField(label='last name', required=False)
+    first_name = forms.CharField(label=_('first name'), required=False)
+    last_name = forms.CharField(label=_('last name'), required=False)
     city_of_residence = forms.ChoiceField(choices=CitiesProxy.get_instance().get_city_name_tuple())
 
     def __init__(self, *args, **kwargs):
@@ -37,7 +37,7 @@ class EditProfileForm(forms.ModelForm, EditProfilePageFormMixin):
 
 
 class SkillForm(forms.Form):
-    skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(), required=False)
+    skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(), required=False, label=_('Skills'))
 
     def save_profile_form(self, profile):
         for skill in self.cleaned_data.get('skills'):

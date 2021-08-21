@@ -8,8 +8,7 @@ from django.urls import reverse
 from django.views import generic
 from .models import JobOffer, UserProfile, Company, EducationalBackground, Application
 from .forms import EducationalBackgroundForm, SkillForm, EditProfileForm
-from django.core.exceptions import ObjectDoesNotExist
-from django.contrib import messages
+from django.utils.translation import ugettext_lazy as _
 
 
 @login_required
@@ -17,17 +16,17 @@ def apply(request, pk):
     if request.method == 'POST':
         offer = get_object_or_404(JobOffer, pk=pk)
         if request.user.profile is None:
-            messages.error(request, 'Complete your profile before application')
+            messages.error(request, _('Complete your profile before application'))
             return HttpResponseRedirect(reverse('jobs:job_offers', kwargs={'pk': pk}))
         elif request.user.has_pending_application_for_offer(offer):
-            messages.error(request, 'Already applied for this offer')
+            messages.error(request, _('Already applied for this offer'))
             return HttpResponseRedirect(reverse('jobs:job_offers', kwargs={'pk': pk}))
         else:
             resume = request.FILES.get('resume')
             Application.objects.create(user=request.user, offer=offer, resume=resume)
-            messages.success(request, 'Successfully applied for this offer')
+            messages.success(request, _('Successfully applied for this offer'))
             return HttpResponseRedirect(reverse('jobs:job_offers', kwargs={'pk': pk}))
-    return Http404('Apply request only accepts "POST" method')
+    return Http404(_('Apply request only accepts "POST" method'))
 
 
 class JobOffersView(generic.DetailView):
@@ -78,7 +77,7 @@ def edit_profile_view(request):
             return render(request, template_name, get_edit_profile_context_data(request))
 
         form.save_profile_form(request.user.profile)
-        messages.success(request, 'Successfully edited')
+        messages.success(request, _('Successfully edited'))
         return render(request, template_name, get_edit_profile_context_data(request))
 
 

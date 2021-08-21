@@ -1,5 +1,6 @@
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+from django.utils.translation import gettext_lazy as _
 
 
 def send_application_state(user, state):
@@ -12,7 +13,7 @@ def send_application_state(user, state):
         'user': user,
     })
     to_email = user.email
-    mail_subject = 'your job application state changed'
+    mail_subject = _('your job application state changed')
     email = EmailMessage(
         mail_subject, message, to=[to_email]
     )

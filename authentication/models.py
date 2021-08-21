@@ -1,15 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
 from .managers import CustomUserManager
 from django.db import IntegrityError
-
 from django.utils.crypto import get_random_string
+from django.utils.translation import gettext_lazy as _
 
 
 class CustomUser(AbstractUser):
     username = None
-    email = models.EmailField(verbose_name='email address',
+    email = models.EmailField(verbose_name=_('email address'),
                               unique=True,
                               error_messages={
                                   'unique': "A user with that email already exists.",

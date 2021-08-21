@@ -1,5 +1,6 @@
 {% autoescape off %}
-    hi {{ user }}
-    sorry
-    your job application status changed to rejected!
+    {% load i18n %}
+    {% translate "hi" %} {{ user }}
+    {% translate "sorry" %}
+    {% translate "your job application status changed to rejected!" %}
 {% endautoescape %}

@@ -47,7 +47,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
+
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 
 ROOT_URLCONF = 'website.urls'
 
@@ -100,7 +103,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa'
+LANGUAGES = [
+    ('fa', ('Persian')),
+    ('en', ('English')),
+]
 
 TIME_ZONE = 'UTC'
 

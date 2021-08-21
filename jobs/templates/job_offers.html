@@ -4,16 +4,18 @@
     offer {{ joboffer.title }}
 {% endblock %}
 {% block content %}
+    {% load i18n %}
+    {% load convert_numbers %}
     <h1 style="text-align:center;"> {{ joboffer.title }} </h1>
     <h3> توضیحات </h3>
     {{ joboffer.description }}
 
 
     <h3>حداقل سابقه کار</h3>
-    {{ joboffer.minimum_work_experience }} سال
+    {{ joboffer.minimum_work_experience|translate_numbers }} سال
 
     <h3> حقوق </h3>
-    {{ joboffer.salary }} تومن
+    {{ joboffer.salary|translate_numbers }} تومان
 
     <h3> نوع همکاری </h3>
     {{ joboffer.get_type_of_cooperation_display }}
@@ -32,11 +34,11 @@
     </ul>
     {% with request.user as user %}
         {% if not user.profile %}
-            <p>You need to complete your profile before application</p>
+            <p>{% translate "You need to complete your profile before application" %}</p>
         {% else %}
             {% with user|get_applications_for_offer:joboffer as applications %}
                 {% if applications %}
-                    <h4>Applications List</h4>
+                    <h4>{% translate "Applications List" %}</h4>
                     <ol>
                         {% for application in applications|dictsort:"created_at" %}
                             <li>{{ application.get_state_display }}</li>
@@ -47,8 +49,9 @@
             {% if not user|has_pending_application_for_offer:joboffer %}
                 <form method="post" action=" {% url 'jobs:apply' joboffer.pk %}" enctype="multipart/form-data">
                     {% csrf_token %}
+                    <p>{% translate "Upload resume"%}</p>
                     <input type="file" name="resume" style="display: block; margin-bottom: 20px">
-                    <button type="submit">Send Application</button>
+                    <button type="submit">{% translate "Send Application" %}</button>
                 </form>
             {% endif %}
         {% endif %}
