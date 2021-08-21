@@ -46,7 +46,9 @@
                     </ol>
                 {% endif %}
             {% endwith %}
-            {% if not user|has_pending_application_for_offer:joboffer %}
+            {% if joboffer.is_enabled == False %}
+                <p>{% translate "this job is disabled!"%}</p>
+            {% elif not user|has_pending_application_for_offer:joboffer %}
                 <form method="post" action=" {% url 'jobs:apply' joboffer.pk %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <p>{% translate "Upload resume"%}</p>

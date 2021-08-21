@@ -11,3 +11,4 @@ def has_pending_application_for_offer(user: CustomUser, offer):
 @register.filter
 def get_applications_for_offer(user: CustomUser, offer):
     return user.get_applications_for_offer(offer)
+
