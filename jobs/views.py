@@ -18,6 +18,9 @@ def apply(request, pk):
         if request.user.profile is None:
             messages.error(request, _('Complete your profile before application'))
             return HttpResponseRedirect(reverse('jobs:job_offers', kwargs={'pk': pk}))
+        elif not offer.is_enabled:
+            messages.error(request, 'this job is disabled!')
+            return HttpResponseRedirect(reverse('jobs:job_offers', kwargs={'pk': pk}))
         elif request.user.has_pending_application_for_offer(offer):
             messages.error(request, _('Already applied for this offer'))
             return HttpResponseRedirect(reverse('jobs:job_offers', kwargs={'pk': pk}))
@@ -98,7 +101,7 @@ class MainView(LoginRequiredMixin, generic.ListView):
     login_url = settings.LOGIN_URL
 
     def get_queryset(self):
-        return JobOffer.objects.all().order_by('pk')
+        return JobOffer.enabled.all().order_by('pk')
 
     def get_context_data(self, **kwargs):
         context = super(MainView, self).get_context_data(**kwargs)

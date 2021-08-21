@@ -1,5 +1,3 @@
-
-
 from django.contrib import admin
 from django.db import models
 from django.shortcuts import get_object_or_404
@@ -45,6 +43,11 @@ class Skill(models.Model):
         return self.title
 
 
+class EnabledManager(models.Manager):
+    def get_queryset(self):
+        return super(EnabledManager, self).get_queryset().filter(is_enabled=True)
+
+
 class JobOffer(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=500, blank=True)
@@ -60,9 +63,16 @@ class JobOffer(models.Model):
     skills_required = models.ManyToManyField(Skill, blank=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     city = models.CharField(max_length=100, null=True, blank=True)
+    is_enabled = models.BooleanField(default=True, db_index=True)
+
+    objects = models.Manager()
+    enabled = EnabledManager()
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        ordering = ['-is_enabled']
 
 
 class UserProfile(models.Model):
@@ -164,5 +174,3 @@ class Application(models.Model):
     user = models.ForeignKey('authentication.CustomUser', on_delete=models.CASCADE, related_name='applications')
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     resume = models.FileField(upload_to='resumes/', null=True)
-
-
