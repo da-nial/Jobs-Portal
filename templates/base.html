@@ -10,6 +10,10 @@
             <a href="{% url 'jobs:user_profile' request.user.profile.pk %}" style="text-align: left">
             {{ request.user.first_name }}
             </a>
+            <a href="{% url 'auth:logout' %}"
+               style="text-align: right">
+            Logout
+            </a>
         </nav>
         {% block content %}{% endblock content %}
     </body>
