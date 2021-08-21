@@ -1,20 +1,20 @@
 from django import forms
 from django.core.validators import MinLengthValidator, RegexValidator
-
+from django.utils.translation import ugettext_lazy as _
 from jobs.models import UserProfile
 from .models import CustomUser
 
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(
-        label='Password:',
+        label=_('Password'),
         max_length=100,
         widget=forms.PasswordInput(),
         validators=[
-            MinLengthValidator(limit_value=8, message='password should be at least 8 character'),
+            MinLengthValidator(limit_value=8, message=_('password should be at least 8 character')),
             RegexValidator(regex=r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]*$",
-                           message='password should contain at least one letter and one number')
-        ]
+                           message=_('password should contain at least one letter and one number'))
+        ],
     )
 
     class Meta:

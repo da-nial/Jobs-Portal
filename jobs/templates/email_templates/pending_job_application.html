@@ -1,5 +1,6 @@
 {% autoescape off %}
-    hi {{ user }}
-    your job application status changed to pending!
-    be patient
+    {% load i18n %}
+    {% translate "hi" %} {{ user }}
+    {% translate "your job application status changed to pending!" %}
+    {% translate "be patient" %}
 {% endautoescape %}

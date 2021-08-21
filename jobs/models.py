@@ -6,7 +6,8 @@ from django.shortcuts import get_object_or_404
 from authentication.models import CustomUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import gettext_lazy as _
-
+from django.utils.translation import get_language
+from jobs.templatetags.convert_numbers import translate_numbers
 
 class EducationalLevel(models.TextChoices):
     DIPLOMA = 'DI', _('High School Diploma')
@@ -90,27 +91,30 @@ class UserProfile(models.Model):
         # SEPARATED = 'S', _('Separated')
 
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="profile")
-    mobile_number = models.CharField(max_length=11, blank=True, null=True)
-    phone_number = models.CharField(max_length=11, blank=True, null=True)
-    address = models.CharField(max_length=280, blank=True, null=True)
+    mobile_number = models.CharField(max_length=11, blank=True, null=True, verbose_name=_('Mobile number'))
+    phone_number = models.CharField(max_length=11, blank=True, null=True, verbose_name=_('Phone number'))
+    address = models.CharField(max_length=280, blank=True, null=True, verbose_name=_('Address'))
     military_service_status = models.CharField(max_length=2,
                                                choices=MilitaryServiceStatus.choices,
-                                               blank=True, null=True
+                                               blank=True, null=True,
+                                               verbose_name=_('Military service status')
                                                )
     gender = models.CharField(max_length=1,
                               choices=Gender.choices,
-                              blank=True, null=True
+                              blank=True, null=True,
+                              verbose_name=_('Gender')
                               )
     marital_status = models.CharField(max_length=1,
                                       choices=MaritalStatus.choices,
-                                      blank=True, null=True
+                                      blank=True, null=True,
+                                      verbose_name=_('Marital status')
                                       )
-    city_of_residence = models.CharField(max_length=80, null=True, blank=True)
-    bio = models.TextField(null=True, blank=True)
+    city_of_residence = models.CharField(max_length=80, null=True, blank=True, verbose_name=_('City of residence'))
+    bio = models.TextField(null=True, blank=True, verbose_name=_('Bio'))
     skills = models.ManyToManyField(Skill)
 
     def __str__(self):
-        return str(self.user) + " Profile"
+        return str(self.user)
 
 
 class EducationalBackground(models.Model):
@@ -120,26 +124,32 @@ class EducationalBackground(models.Model):
     MIN_YEAR = 1300
     MAX_YEAR = 1450
 
-    field = models.CharField(max_length=80)
-    institute = models.CharField(max_length=80)
+    field = models.CharField(max_length=80, verbose_name=_('Field'))
+    institute = models.CharField(max_length=80, verbose_name=_('Institue'))
     level = models.CharField(max_length=2,
-                             choices=EducationalLevel.choices)
+                             choices=EducationalLevel.choices,
+                             verbose_name=_('Level'))
     start_year = models.IntegerField(validators=[MinValueValidator(MIN_YEAR),
-                                                 MaxValueValidator(MAX_YEAR)])
+                                                 MaxValueValidator(MAX_YEAR)],
+                                     verbose_name=_('Start year'))
     finish_year = models.IntegerField(validators=[MinValueValidator(MIN_YEAR),
-                                                  MaxValueValidator(MAX_YEAR)])
+                                                  MaxValueValidator(MAX_YEAR)],
+                                      verbose_name=_('Finish year'))
 
-    is_currently_studying = models.BooleanField()
+    is_currently_studying = models.BooleanField(verbose_name=_('Is currently studying'))
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 
     def __str__(self):
-        _str = f"{str(self.user_profile)} Education"
+        _str = ""
         if self.level:
-            _str += f" @ {self.get_level_display()}"
+            _str += f" {self.get_level_display()}"
         if self.institute:
             _str += f" @ {self.institute}"
         if self.start_year:
-            _str += f" ({self.start_year})"
+            if get_language() == 'fa':
+                _str += f" ({translate_numbers(self.start_year)})"
+            else:
+                _str += f" ({self.start_year})"
         return _str
 
 

@@ -1,5 +1,6 @@
 {% autoescape off %}
-    hi {{ user }}
-    congratulation
-    your job application status changed to accepted!
+    {% load i18n %}
+    {% translate "hi" %} {{ user }}
+    {% translate "congratulation" %}
+    {% translate "your job application status changed to accepted!" %}
 {% endautoescape %}
