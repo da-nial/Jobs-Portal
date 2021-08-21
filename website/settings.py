@@ -137,5 +137,10 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'adams.job.offer@gmail.com'
 EMAIL_HOST_PASSWORD = 'S^\+FBsS<z,7w"_$'
 EMAIL_PORT = 587
-
 LOGOUT_REDIRECT_URL = '/auth/login/'
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}

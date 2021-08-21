@@ -1,30 +1,37 @@
 {% extends 'base.html' %}
+{% load cache %}
+
 {% block title %}
     company {{ company.name }}
 {% endblock %}
+
 {% block content %}
     {% load convert_numbers %}
     {% load i18n %}
-    <li>
-        <img src="{% if company.logo %} {{ company.logo.url }} {% else %} https://via.placeholder.com/400x400.png?text=Logo+not+found {% endif %}" alt="{{ company.name }}-logo" style="width: 180px;">
-        <p>{% translate "company name" %} : {{ company.name }}</p>
-        <p>{% translate "description" %} : {{ company.description }}</p>
-    </li>
+    {% cache 600 Company company.id request.LANGUAGE_CODE %}
+        <li>
+            <img src="{% if company.logo %} {{ company.logo.url }} {% else %} https://via.placeholder.com/400x400.png?text=Logo+not+found {% endif %}"
+                 alt="{{ company.name }}-logo" style="width: 180px;">
+            <p>{% translate "company name" %} : {{ company.name }}</p>
+            <p>{% translate "description" %} : {{ company.description }}</p>
+        </li>
+    {% endcache %}
 
     <h3>{% translate "Job Offers List" %}</h3>
     {% if company.joboffer_set.all %}
         <ul>
-        {% for job_offer in company.joboffer_set.all %}
-            <li>
-            <a href="{% url 'jobs:job_offers' job_offer.pk %}">
-                <p>{{ job_offer.title }}</p>
-            </a>
-            <p>{% translate "salary" %} : {{ job_offer.salary|translate_numbers }}</p>
-            <p>{% translate "cooperation type" %} : {{ job_offer.get_type_of_cooperation_display }}</p>
-            </li>
-        {% endfor %}
+            {% for job_offer in company.joboffer_set.all %}
+                <li>
+                    <a href="{% url 'jobs:job_offers' job_offer.pk %}">
+                        <p>{{ job_offer.title }}</p>
+                    </a>
+                    <p>{% translate "salary" %} : {{ job_offer.salary|translate_numbers }}</p>
+                    <p>{% translate "cooperation type" %} : {{ job_offer.get_type_of_cooperation_display }}</p>
+                </li>
+            {% endfor %}
         </ul>
     {% else %}
         <p>{% translate "No job offer has added yet." %}</p>
     {% endif %}
 {% endblock %}
+
