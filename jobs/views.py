@@ -10,7 +10,6 @@ from .models import JobOffer, UserProfile, Company, EducationalBackground, Appli
 from .forms import EducationalBackgroundForm, SkillForm, EditProfileForm
 from django.utils.translation import ugettext_lazy as _
 
-
 @login_required
 def apply(request, pk):
     if request.method == 'POST':
@@ -38,6 +37,12 @@ class JobOffersView(generic.DetailView):
 
 
 class UserProfileView(generic.DetailView):
+    def get_object(self, queryset=None):
+        try:
+            return self.request.user.profile
+        except UserProfile.DoesNotExist:
+            raise Http404()
+
     model = UserProfile
     template_name = 'user_profile.html'
 

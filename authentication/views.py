@@ -74,11 +74,7 @@ def send_email_verification(request):
     email.send()
     messages.success(request, f"Verification email sent to {request.user.email}")
 
-    try:
-        user_profile = UserProfile.objects.get(user=request.user)
-        return HttpResponseRedirect(reverse("jobs:user_profile", kwargs={'pk': user_profile.pk}))
-    except UserProfile.DoesNotExist:
-        return HttpResponseRedirect('/')
+    return HttpResponseRedirect(reverse("jobs:user_profile"))
 
 
 def verify_email(request, token):

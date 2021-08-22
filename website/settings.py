@@ -140,7 +140,7 @@ EMAIL_PORT = 587
 LOGOUT_REDIRECT_URL = '/auth/login/'
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
         'LOCATION': '127.0.0.1:11211',
     }
 }
