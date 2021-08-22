@@ -12,12 +12,13 @@ class EditProfilePageFormMixin:
 
 
 class EditProfileForm(forms.ModelForm, EditProfilePageFormMixin):
+    city_of_residence = forms.ChoiceField(choices=())
     first_name = forms.CharField(label=_('first name'), required=False)
     last_name = forms.CharField(label=_('last name'), required=False)
-    city_of_residence = forms.ChoiceField(choices=CitiesProxy.get_instance().get_city_name_tuple())
 
     def __init__(self, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
+        self.fields['city_of_residence'].choices = CitiesProxy.get_instance().get_city_name_tuple()
         if self.instance:
             self.initial['first_name'] = self.instance.user.first_name
             self.initial['last_name'] = self.instance.user.last_name
@@ -58,7 +59,11 @@ class EducationalBackgroundForm(forms.ModelForm):
 
 
 class JobOfferForm(forms.ModelForm):
-    city = forms.ChoiceField(choices=CitiesProxy.get_instance().get_city_name_tuple())
+    def __init__(self, *args, **kwargs):
+        super(JobOfferForm, self).__init__(*args, **kwargs)
+        self.fields['city'].choices = CitiesProxy.get_instance().get_city_name_tuple()
+
+    city = forms.ChoiceField(choices=())
 
     class Meta:
         model = JobOffer
@@ -66,7 +71,11 @@ class JobOfferForm(forms.ModelForm):
 
 
 class UserProfileForm(forms.ModelForm):
-    city_of_residence = forms.ChoiceField(choices=CitiesProxy.get_instance().get_city_name_tuple())
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+        self.fields['city_of_residence'].choices = CitiesProxy.get_instance().get_city_name_tuple()
+
+    city_of_residence = forms.ChoiceField(choices=())
 
     class Meta:
         model = UserProfile
