@@ -25,16 +25,6 @@
     <h3>{% translate "Job Offers List" %}</h3>
     {% if companies %}
         <ul>
-            {% for offer in offers %}
-                <li>
-                    <a href="{% url 'jobs:job_offers' offer.pk %}">
-                        <p style="display: inline">{{ offer.title }}</p>
-                    </a>
-                    <p style="display: inline">salary: {{ offer.salary|translate_numbers }}</p>
-                    <p style="display: inline">cooperation type: {{ offer.type_of_cooperation }}</p>
-                </li>
-            {% endfor %}
-
         {% for offer in offers %}
             <li>
                 <a href="{% url 'jobs:job_offers' offer.pk %}">
