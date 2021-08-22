@@ -7,7 +7,7 @@
     </head>
     <body>
         <nav style="background-color: gray; padding: 5px; border-radius: 3px">
-            <a href="{% url 'jobs:user_profile' request.user.profile.pk %}" style="text-align: left">
+            <a href="{% url 'jobs:user_profile' %}" style="text-align: left">
             {{ request.user.first_name }}
             </a>
             <a href="{% url 'auth:logout' %}"
