@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -53,6 +54,21 @@ class UserProfileView(generic.DetailView):
 class CompanyView(generic.DetailView):
     template_name = 'company_details.html'
     model = Company
+
+    def get_context_data(self, **kwargs):
+        context = super(CompanyView, self).get_context_data(**kwargs)
+
+        job_offers = self.get_related_job_offers()
+        context['job_offers_page'] = job_offers
+        return context
+
+    def get_related_job_offers(self):
+        queryset = self.object.job_offers.all().order_by('pk')
+        paginator = Paginator(queryset, 2)
+        page = self.request.GET.get('page', 1)
+
+        job_offers_in_page = paginator.get_page(page)
+        return job_offers_in_page
 
 
 def get_dictionary(query_dictionary, key):
@@ -174,6 +190,7 @@ class MainView(LoginRequiredMixin, generic.ListView):
     template_name = 'main.html'
     context_object_name = 'offers'
     login_url = settings.LOGIN_URL
+    paginate_by = 2
 
     def get_queryset(self):
         return JobOffer.enabled.all().order_by('pk')

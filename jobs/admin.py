@@ -7,6 +7,7 @@ from .models import *
 @admin.register(JobOffer)
 class JobOfferAdmin(admin.ModelAdmin):
     form = JobOfferForm
+    filter_horizontal = ('skills_required',)
 
 
 @admin.register(UserProfile)

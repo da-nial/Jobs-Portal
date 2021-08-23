@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-23 06:49+0000\n"
+"POT-Creation-Date: 2021-08-23 08:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -222,21 +222,45 @@ msgstr "نام شرکت"
 msgid "description"
 msgstr "توضیحات"
 
-#: jobs/templates/company_details.html:20 jobs/templates/main.html:25
+#: jobs/templates/company_details.html:20 jobs/templates/main.html:26
 msgid "Job Offers List"
 msgstr "لیست فرصت های شغلی"
 
-#: jobs/templates/company_details.html:28 jobs/templates/main.html:33
+#: jobs/templates/company_details.html:29 jobs/templates/main.html:34
 msgid "salary"
 msgstr "حقوق"
 
-#: jobs/templates/company_details.html:29 jobs/templates/main.html:34
+#: jobs/templates/company_details.html:30 jobs/templates/main.html:35
 msgid "cooperation type"
 msgstr "نوع همکاری"
 
-#: jobs/templates/company_details.html:34 jobs/templates/main.html:39
+#: jobs/templates/company_details.html:35 jobs/templates/main.html:41
 msgid "No job offer has added yet."
 msgstr "هنوز هیچ فرصت شغلی ایجاد نشده است."
+
+#: jobs/templates/company_details.html:41 jobs/templates/main.html:47
+msgid "First"
+msgstr "ابتدا"
+
+#: jobs/templates/company_details.html:42 jobs/templates/main.html:48
+msgid "Previous"
+msgstr "قبلی"
+
+#: jobs/templates/company_details.html:47 jobs/templates/main.html:53
+msgid "Page"
+msgstr "صفحه"
+
+#: jobs/templates/company_details.html:47 jobs/templates/main.html:53
+msgid "of"
+msgstr "از"
+
+#: jobs/templates/company_details.html:51 jobs/templates/main.html:57
+msgid "Next"
+msgstr "بعدی"
+
+#: jobs/templates/company_details.html:52 jobs/templates/main.html:58
+msgid "Last"
+msgstr "انتها"
 
 #: jobs/templates/edit_profile.html:9
 msgid "edit profile"
@@ -385,7 +409,7 @@ msgstr "ارسال درخواست"
 msgid "Companies List"
 msgstr "لیست شرکت ها"
 
-#: jobs/templates/main.html:22
+#: jobs/templates/main.html:23
 msgid "No company has added yet."
 msgstr "هنوز هیچ شرکتی اضافه نشده است."
 
@@ -411,22 +435,22 @@ msgstr "ایمیل‌های تأیید شده"
 msgid "Edit"
 msgstr "ویرایش"
 
-#: jobs/views.py:21
+#: jobs/views.py:22
 msgid "Complete your profile before application"
 msgstr "ابتدا باید پروفیل خود را تکمیل کنید"
 
-#: jobs/views.py:27
+#: jobs/views.py:28
 msgid "Already applied for this offer"
 msgstr "قبلا برای این فرصت شغلی درخواست داده اید"
 
-#: jobs/views.py:32
+#: jobs/views.py:33
 msgid "Successfully applied for this offer"
 msgstr "ارسال درخواست برای این فرصت با موفقیت ارسال شد"
 
-#: jobs/views.py:34
+#: jobs/views.py:35
 msgid "Apply request only accepts \"POST\" method"
 msgstr "ارسال درخواست فقط از طریق متد post قابل انجام است"
 
-#: jobs/views.py:95
+#: jobs/views.py:111
 msgid "Successfully edited"
 msgstr "ویرایش با موفقیت انجام شد"

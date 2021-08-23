@@ -62,7 +62,7 @@ class JobOffer(models.Model):
     type_of_cooperation = models.CharField(choices=CHOICES_TIME, max_length=10)
     minimum_degree = models.CharField(max_length=2, choices=EducationalLevel.choices, null=True, blank=True)
     skills_required = models.ManyToManyField(Skill, blank=True)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name="job_offers")
     city = models.CharField(max_length=100, null=True, blank=True)
     is_enabled = models.BooleanField(default=True, db_index=True)
 
