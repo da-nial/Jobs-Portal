@@ -17,10 +17,15 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('email', 'password1', 'password2', 'is_staff', 'is_active')}
          ),
     )
-    readonly_fields = ['email', 'is_email_verified', ]
+    readonly_fields = ['is_email_verified', ]
 
     search_fields = ('email',)
     ordering = ('email',)
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:  # Editing an existing object
+            return self.readonly_fields + ['email', ]
+        return self.readonly_fields
 
 
 admin.site.register(CustomUser, CustomUserAdmin)

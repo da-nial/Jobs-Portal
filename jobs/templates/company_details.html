@@ -18,9 +18,10 @@
     {% endcache %}
 
     <h3>{% translate "Job Offers List" %}</h3>
-    {% if company.joboffer_set.all %}
+
+    {% if job_offers_page %}
         <ul>
-            {% for job_offer in company.joboffer_set.all %}
+            {% for job_offer in job_offers_page %}
                 <li>
                     <a href="{% url 'jobs:job_offers' job_offer.pk %}">
                         <p>{{ job_offer.title }}</p>
@@ -33,5 +34,23 @@
     {% else %}
         <p>{% translate "No job offer has added yet." %}</p>
     {% endif %}
-{% endblock %}
 
+    <div class="pagination">
+        <span class="step-links">
+            {% if job_offers_page.has_previous %}
+                <a href="?page=1">&laquo; {% translate "First" %}</a>
+                <a href="?page={{ job_offers_page.previous_page_number }}">{% translate "Previous" %}</a>
+            {% endif %}
+
+            <span class="current">
+                <!-- TODO: Change Translation to blocktranslate-->
+                {% translate "Page" %} {{ job_offers_page.number|translate_numbers }} {% translate "of" %} {{ job_offers_page.paginator.num_pages|translate_numbers }}.
+            </span>
+
+            {% if job_offers_page.has_next %}
+                <a href="?page={{ job_offers_page.next_page_number }}">{% translate "Next" %}</a>
+                <a href="?page={{ job_offers_page.paginator.num_pages }}">{% translate "Last" %} &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}
