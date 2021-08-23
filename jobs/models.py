@@ -1,11 +1,12 @@
-from django.contrib import admin
-from django.db import models
-from django.shortcuts import get_object_or_404
 from authentication.models import CustomUser
-from django.core.validators import MinValueValidator, MaxValueValidator
-from django.utils.translation import gettext_lazy as _
 from django.utils.translation import get_language
 from jobs.templatetags.convert_numbers import translate_numbers
+from django.db import models, IntegrityError
+from authentication.models import CustomUser
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils.crypto import get_random_string
+from django.utils.translation import gettext_lazy as _
+
 
 class EducationalLevel(models.TextChoices):
     DIPLOMA = 'DI', _('High School Diploma')
@@ -125,6 +126,29 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+
+class AltEmail(models.Model):
+    address = models.EmailField()
+    user_profile = models.ForeignKey(UserProfile,
+                                     on_delete=models.CASCADE,
+                                     related_name="alt_emails")
+    verification_token = models.CharField(max_length=50, null=True,
+                                          unique=True, db_index=True)
+    is_verified = models.BooleanField(default=False)
+
+    def refresh_verification_token(self):
+        while True:
+            new_verification_token = get_random_string(50)
+            try:
+                self.verification_token = new_verification_token
+                self.save()
+                break
+            except IntegrityError:
+                continue
+
+    def __str__(self):
+        return f'{self.user_profile} alt email: {self.address}'
 
 
 class EducationalBackground(models.Model):

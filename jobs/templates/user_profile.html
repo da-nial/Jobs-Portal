@@ -7,20 +7,17 @@
     {% load convert_numbers %}
     <div>
         {% include 'messages.html' %}
-        <!-- Check to see is this profile is for the logged in user -->
-        {% if request.user == userprofile.user %}
-            {% if userprofile.user.is_email_verified %}
-                Email Verified
-            {% else %}
-                Your Email is not verified yet,
-                <form name="verification-form"
-                      method="post"
-                      action="{% url 'auth:send-email-verification' %}"
-                >
-                    {% csrf_token %}
-                    <button>Verify</button>
-                </form>
-            {% endif %}
+        {% if userprofile.user.is_email_verified %}
+            {% translate "Email verified" %}
+        {% else %}
+            {% translate "Your Email is not verified yet" %}
+            <form name="verification-form"
+                  method="post"
+                  action="{% url 'auth:send-email-verification' %}"
+            >
+                {% csrf_token %}
+                <button>Verify</button>
+            </form>
         {% endif %}
     </div>
     <h1 style="text-align:center;"> {{ userprofile.user.first_name }} </h1>
@@ -47,7 +44,7 @@
     {{ userprofile.get_gender_display }}
 
     <h3> {% translate "Marital status" %} : </h3>
-    {{userprofile.get_marital_status_display }}
+    {{ userprofile.get_marital_status_display }}
 
     <h3> {% translate "Skills" %} : </h3>
     <ul>
@@ -64,7 +61,20 @@
     </ul>
     <br/>
     <br/>
+    <h3> {% translate "Verified Emails" %} : </h3>
+    <ul>
+        {% for email in request.user.profile.alt_emails.all %}
+            {% if email.is_verified %}
+                <li>
+                    <label>{{ email.address }}</label>
+                    {% translate "Email verified" %}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+
     {% if request.user.id ==  userprofile.user.id %}
-        <a href = "{% url 'jobs:edit_profile' %}" > {% translate "Edit" %} </a>
+        <a href="{% url 'jobs:edit_profile' %}"> {% translate "Edit" %} </a>
     {% endif %}
 {% endblock %}

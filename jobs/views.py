@@ -1,14 +1,17 @@
 from django.conf import settings
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import generic
-from .models import JobOffer, UserProfile, Company, EducationalBackground, Application
-from .forms import EducationalBackgroundForm, SkillForm, EditProfileForm
+from .models import JobOffer, UserProfile, Company, EducationalBackground, Application, AltEmail
 from django.utils.translation import ugettext_lazy as _
+from .forms import EducationalBackgroundForm, SkillForm, EditProfileForm, AltEmailForm
+from django.contrib import messages
+from jobs.mail_service import send_verification_email
+from django.views.decorators.http import require_http_methods
+
 
 @login_required
 def apply(request, pk):
@@ -58,11 +61,15 @@ def get_dictionary(query_dictionary, key):
 
 def get_edit_profile_context_data(request):
     return {
-        'edit_profile_form': EditProfileForm(data=get_dictionary(request.POST, 'edit'),
-                                             instance=request.user.profile),
-        'skill_form': SkillForm(data=get_dictionary(request.POST, 'add_skill')),
-        'educational_background_form': EducationalBackgroundForm(
-            data=get_dictionary(request.POST, 'add_educational_background'))
+        'edit_profile_form':
+            EditProfileForm(data=get_dictionary(request.POST, 'edit'),
+                            instance=request.user.profile),
+        'skill_form':
+            SkillForm(data=get_dictionary(request.POST, 'add_skill')),
+        'educational_background_form':
+            EducationalBackgroundForm(data=get_dictionary(request.POST,
+                                                          'add_educational_background')),
+        'alt_email_form': AltEmailForm(user_profile=None)
     }
 
 
@@ -98,6 +105,69 @@ def delete_skill(request, skill_id):
 def delete_educational_background(request, educational_background_id):
     EducationalBackground.objects.get(pk=educational_background_id).delete()
     return HttpResponseRedirect(reverse('jobs:edit_profile'))
+
+
+@login_required
+@require_http_methods(['POST'])
+def add_alt_email(request):
+    user_profile = request.user.profile
+    if user_profile is None:
+        return HttpResponse("To add alternative emails, you have to create a profile first!")
+
+    form = AltEmailForm(data=request.POST, user_profile=user_profile)
+
+    if not form.is_valid():
+        messages.error(request, form.errors)
+        return HttpResponseRedirect(reverse('jobs:edit_profile'))
+
+    form.save()
+    messages.success(request, 'Email successfully added')
+    return HttpResponseRedirect(reverse('jobs:edit_profile'))
+
+
+@login_required
+@require_http_methods(['POST'])
+def delete_alt_email(request, alt_email_pk):
+    user_profile = UserProfile.objects.get(user=request.user)
+    try:
+        alt_email = user_profile.alt_emails.get(pk=alt_email_pk)
+        alt_email.delete()
+        messages.success(request, f"Email {alt_email.address} deleted successfully")
+    except AltEmail.DoesNotExist:
+        messages.error(request, "No such email exists")
+
+    return HttpResponseRedirect(reverse('jobs:edit_profile'))
+
+
+@login_required
+@require_http_methods(['POST'])
+def send_email_verification(request, email_pk):
+    alt_email = get_object_or_404(AltEmail, pk=email_pk)
+
+    profile = request.user.profile
+    if alt_email.user_profile != profile:  # Email is not for this user
+        return HttpResponse('Invalid Email')
+
+    alt_email.refresh_verification_token()
+
+    send_verification_email(request, alt_email)
+    messages.success(request, f"Verification email sent to {alt_email.address}")
+
+    return HttpResponseRedirect(reverse("jobs:edit_profile"))
+
+
+def verify(request, token):
+    try:
+        email = AltEmail.objects.get(verification_token=token)
+
+        email.verification_token = None
+        email.is_verified = True
+        email.save()
+        messages.success(request, 'Thank you for your email confirmation.')
+        return HttpResponseRedirect('/')
+
+    except AltEmail.DoesNotExist:
+        return HttpResponse('Verification link is invalid!')
 
 
 class MainView(LoginRequiredMixin, generic.ListView):

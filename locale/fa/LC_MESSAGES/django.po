@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-21 08:16+0000\n"
+"POT-Creation-Date: 2021-08-23 06:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,181 +60,181 @@ msgstr "حساب کاربری دارید"
 
 #: jobs/forms.py:15
 msgid "first name"
-msgstr ""
+msgstr "نام"
 
-#: jobs/forms.py:16 jobs/templates/user_profile.html:34
+#: jobs/forms.py:16 jobs/templates/user_profile.html:31
 msgid "last name"
-msgstr ""
+msgstr "نام خانوادگی"
 
-#: jobs/forms.py:40 jobs/templates/user_profile.html:52
+#: jobs/forms.py:40 jobs/templates/user_profile.html:49
 msgid "Skills"
 msgstr "مهارت ها"
 
-#: jobs/mail_service.py:16
+#: jobs/mail_service.py:21
 msgid "your job application state changed"
 msgstr "وضعیت درخواست شغلی شما تغییر کرده است"
 
-#: jobs/models.py:11
+#: jobs/models.py:12
 msgid "High School Diploma"
 msgstr "دیپلم مقطع دبیرستان"
 
-#: jobs/models.py:12
+#: jobs/models.py:13
 msgid "Associate Degree"
 msgstr "فوق دیپلم"
 
-#: jobs/models.py:13
+#: jobs/models.py:14
 msgid "Bachelors Degree"
 msgstr "لیسانس"
 
-#: jobs/models.py:14
+#: jobs/models.py:15
 msgid "Masters Degree"
 msgstr "فوق لیسانس"
 
-#: jobs/models.py:15
+#: jobs/models.py:16
 msgid "Doctoral Degree"
 msgstr "دکترا"
 
-#: jobs/models.py:16
+#: jobs/models.py:17
 msgid "Post Doctoral Degree"
 msgstr "فوق دکترا"
 
-#: jobs/models.py:17
+#: jobs/models.py:18
 msgid "Others"
 msgstr "غیره"
 
-#: jobs/models.py:57
+#: jobs/models.py:58
 msgid "full time"
 msgstr "تمام وقت"
 
-#: jobs/models.py:58
+#: jobs/models.py:59
 msgid "part time"
 msgstr "پاره وقت"
 
-#: jobs/models.py:85
+#: jobs/models.py:86
 msgid "Conscript"
 msgstr "در حال خدمت"
 
-#: jobs/models.py:86
+#: jobs/models.py:87
 msgid "Educational Exemption"
 msgstr "معافیت تحصیلی"
 
-#: jobs/models.py:87
+#: jobs/models.py:88
 msgid "Exempt"
 msgstr "معاف"
 
-#: jobs/models.py:88
+#: jobs/models.py:89
 msgid "Discharge"
 msgstr "گذرانده"
 
-#: jobs/models.py:91
+#: jobs/models.py:92
 msgid "Male"
 msgstr "آقا"
 
-#: jobs/models.py:92
+#: jobs/models.py:93
 msgid "Female"
 msgstr "خانم"
 
-#: jobs/models.py:93
+#: jobs/models.py:94
 msgid "Other"
 msgstr "غیره"
 
-#: jobs/models.py:96
+#: jobs/models.py:97
 msgid "Single"
 msgstr "مجرد"
 
-#: jobs/models.py:97
+#: jobs/models.py:98
 msgid "Married"
 msgstr "متاهل"
 
-#: jobs/models.py:104 jobs/templates/user_profile.html:37
+#: jobs/models.py:105 jobs/templates/user_profile.html:34
 msgid "Mobile number"
 msgstr "شماره موبایل"
 
-#: jobs/models.py:105 jobs/templates/user_profile.html:40
+#: jobs/models.py:106 jobs/templates/user_profile.html:37
 msgid "Phone number"
 msgstr "شماره تماس"
 
-#: jobs/models.py:106
+#: jobs/models.py:107
 msgid "Address"
 msgstr "آدرس"
 
-#: jobs/models.py:110 jobs/templates/user_profile.html:43
+#: jobs/models.py:111 jobs/templates/user_profile.html:40
 msgid "Military service status"
 msgstr "وضعیت نظام وظیفه"
 
-#: jobs/models.py:115 jobs/templates/user_profile.html:46
+#: jobs/models.py:116 jobs/templates/user_profile.html:43
 msgid "Gender"
 msgstr "جنسیت"
 
-#: jobs/models.py:120 jobs/templates/user_profile.html:49
+#: jobs/models.py:121 jobs/templates/user_profile.html:46
 msgid "Marital status"
 msgstr "وضعیت تاهل"
 
-#: jobs/models.py:122
+#: jobs/models.py:123
 msgid "City of residence"
 msgstr "شهر محل اقامت"
 
-#: jobs/models.py:123
+#: jobs/models.py:124
 msgid "Bio"
 msgstr "بیوگرافی"
 
-#: jobs/models.py:137
+#: jobs/models.py:161
 msgid "Field"
 msgstr "رشته"
 
-#: jobs/models.py:138
+#: jobs/models.py:162
 msgid "Institue"
 msgstr "موسسه"
 
-#: jobs/models.py:141
+#: jobs/models.py:165
 msgid "Level"
 msgstr "سطح"
 
-#: jobs/models.py:144
+#: jobs/models.py:168
 msgid "Start year"
 msgstr "سال آغاز"
 
-#: jobs/models.py:147
+#: jobs/models.py:171
 msgid "Finish year"
 msgstr "سال پایان"
 
-#: jobs/models.py:149
+#: jobs/models.py:173
 msgid "Is currently studying"
 msgstr "مشغول به تحصیل"
 
-#: jobs/models.py:168
+#: jobs/models.py:192
 msgid "Accepted"
 msgstr "قبول شده"
 
-#: jobs/models.py:169
+#: jobs/models.py:193
 msgid "Rejected"
 msgstr "رد شده"
 
-#: jobs/models.py:170
+#: jobs/models.py:194
 msgid "Pending"
 msgstr "در انتظار"
 
-#: jobs/templates/company_details.html:10
+#: jobs/templates/company_details.html:15
 msgid "company name"
 msgstr "نام شرکت"
 
-#: jobs/templates/company_details.html:11
+#: jobs/templates/company_details.html:16
 msgid "description"
 msgstr "توضیحات"
 
-#: jobs/templates/company_details.html:14 jobs/templates/main.html:25
+#: jobs/templates/company_details.html:20 jobs/templates/main.html:25
 msgid "Job Offers List"
 msgstr "لیست فرصت های شغلی"
 
-#: jobs/templates/company_details.html:22 jobs/templates/main.html:43
+#: jobs/templates/company_details.html:28 jobs/templates/main.html:33
 msgid "salary"
 msgstr "حقوق"
 
-#: jobs/templates/company_details.html:23 jobs/templates/main.html:44
+#: jobs/templates/company_details.html:29 jobs/templates/main.html:34
 msgid "cooperation type"
 msgstr "نوع همکاری"
 
-#: jobs/templates/company_details.html:28 jobs/templates/main.html:49
+#: jobs/templates/company_details.html:34 jobs/templates/main.html:39
 msgid "No job offer has added yet."
 msgstr "هنوز هیچ فرصت شغلی ایجاد نشده است."
 
@@ -290,6 +290,39 @@ msgstr "افزودن سابقه تحصیلی"
 msgid "add"
 msgstr "اضافه کردن"
 
+#: jobs/templates/edit_profile.html:74 jobs/templates/user_profile.html:56
+msgid "Educational backgrounds"
+msgstr "سوابق تحصیلی"
+
+#: jobs/templates/edit_profile.html:75
+msgid "Add a new email"
+msgstr "اضافه کردن ایمیل جدید"
+
+#: jobs/templates/edit_profile.html:79
+msgid "Submit"
+msgstr "ثبت"
+
+#: jobs/templates/edit_profile.html:82
+msgid "Edit existing ones"
+msgstr "ویرایش ایمیل‌های موجود"
+
+#: jobs/templates/edit_profile.html:89
+#, fuzzy
+#| msgid "delete"
+msgid "Delete"
+msgstr "حذف"
+
+#: jobs/templates/edit_profile.html:97
+#, fuzzy
+#| msgid "Send Application"
+msgid "Send Verification Email"
+msgstr "ارسال درخواست"
+
+#: jobs/templates/edit_profile.html:101 jobs/templates/user_profile.html:11
+#: jobs/templates/user_profile.html:70
+msgid "Email verified"
+msgstr "ایمیل تأیید شده"
+
 #: jobs/templates/email_templates/accepted_job_application.html:3
 #: jobs/templates/email_templates/pending_job_application.html:3
 #: jobs/templates/email_templates/reject_job_application.html:3
@@ -303,6 +336,14 @@ msgstr "تبریک"
 #: jobs/templates/email_templates/accepted_job_application.html:5
 msgid "your job application status changed to accepted!"
 msgstr "وضعیت درخواست شغلی شما به پذیرفته شده تغییر کرده است"
+
+#: jobs/templates/email_templates/alternative_email_verification.html:3
+msgid "Hi"
+msgstr "سلام"
+
+#: jobs/templates/email_templates/alternative_email_verification.html:4
+msgid "Please click on the link to verify your alternative email"
+msgstr "برای تأیید ایمیل جایگزین خود، لطفاً روی لینک زیر کلیک کنید."
 
 #: jobs/templates/email_templates/pending_job_application.html:4
 msgid "your job application status changed to pending!"
@@ -320,23 +361,23 @@ msgstr "با عرض شرمندگی"
 msgid "your job application status changed to rejected!"
 msgstr "وضعیت درخواست شغلی شما به رد شده تغییر کرده است"
 
-#: jobs/templates/job_offers.html:37
+#: jobs/templates/job_offers.html:42
 msgid "You need to complete your profile before application"
 msgstr "ابتدا باید پروفیل خود را تکمیل کنید"
 
-#: jobs/templates/job_offers.html:41
+#: jobs/templates/job_offers.html:46
 msgid "Applications List"
 msgstr "لیست درخواست ها"
 
-#: jobs/templates/job_offers.html:50
+#: jobs/templates/job_offers.html:55
 msgid "this job is disabled!"
 msgstr "این شغل غیرفعال شده است!"
 
-#: jobs/templates/job_offers.html:55
+#: jobs/templates/job_offers.html:59
 msgid "Upload resume"
 msgstr "ارسال رزومه"
 
-#: jobs/templates/job_offers.html:57
+#: jobs/templates/job_offers.html:61
 msgid "Send Application"
 msgstr "ارسال درخواست"
 
@@ -348,38 +389,44 @@ msgstr "لیست شرکت ها"
 msgid "No company has added yet."
 msgstr "هنوز هیچ شرکتی اضافه نشده است."
 
-#: jobs/templates/user_profile.html:27
+#: jobs/templates/user_profile.html:13
+#, fuzzy
+#| msgid "Email verified"
+msgid "Your Email is not verified yet"
+msgstr "ایمیل تأیید شده"
+
+#: jobs/templates/user_profile.html:24
 msgid "Email"
 msgstr "ایمیل"
 
-#: jobs/templates/user_profile.html:31
+#: jobs/templates/user_profile.html:28
 msgid "Name"
 msgstr "نام"
 
-#: jobs/templates/user_profile.html:59
-msgid "Educational backgrounds"
-msgstr "سوابق تحصیلی"
+#: jobs/templates/user_profile.html:64
+msgid "Verified Emails"
+msgstr "ایمیل‌های تأیید شده"
 
-#: jobs/templates/user_profile.html:68
+#: jobs/templates/user_profile.html:78
 msgid "Edit"
 msgstr "ویرایش"
 
-#: jobs/views.py:19
+#: jobs/views.py:21
 msgid "Complete your profile before application"
 msgstr "ابتدا باید پروفیل خود را تکمیل کنید"
 
-#: jobs/views.py:25
+#: jobs/views.py:27
 msgid "Already applied for this offer"
 msgstr "قبلا برای این فرصت شغلی درخواست داده اید"
 
-#: jobs/views.py:30
+#: jobs/views.py:32
 msgid "Successfully applied for this offer"
 msgstr "ارسال درخواست برای این فرصت با موفقیت ارسال شد"
 
-#: jobs/views.py:32
+#: jobs/views.py:34
 msgid "Apply request only accepts \"POST\" method"
 msgstr "ارسال درخواست فقط از طریق متد post قابل انجام است"
 
-#: jobs/views.py:83
+#: jobs/views.py:95
 msgid "Successfully edited"
 msgstr "ویرایش با موفقیت انجام شد"

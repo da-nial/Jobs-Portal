@@ -1,6 +1,5 @@
 from django import forms
-
-from jobs.models import UserProfile, Skill, EducationalBackground, JobOffer
+from jobs.models import UserProfile, Skill, EducationalBackground, JobOffer, AltEmail
 from proxy.models.city_api import CitiesProxy
 from django.utils.translation import ugettext_lazy as _
 
@@ -80,3 +79,20 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         exclude = []
+
+
+class AltEmailForm(forms.ModelForm):
+    class Meta:
+        model = AltEmail
+        fields = ['address', ]
+
+    def __init__(self, user_profile, *args, **kwargs):
+        super(AltEmailForm, self).__init__(*args, **kwargs)
+        self.user_profile = user_profile
+
+    def save(self, commit=True):
+        email = super(AltEmailForm, self).save(commit=False)
+        email.user_profile = self.user_profile
+        if commit:
+            email.save()
+        return email

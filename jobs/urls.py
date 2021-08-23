@@ -16,6 +16,14 @@ urlpatterns = [
     # ex: /edit_profile/delete_educational_background/5
     path('edit_profile/delete_educational_background/<educational_background_id>/',
          views.delete_educational_background, name='delete_educational_background'),
+    path('edit_profile/alt_email/add/', views.add_alt_email, name='add_alt_email'),
+    path('edit_profile/alt_email/delete/<int:alt_email_pk>/',
+         views.delete_alt_email,
+         name='delete_alt_email'),
+    path('send-email-verification/<int:email_pk>/',
+         views.send_email_verification,
+         name='send-email-verification'),
+    path('verify/<str:token>/', views.verify, name='verify'),
     # ex: /job_offers/5/apply
     path('job_offers/<int:pk>/apply/', views.apply, name='apply'),
 ]
