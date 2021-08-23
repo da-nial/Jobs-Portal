@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% load i18n %}
+{% autoescape off %}
+    {% translate "Hi" %} {{ user.get_full_name }},
+    {% translate "Please click on the link to verify your alternative email" %}
+
+    http://{{ domain }}{% url 'jobs:verify' token=token %}
+{% endautoescape %}

@@ -8,7 +8,7 @@
     {% include 'messages.html' %}
     <h1 style="text-align:center;"> {% translate "edit profile" %} {{ request.user.email }}</h1>
     <fieldset>
-        <h3>{% translate "edit information" %}</h3>
+        <legend><h3>{% translate "edit information" %}</h3></legend>
         <form action="{% url 'jobs:edit_profile' %}" method="post">
             {% csrf_token %}
             {{ edit_profile_form.as_p }}
@@ -19,7 +19,7 @@
     <br/>
     <br/>
     <fieldset>
-        <h3>{% translate "edit skills" %}</h3>
+        <legend><h3>{% translate "edit skills" %}</h3></legend>
         {% for skill in request.user.profile.skills.all %}
             <fieldset>
                 {{ skill.title }}
@@ -42,7 +42,7 @@
     <br/>
     <br/>
     <fieldset>
-        <h3>{% translate "edit educational backgrounds" %} </h3>
+        <legend><h3>{% translate "edit educational backgrounds" %} </h3></legend>
         {% for educational_background in request.user.profile.educationalbackground_set.all %}
             <fieldset>
                 <p> {% translate "field" %}: {{ educational_background.field }}</p>
@@ -65,4 +65,45 @@
             </form>
         </fieldset>
     </fieldset>
+
+    <br/>
+    <br/>
+    <br/>
+
+    <fieldset>
+        <legend><h3> {% translate "Educational backgrounds" %} : </h3></legend>
+        <h4> {% translate "Add a new email" %} </h4>
+        <form method="post" action="{% url 'jobs:add_alt_email' %}">
+            {% csrf_token %}
+            {{ alt_email_form.as_p }}
+            <input type="submit" value={% translate "Submit" %}>
+        </form>
+
+        <h4> {% translate "Edit existing ones" %} </h4>
+        <ul>
+            {% for email in request.user.profile.alt_emails.all %}
+                <li>
+                    <label>{{ email.address }}</label>
+                    <form method="post" action="{% url 'jobs:delete_alt_email' email.pk %}">
+                        {% csrf_token %}
+                        <input type="submit" value={% translate "Delete" %}>
+                    </form>
+                    {% if not email.is_verified %}
+                        <form method="post"
+                              action="{% url 'jobs:send-email-verification' email_pk=email.pk %}"
+                        >
+                            {% csrf_token %}
+                            <button name="send-verification-email" value="send-verification-email">
+                                {% translate "Send Verification Email" %}
+                            </button>
+                        </form>
+                    {% else %}
+                        {% translate "Email verified" %}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+
+    </fieldset>
+
 {% endblock %}
