@@ -17,7 +17,18 @@ class LoginViewTest(TestCase):
     def test_successful_login(self):
         data = {'email': 'sara@gmail.com', 'password': 'salamsalam1'}
         response = self.client.post(reverse('auth:login'), data=data)
-        self.assertEqual(response.status_code, 200)
+        self.assertRedirects(response, reverse('jobs:main'), fetch_redirect_response=False)
+
+    def test_successful_redirect_to_login(self):
+        self.client.logout()
+        response = self.client.get(reverse('jobs:edit_profile'))
+        self.assertRedirects(response, reverse('auth:login') + '?next=' + reverse('jobs:edit_profile'))
+
+    def test_successful_redirect_from_login(self):
+        self.client.logout()
+        data = {'email': 'sara@gmail.com', 'password': 'salamsalam1', 'next': reverse('jobs:edit_profile')}
+        response = self.client.post(reverse('auth:login'), data=data)
+        self.assertRedirects(response, reverse('jobs:edit_profile'), fetch_redirect_response=False)
 
     def test_wrong_password(self):
         data = {'email': 'sara@gmail.com', 'password': 'sadsad'}
