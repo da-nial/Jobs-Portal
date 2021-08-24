@@ -198,4 +198,6 @@ class MainView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(MainView, self).get_context_data(**kwargs)
         context['companies'] = Company.objects.all().order_by('pk')
+        if self.request.user.profile:
+            context['appropriate_offers'] = JobOffer.enabled.appropriate_offers_for_profile(self.request.user.profile)
         return context

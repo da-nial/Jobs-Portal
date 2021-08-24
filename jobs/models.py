@@ -1,3 +1,6 @@
+from functools import cached_property
+from django.db import models
+from setuptools.ssl_support import once
 from authentication.models import CustomUser
 from django.utils.translation import get_language
 from jobs.templatetags.convert_numbers import translate_numbers
@@ -6,6 +9,7 @@ from authentication.models import CustomUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
+from jobs.managers import EnabledManager
 
 
 class EducationalLevel(models.TextChoices):
@@ -16,6 +20,24 @@ class EducationalLevel(models.TextChoices):
     DOCTORAL_DEGREE = 'DO', _('Doctoral Degree')
     POSTDOCTORAL_DEGREE = 'P', _('Post Doctoral Degree')
     OTHERS = 'O', _('Others')
+
+    @staticmethod
+    @once
+    def _get_educational_levels_order_list():
+        return [EducationalLevel.OTHERS,
+                EducationalLevel.DIPLOMA,
+                EducationalLevel.ASSOCIATE,
+                EducationalLevel.BACHELORS_DEGREE,
+                EducationalLevel.MASTERS_DEGREE,
+                EducationalLevel.DOCTORAL_DEGREE,
+                EducationalLevel.POSTDOCTORAL_DEGREE]
+
+    def get_le_educational_levels(self):
+        return EducationalLevel._get_educational_levels_order_list()[:self.index + 1]
+
+    @cached_property
+    def index(self):
+        return EducationalLevel._get_educational_levels_order_list().index(self)
 
 
 class Company(models.Model):
@@ -42,11 +64,6 @@ class Skill(models.Model):
 
     def __str__(self):
         return self.title
-
-
-class EnabledManager(models.Manager):
-    def get_queryset(self):
-        return super(EnabledManager, self).get_queryset().filter(is_enabled=True)
 
 
 class JobOffer(models.Model):
@@ -123,6 +140,12 @@ class UserProfile(models.Model):
     city_of_residence = models.CharField(max_length=80, null=True, blank=True, verbose_name=_('City of residence'))
     bio = models.TextField(null=True, blank=True, verbose_name=_('Bio'))
     skills = models.ManyToManyField(Skill)
+
+    def get_maximum_educational_level(self):
+        return max(
+            [EducationalLevel(eb.level) for eb in self.educationalbackground_set.all()],
+            default=EducationalLevel.OTHERS,
+            key=lambda el: el.index)
 
     def __str__(self):
         return str(self.user)

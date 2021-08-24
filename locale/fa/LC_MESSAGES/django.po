@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-23 08:23+0000\n"
+"POT-Creation-Date: 2021-08-24 07:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,143 +74,143 @@ msgstr "مهارت ها"
 msgid "your job application state changed"
 msgstr "وضعیت درخواست شغلی شما تغییر کرده است"
 
-#: jobs/models.py:12
+#: jobs/models.py:16
 msgid "High School Diploma"
 msgstr "دیپلم مقطع دبیرستان"
 
-#: jobs/models.py:13
+#: jobs/models.py:17
 msgid "Associate Degree"
 msgstr "فوق دیپلم"
 
-#: jobs/models.py:14
+#: jobs/models.py:18
 msgid "Bachelors Degree"
 msgstr "لیسانس"
 
-#: jobs/models.py:15
+#: jobs/models.py:19
 msgid "Masters Degree"
 msgstr "فوق لیسانس"
 
-#: jobs/models.py:16
+#: jobs/models.py:20
 msgid "Doctoral Degree"
 msgstr "دکترا"
 
-#: jobs/models.py:17
+#: jobs/models.py:21
 msgid "Post Doctoral Degree"
 msgstr "فوق دکترا"
 
-#: jobs/models.py:18
+#: jobs/models.py:22
 msgid "Others"
 msgstr "غیره"
 
-#: jobs/models.py:58
+#: jobs/models.py:75
 msgid "full time"
 msgstr "تمام وقت"
 
-#: jobs/models.py:59
+#: jobs/models.py:76
 msgid "part time"
 msgstr "پاره وقت"
 
-#: jobs/models.py:86
+#: jobs/models.py:103
 msgid "Conscript"
 msgstr "در حال خدمت"
 
-#: jobs/models.py:87
+#: jobs/models.py:104
 msgid "Educational Exemption"
 msgstr "معافیت تحصیلی"
 
-#: jobs/models.py:88
+#: jobs/models.py:105
 msgid "Exempt"
 msgstr "معاف"
 
-#: jobs/models.py:89
+#: jobs/models.py:106
 msgid "Discharge"
 msgstr "گذرانده"
 
-#: jobs/models.py:92
+#: jobs/models.py:109
 msgid "Male"
 msgstr "آقا"
 
-#: jobs/models.py:93
+#: jobs/models.py:110
 msgid "Female"
 msgstr "خانم"
 
-#: jobs/models.py:94
+#: jobs/models.py:111
 msgid "Other"
 msgstr "غیره"
 
-#: jobs/models.py:97
+#: jobs/models.py:114
 msgid "Single"
 msgstr "مجرد"
 
-#: jobs/models.py:98
+#: jobs/models.py:115
 msgid "Married"
 msgstr "متاهل"
 
-#: jobs/models.py:105 jobs/templates/user_profile.html:34
+#: jobs/models.py:122 jobs/templates/user_profile.html:34
 msgid "Mobile number"
 msgstr "شماره موبایل"
 
-#: jobs/models.py:106 jobs/templates/user_profile.html:37
+#: jobs/models.py:123 jobs/templates/user_profile.html:37
 msgid "Phone number"
 msgstr "شماره تماس"
 
-#: jobs/models.py:107
+#: jobs/models.py:124
 msgid "Address"
 msgstr "آدرس"
 
-#: jobs/models.py:111 jobs/templates/user_profile.html:40
+#: jobs/models.py:128 jobs/templates/user_profile.html:40
 msgid "Military service status"
 msgstr "وضعیت نظام وظیفه"
 
-#: jobs/models.py:116 jobs/templates/user_profile.html:43
+#: jobs/models.py:133 jobs/templates/user_profile.html:43
 msgid "Gender"
 msgstr "جنسیت"
 
-#: jobs/models.py:121 jobs/templates/user_profile.html:46
+#: jobs/models.py:138 jobs/templates/user_profile.html:46
 msgid "Marital status"
 msgstr "وضعیت تاهل"
 
-#: jobs/models.py:123
+#: jobs/models.py:140
 msgid "City of residence"
 msgstr "شهر محل اقامت"
 
-#: jobs/models.py:124
+#: jobs/models.py:141
 msgid "Bio"
 msgstr "بیوگرافی"
 
-#: jobs/models.py:161
+#: jobs/models.py:184
 msgid "Field"
 msgstr "رشته"
 
-#: jobs/models.py:162
+#: jobs/models.py:185
 msgid "Institue"
 msgstr "موسسه"
 
-#: jobs/models.py:165
+#: jobs/models.py:188
 msgid "Level"
 msgstr "سطح"
 
-#: jobs/models.py:168
+#: jobs/models.py:191
 msgid "Start year"
 msgstr "سال آغاز"
 
-#: jobs/models.py:171
+#: jobs/models.py:194
 msgid "Finish year"
 msgstr "سال پایان"
 
-#: jobs/models.py:173
+#: jobs/models.py:196
 msgid "Is currently studying"
 msgstr "مشغول به تحصیل"
 
-#: jobs/models.py:192
+#: jobs/models.py:215
 msgid "Accepted"
 msgstr "قبول شده"
 
-#: jobs/models.py:193
+#: jobs/models.py:216
 msgid "Rejected"
 msgstr "رد شده"
 
-#: jobs/models.py:194
+#: jobs/models.py:217
 msgid "Pending"
 msgstr "در انتظار"
 
@@ -222,43 +222,45 @@ msgstr "نام شرکت"
 msgid "description"
 msgstr "توضیحات"
 
-#: jobs/templates/company_details.html:20 jobs/templates/main.html:26
+#: jobs/templates/company_details.html:20 jobs/templates/main.html:47
 msgid "Job Offers List"
 msgstr "لیست فرصت های شغلی"
 
-#: jobs/templates/company_details.html:29 jobs/templates/main.html:34
+#: jobs/templates/company_details.html:29 jobs/templates/main.html:35
+#: jobs/templates/main.html:55
 msgid "salary"
 msgstr "حقوق"
 
-#: jobs/templates/company_details.html:30 jobs/templates/main.html:35
+#: jobs/templates/company_details.html:30 jobs/templates/main.html:36
+#: jobs/templates/main.html:56
 msgid "cooperation type"
 msgstr "نوع همکاری"
 
-#: jobs/templates/company_details.html:35 jobs/templates/main.html:41
+#: jobs/templates/company_details.html:35 jobs/templates/main.html:62
 msgid "No job offer has added yet."
 msgstr "هنوز هیچ فرصت شغلی ایجاد نشده است."
 
-#: jobs/templates/company_details.html:41 jobs/templates/main.html:47
+#: jobs/templates/company_details.html:41 jobs/templates/main.html:68
 msgid "First"
 msgstr "ابتدا"
 
-#: jobs/templates/company_details.html:42 jobs/templates/main.html:48
+#: jobs/templates/company_details.html:42 jobs/templates/main.html:69
 msgid "Previous"
 msgstr "قبلی"
 
-#: jobs/templates/company_details.html:47 jobs/templates/main.html:53
+#: jobs/templates/company_details.html:47 jobs/templates/main.html:74
 msgid "Page"
 msgstr "صفحه"
 
-#: jobs/templates/company_details.html:47 jobs/templates/main.html:53
+#: jobs/templates/company_details.html:47 jobs/templates/main.html:74
 msgid "of"
 msgstr "از"
 
-#: jobs/templates/company_details.html:51 jobs/templates/main.html:57
+#: jobs/templates/company_details.html:51 jobs/templates/main.html:78
 msgid "Next"
 msgstr "بعدی"
 
-#: jobs/templates/company_details.html:52 jobs/templates/main.html:58
+#: jobs/templates/company_details.html:52 jobs/templates/main.html:79
 msgid "Last"
 msgstr "انتها"
 
@@ -412,6 +414,20 @@ msgstr "لیست شرکت ها"
 #: jobs/templates/main.html:23
 msgid "No company has added yet."
 msgstr "هنوز هیچ شرکتی اضافه نشده است."
+
+#: jobs/templates/main.html:27
+msgid "Suggested Job Offers"
+msgstr "فرصت های شغلی پیشنهادی"
+
+#: jobs/templates/main.html:42
+msgid "You dont have profile."
+msgstr "شماپروفایلی ندارید!!!"
+
+#: jobs/templates/main.html:44
+#, fuzzy
+#| msgid "No job offer has added yet."
+msgid "No appropriate job offer has found."
+msgstr "هنوز هیچ فرصت شغلی ایجاد نشده است."
 
 #: jobs/templates/user_profile.html:13
 #, fuzzy

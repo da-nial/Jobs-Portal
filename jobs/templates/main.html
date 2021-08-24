@@ -23,6 +23,27 @@
         <p>{% translate "No company has added yet." %}</p>
     {% endif %}
 
+
+    <h3>{% translate "Suggested Job Offers" %}</h3>
+    {% if appropriate_offers %}
+        <ul>
+        {% for offer in appropriate_offers %}
+            <li>
+                <a href="{% url 'jobs:job_offers' offer.pk %}">
+                    <p style="display: inline">{{ offer.title }}</p>
+                </a>
+                <p style="display: inline">{% translate "salary" %}: {{ offer.salary|translate_numbers }}</p>
+                <p style="display: block">{% translate "cooperation type" %}
+                        : {{ offer.get_type_of_cooperation_display }}</p>
+            </li>
+        {% endfor %}
+        </ul>
+    {% elif not request.user.profile %}
+        <p>{% translate "You dont have profile." %}</p>
+    {% else %}
+        <p>{% translate "No appropriate job offer has found." %}</p>
+    {% endif %}
+
     <h3>{% translate "Job Offers List" %}</h3>
     {% if page_obj %}
         <ul>
