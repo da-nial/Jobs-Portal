@@ -11,26 +11,30 @@
     {% load convert_numbers %}
     {% cache 600 JobOffer joboffer.id request.LANGUAGE_CODE %}
         <h1 style="text-align:center;"> {{ joboffer.title }} </h1>
-        <h3> توضیحات </h3>
+        <h3> {% translate "Description" %} </h3>
         {{ joboffer.description }}
 
 
-        <h3>حداقل سابقه کار</h3>
+        <h3>{% translate "Minimum work experience" %}</h3>
         {{ joboffer.minimum_work_experience|translate_numbers }} سال
 
-        <h3> حقوق </h3>
+        <h3> {% translate "Salary" %} </h3>
         {{ joboffer.salary|translate_numbers }} تومان
 
-        <h3> نوع همکاری </h3>
+        <h3> {% translate "Type of cooperation" %} </h3>
         {{ joboffer.get_type_of_cooperation_display }}
 
-        <h3> حداقل مدرک </h3>
+        <h3> {% translate "City" %} </h3>
+        {{ joboffer.city }}
+
+        <h3> {% translate "Minimum degree" %} </h3>
         {{ joboffer.get_minimum_degree_display }}
         <br/>
         <br/>
         <a href={{ joboffer.company.link }}> لینک شرکت </a>
 
-        <h3> مهارت های مورد نیاز </h3>
+
+        <h3>{% translate "Skills required" %} </h3>
         <ul>
             {% for skill in joboffer.skills_required.all %}
                 <li> {{ skill.title }}</li>
@@ -52,7 +56,7 @@
                 {% endif %}
             {% endwith %}
             {% if joboffer.is_enabled == False %}
-                <p>{% translate "this job is disabled!"%}</p>
+                <p>{% translate "this job is disabled!" %}</p>
             {% elif not user|has_pending_application_for_offer:joboffer %}
                 <form method="post" action=" {% url 'jobs:apply' joboffer.pk %}" enctype="multipart/form-data">
                     {% csrf_token %}
