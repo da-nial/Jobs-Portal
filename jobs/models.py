@@ -1,6 +1,4 @@
-from functools import cached_property
 from django.db import models
-from setuptools.ssl_support import once
 from authentication.models import CustomUser
 from django.utils.translation import get_language
 from jobs.templatetags.convert_numbers import translate_numbers
@@ -22,7 +20,6 @@ class EducationalLevel(models.TextChoices):
     OTHERS = 'O', _('Others')
 
     @staticmethod
-    @once
     def _get_educational_levels_order_list():
         return [EducationalLevel.OTHERS,
                 EducationalLevel.DIPLOMA,
@@ -35,7 +32,7 @@ class EducationalLevel(models.TextChoices):
     def get_le_educational_levels(self):
         return EducationalLevel._get_educational_levels_order_list()[:self.index + 1]
 
-    @cached_property
+    @property
     def index(self):
         return EducationalLevel._get_educational_levels_order_list().index(self)
 
