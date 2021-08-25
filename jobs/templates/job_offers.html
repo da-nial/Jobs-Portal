@@ -51,6 +51,11 @@
                     <ol>
                         {% for application in applications|dictsort:"created_at" %}
                             <li>{{ application.get_state_display }}</li>
+                            {% if application.reject_reason %}
+                                <p>
+                                    {{ application.reject_reason }}
+                                </p>
+                            {% endif %}
                         {% endfor %}
                     </ol>
                 {% endif %}

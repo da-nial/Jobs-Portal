@@ -1,0 +1,20 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block submit_buttons_bottom %}
+    <div class="submit-row">
+        <fieldset style="text-align:right;">
+            <label for= "reject_reason" > {% translate "Reject reason" %}: </label>
+            <textarea name="reject_reason" style="width: 50%; height: 100%; box-sizing: border-box;">
+            </textarea>
+            <br>
+            <input type="submit" name="reject" value="{% translate 'reject' %}" style="background-color:red;">
+        </fieldset>
+        <br>
+        <fieldset style="text-align:right;">
+            <input type="submit" name="accept" value="{% translate 'accept' %}" style="background-color:green;">
+        </fieldset>
+    </div>
+
+    {{ block.super }}
+{% endblock %}

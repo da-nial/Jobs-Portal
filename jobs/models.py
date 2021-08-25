@@ -1,5 +1,3 @@
-from django.db import models
-from authentication.models import CustomUser
 from django.utils.translation import get_language
 from jobs.templatetags.convert_numbers import translate_numbers
 from django.db import models, IntegrityError
@@ -221,4 +219,9 @@ class Application(models.Model):
     offer = models.ForeignKey(JobOffer, on_delete=models.CASCADE, related_name='applications')
     user = models.ForeignKey('authentication.CustomUser', on_delete=models.CASCADE, related_name='applications')
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    resume = models.FileField(upload_to='resumes/', null=True)
+    resume = models.FileField(upload_to='resumes/', null=True, blank=True, verbose_name=_('Resume'))
+    reject_reason = models.TextField(null=True, blank=True, verbose_name=_('Reject Reason'))
+
+    def __str__(self):
+        return f"{self.user} application for {self.offer}"
+
