@@ -39,6 +39,13 @@ class JobOffersView(generic.DetailView):
     model = JobOffer
     template_name = 'job_offers.html'
 
+    def get(self, request, *args, **kwargs):
+        context = super().get(request, *args, **kwargs)
+        user = request.user
+        if not user.has_requirement_for_offer(self.get_object()):
+            messages.warning(request, 'you have not requirement')
+        return context
+
 
 class UserProfileView(generic.DetailView):
     def get_object(self, queryset=None):

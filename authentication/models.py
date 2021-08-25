@@ -45,3 +45,28 @@ class CustomUser(AbstractUser):
 
     def get_applications_for_offer(self, offer):
         return offer.applications.filter(user=self)
+
+    def has_skills_for_offer(self, offer):
+        shortage_skills = offer.skills_required.all().exclude(
+            pk__in=self.profile.skills.all())
+        if len(shortage_skills) == 0:
+            return True
+        return False
+
+    def has_education_for_offer(self, offer):
+        from jobs.models import EducationalLevel
+        if hasattr(self, 'profile'):
+            return self.profile.educationalbackground_set.filter(
+                level__in=EducationalLevel(offer.minimum_degree).get_ge_educational_levels()
+            ).exists()
+        else:
+            return False
+
+    def has_requirement_for_offer(self, offer):
+        if self.profile.city_of_residence != offer.city:
+            return False
+        if self.has_skills_for_offer(offer) is False:
+            return False
+        if self.has_education_for_offer(offer) is False:
+            return False
+        return True

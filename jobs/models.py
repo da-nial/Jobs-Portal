@@ -30,10 +30,13 @@ class EducationalLevel(models.TextChoices):
                 EducationalLevel.POSTDOCTORAL_DEGREE]
 
     def get_le_educational_levels(self):
-        return EducationalLevel._get_educational_levels_order_list()[:self.index + 1]
+        return EducationalLevel._get_educational_levels_order_list()[:self.order_index + 1]
+
+    def get_ge_educational_levels(self):
+        return EducationalLevel._get_educational_levels_order_list()[self.order_index:]
 
     @property
-    def index(self):
+    def order_index(self):
         return EducationalLevel._get_educational_levels_order_list().index(self)
 
 
@@ -142,7 +145,8 @@ class UserProfile(models.Model):
         return max(
             [EducationalLevel(eb.level) for eb in self.educationalbackground_set.all()],
             default=EducationalLevel.OTHERS,
-            key=lambda el: el.index)
+            key=lambda el: el.order_index
+        )
 
     def __str__(self):
         return str(self.user)

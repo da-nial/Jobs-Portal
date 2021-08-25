@@ -219,3 +219,71 @@ class MainPageOfferSuggestionTest(TestCase):
 
     def tearDown(self) -> None:
         self.client.logout()
+
+
+class WarningRequirementOffer(TestCase):
+    def setUp(self) -> None:
+        self.company = Company.objects.create(name='divar', link='divar.ir', telephone_number='02188888888')
+        self.skill_1 = Skill.objects.create(title='skill1')
+        self.skill_2 = Skill.objects.create(title='skill2')
+        self.skill_3 = Skill.objects.create(title='skill3')
+        self.user_1 = CustomUser.objects.create_user(email='negar@gmail.com',
+                                                     password='ComplicatedPassword1',
+                                                     first_name='Negar',
+                                                     last_name='Raei')
+        self.job_offer = JobOffer.objects.create(title='backend', minimum_work_experience=0, minimum_degree='M',
+                                                 type_of_cooperation='full_time', city='نهران',
+                                                 company=self.company)
+        self.job_offer.skills_required.add(self.skill_1)
+
+    def test_requirement_true(self):
+        user_1_profile = UserProfile.objects.create(
+            user=self.user_1,
+            city_of_residence='نهران',
+        )
+        user_1_profile.skills.add(self.skill_1, self.skill_2)
+        self.education_background = EducationalBackground.objects.create(field='doctor', level='DO', start_year=1390,
+                                                                         institute='aaa',
+                                                                         is_currently_studying=False,
+                                                                         finish_year=1395,
+                                                                         user_profile=user_1_profile)
+        self.assertEqual(True, self.user_1.has_requirement_for_offer(self.job_offer))
+
+    def test_city_requirement_false(self):
+        user_1_profile = UserProfile.objects.create(
+            user=self.user_1,
+            city_of_residence='کرج',
+        )
+        user_1_profile.skills.add(self.skill_1, self.skill_2)
+        self.education_background = EducationalBackground.objects.create(field='doctor', level='DO', start_year=1390,
+                                                                         institute='aaa',
+                                                                         is_currently_studying=False,
+                                                                         finish_year=1395,
+                                                                         user_profile=user_1_profile)
+        self.assertEqual(False, self.user_1.has_requirement_for_offer(self.job_offer))
+
+    def test_skill_requirement_false(self):
+        user_1_profile = UserProfile.objects.create(
+            user=self.user_1,
+            city_of_residence='نهران',
+        )
+        user_1_profile.skills.add(self.skill_3)
+        self.education_background = EducationalBackground.objects.create(field='doctor', level='DO', start_year=1390,
+                                                                         institute='aaa',
+                                                                         is_currently_studying=False,
+                                                                         finish_year=1395,
+                                                                         user_profile=user_1_profile)
+        self.assertEqual(False, self.user_1.has_requirement_for_offer(self.job_offer))
+
+    def test_education_requirement_false(self):
+        user_1_profile = UserProfile.objects.create(
+            user=self.user_1,
+            city_of_residence='نهران',
+        )
+        user_1_profile.skills.add(self.skill_1, self.skill_2)
+        self.education_background = EducationalBackground.objects.create(field='doctor', level='DI', start_year=1390,
+                                                                         institute='aaa',
+                                                                         is_currently_studying=False,
+                                                                         finish_year=1395,
+                                                                         user_profile=user_1_profile)
+        self.assertEqual(False, self.user_1.has_requirement_for_offer(self.job_offer))
