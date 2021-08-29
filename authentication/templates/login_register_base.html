@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block navbar %}
+{% endblock %}
+{% block content %}
+    {% load i18n %}
+    <div class="login_register">
+        {% block side %}
+        {% endblock %}
+
+        <div class="background">
+            <img class="background__logo" src="{% static 'images/hezardastanLogoTransient.svg' %}"/>
+            <span class="background__wrapper">
+            <h1 class="background__title">
+                {% translate "Hezardastan Development Group Career System" %}
+            </h1>
+        </span>
+        </div>
+    </div>
+{% endblock %}

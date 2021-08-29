@@ -1,0 +1,25 @@
+.company-card:nth-child(3n+1) {
+    border-left: 3px rgb(235, 235, 235) solid;
+    border-right: none !important;
+    border-bottom: 3px rgb(235, 235, 235) solid;
+}
+
+.company-card:nth-child(3n+2) {
+    border-bottom: 3px rgb(235, 235, 235) solid;
+}
+
+.company-card:nth-child(3n) {
+    border-right: 3px rgb(235, 235, 235) solid;
+    border-left: none !important;
+    border-bottom: 3px rgb(235, 235, 235) solid;
+}
+
+.home-anchor-wrapper {
+    border-right: none !important;
+    border-left: solid rgb(233, 232, 234) 1px;
+}
+
+.nav__ul li:last-child {
+    margin-left: 20px;
+    margin-right: auto;
+}

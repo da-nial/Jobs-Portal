@@ -1,20 +1,52 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}{% endblock %}</title>
-    </head>
-    <body>
-        <nav style="background-color: gray; padding: 5px; border-radius: 3px">
-            <a href="{% url 'jobs:user_profile' %}" style="text-align: left">
-            {{ request.user.first_name }}
-            </a>
-            <a href="{% url 'auth:logout' %}"
-               style="text-align: right">
-            Logout
-            </a>
-        </nav>
-        {% block content %}{% endblock content %}
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'authentication/login-register.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'jobs/dashboard_base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'jobs/dashboard_profile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'jobs/company_details.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'jobs/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'jobs/job_offer.css' %}">
+    {% if LANGUAGE_CODE == 'fa' %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/rtl.css' %}">
+    {% endif %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body dir="auto">
+{% block navbar %}
+    <nav class="nav app__header">
+        <ul class="nav__ul">
+            <li>
+                <div class="home-anchor-wrapper">
+                    <a class="home-anchor" href="/">
+                        <img class="nav__logo" src="{% static '/images/HezardastanLogo.png' %}" alt=""/>
+                    </a>
+                </div>
+            </li>
+            <li><a href={% url 'jobs:main' %}>{% translate 'Home' %}</a></li>
+            <li><a href="/">{% translate 'Job Openings' %} </a></li>
+            <li><a href="/">{% translate 'Applicants' %} </a></li>
+            <li><a href={% url 'jobs:user_profile' %}>
+                <img class="nav__profile-photo" src="{% static '/images/profile.png' %}" alt=""/>
+            </a></li>
+        </ul>
+    </nav>
+{% endblock %}
+<div class="app__content">
+    {% block content %}{% endblock content %}
+</div>
+
+<footer class="footer app__footer" }>
+    <p class="footer__text">
+        {% translate "Hezardastan Information Technology Development Group" %}©
+    </p>
+</footer>
+</body>
 </html>

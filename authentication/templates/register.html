@@ -1,8 +1,82 @@
-<form action="{% url 'auth:register' %}" method="post">
+{% extends 'login_register_base.html' %}
+{% load static %}
+{% load filters %}
+{% block side %}
     {% load i18n %}
-    {% csrf_token %}
-    {{ form.as_ul }}
-    <input type="submit" value="{% translate 'Register' %}">
-</form>
-<a href="{% url 'auth:login' %}">{% translate "Have an account" %}?</a>
+    <div class="side-wrapper">
+        <div class="side">
+            <h1 class="side__title"> {% translate "Create an account" %} </h1>
+            <h5 class="side__alter-message">
+                <a class="purple-link" href="{% url 'auth:login' %}">
+                    {% translate "Already have an account? Sign in here" %}
+                </a>
+            </h5>
 
+            <h5>{% translate "Create an account with" %}</h5>
+            <div class="button__wrapper">
+                <button class="grey-transparent-button auth-method-button">
+                    <i class="fa fa-google"></i>
+                </button>
+
+                <button class="grey-transparent-button auth-method-button">
+                    <i class="fa fa-linkedin"></i>
+                </button>
+            </div>
+
+            <h2 class="continue-with"><span>
+                {% translate "Or continue with" %}
+            </span></h2>
+
+            {% if error %}
+                <span class="error_box"> {{ error }} </span>
+            {% endif %}
+
+
+            <form class="side__form" action="{% url 'auth:register' %}" method="post">
+                {% csrf_token %}
+                <span class="input-field-wrapper">
+                    <label class="form__label" for="email">
+                        {% translate "Email address" %}
+                    </label>
+                    {{ form.email|addclass:'form__text-input' }}
+                </span>
+
+                <span class="dual-input-row">
+                    <span class="input-field-wrapper">
+                        <label class="form__label" for="password">
+                            {% translate "First Name" %}
+                        </label>
+                        {{ form.first_name|addclass:'form__text-input' }}
+                    </span>
+
+                    <span class="input-field-wrapper">
+                        <label class="form__label" for="password">
+                            {% translate "Last Name" %}
+                        </label>
+                        {{ form.last_name|addclass:'form__text-input' }}
+                    </span>
+                </span>
+
+                <span class="dual-input-row">
+                    <span class="input-field-wrapper">
+                        <label class="form__label" for="password">
+                            {% translate "Password" %}
+                        </label>
+                        {{ form.password|addclass:'form__text-input' }}
+                    </span>
+
+                    <span class="input-field-wrapper">
+                        <label class="form__label" for="password">
+                            {% translate "Password (again)" %}</label>
+                        <input class="form__text-input" type="password" id="password" name="password"/>
+                    </span>
+                </span>
+                <span class="input-field-wrapper">
+                    <button class="grey-transparent-button" id="login-button">
+                        {% translate "Register" %}
+                    </button>
+                </span>
+            </form>
+        </div>
+    </div>
+{% endblock %}

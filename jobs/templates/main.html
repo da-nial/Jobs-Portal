@@ -1,83 +1,94 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}
-    companies list
+    Hezardastan Careers
 {% endblock %}
 {% block content %}
     {% include 'messages.html' %}
     {% load i18n %}
     {% load convert_numbers %}
-    <h3>{% translate "Companies List" %}</h3>
-    {% if companies %}
-        <ul>
-            {% for company in companies %}
-                <li>
-                    <a href="{% url 'jobs:company' company.pk %}">
-                        <img src="{% if company.logo %} {{ company.logo.url }} {% else %} https://via.placeholder.com/400x400.png?text=Logo+not+found {% endif %}"
-                             alt="{{ company.name }}-logo" style="width: 100px; height: 100px">
-                        <p style="display: inline">{{ company.name }}</p>
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>{% translate "No company has added yet." %}</p>
-    {% endif %}
+    <div class="main-wrapper">
+        <h1 class="main__title">{% translate "Our Companies" %}</h1>
+        {% if companies %}
+            <div class="company-card-grid">
+                {% for company in companies %}
+                    <div class="company-card">
+                        <a href="{% url 'jobs:company' company.pk %}">
+                            <img src={{ company.logo.url }} alt="{{ company.name }}-logo"
+                                 style="height: 100px;">
+                        </a>
 
+                        <div class="company-card-info">
+                            <a href="{% url 'jobs:company' company.pk %}">
+                                <h2 class="company-card__title">{{ company.name }}</h2>
+                            </a>
+                            <h4 class="company-card__description">{{ company.description|truncatewords:10 }}</h4>
 
-    <h3>{% translate "Suggested Job Offers" %}</h3>
-    {% if appropriate_offers %}
-        <ul>
-        {% for offer in appropriate_offers %}
-            <li>
-                <a href="{% url 'jobs:job_offers' offer.pk %}">
-                    <p style="display: inline">{{ offer.title }}</p>
-                </a>
-                <p style="display: inline">{% translate "salary" %}: {{ offer.salary|translate_numbers }}</p>
-                <p style="display: block">{% translate "cooperation type" %}
-                        : {{ offer.get_type_of_cooperation_display }}</p>
-            </li>
-        {% endfor %}
-        </ul>
-    {% elif not request.user.profile %}
-        <p>{% translate "You dont have profile." %}</p>
-    {% else %}
-        <p>{% translate "No appropriate job offer has found." %}</p>
-    {% endif %}
+                            <div class="company-card__bottom">
+                                <h4> {{ company.job_offers.all|length }}{% translate "Job Opennings" %}</h4>
+                                <a href="{% url 'jobs:company' company.pk %}">
+                                    <h4>{% translate "More info" %} </h4>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p></p>
+            <p>{% translate "No company has been added yet." %}</p>
+        {% endif %}
 
-    <h3>{% translate "Job Offers List" %}</h3>
-    {% if page_obj %}
-        <ul>
-            {% for offer in page_obj %}
-                <li>
-                    <a href="{% url 'jobs:job_offers' offer.pk %}">
-                        <p style="display: block">{{ offer.title }}</p>
-                    </a>
-                    <p style="display: block">{% translate "salary" %} : {{ offer.salary|translate_numbers }}</p>
-                    <p style="display: block">{% translate "cooperation type" %}
-                        : {{ offer.get_type_of_cooperation_display }}</p>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>{% translate "No job offer has added yet." %}</p>
-    {% endif %}
+        <h1 class="main__title" id="paginated_section">{% translate "Job Openings" %}</h1>
+        {% if offers %}
+            <ul class="jobs-list">
+                {% for offer in offers %}
+                    <li class="jobs-list__item">
+                        <div class="row-1">
+                            <a href="{% url 'jobs:job_offers' offer.pk %}">
+                                <h3 class="job-title">{{ offer.title|capfirst }} | {{ offer.company }}</h3>
+                            </a>
+                            <p class="cooperation-full_time">{{ offer.type_of_cooperation|title }}</p>
+                        </div>
+                        <div class="row-2">
+                            <div class="job-feature">
+                                <i class="fa fa-users"></i>
+                                Engineering
+                            </div>
+                            {% if offer.city is not None %}
+                                <div class="job-feature">
+                                    <i class="fa fa-map-marker"></i>
+                                    {{ offer.city }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+                {% include 'pagination.html' %}
+            </ul>
+        {% else %}
+            <p>{% translate "No job offer has added yet." %}</p>
+        {% endif %}
 
-    <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; {% translate "First" %}</a>
-                <a href="?page={{ page_obj.previous_page_number }}">{% translate "Previous" %}</a>
-            {% endif %}
-
-            <span class="current">
-                <!-- TODO: Change Translation to blocktranslate-->
-                {% translate "Page" %} {{ page_obj.number|translate_numbers }} {% translate "of" %} {{ page_obj.paginator.num_pages|translate_numbers }}.
-            </span>
-
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">{% translate "Next" %}</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">{% translate "Last" %} &raquo;</a>
-            {% endif %}
-        </span>
+        <h3></h3>
+        <h2 class="main__title">{% translate "Suggested Job Offers" %}</h2>
+        {% if appropriate_offers %}
+            <ul>
+                {% for offer in appropriate_offers %}
+                    <li>
+                        <a href="{% url 'jobs:job_offers' offer.pk %}">
+                            <p style="display: inline">{{ offer.title }}</p>
+                        </a>
+                        <p style="display: inline">{% translate "Salary" %}: {{ offer.salary|translate_numbers }}</p>
+                        <p style="display: block">{% translate "Type of Cooperation" %}
+                            : {{ offer.get_type_of_cooperation_display }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% elif not request.user.profile %}
+            <p>{% translate "You dont have profile." %}</p>
+        {% else %}
+            <p>{% translate "No appropriate job offer has found." %}</p>
+        {% endif %}
     </div>
 {% endblock %}

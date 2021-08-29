@@ -37,7 +37,7 @@ def apply(request, pk):
 
 class JobOffersView(generic.DetailView):
     model = JobOffer
-    template_name = 'job_offers.html'
+    template_name = 'job_offer.html'
 
     def get(self, request, *args, **kwargs):
         context = super().get(request, *args, **kwargs)
@@ -66,12 +66,12 @@ class CompanyView(generic.DetailView):
         context = super(CompanyView, self).get_context_data(**kwargs)
 
         job_offers = self.get_related_job_offers()
-        context['job_offers_page'] = job_offers
+        context['page_obj'] = job_offers
         return context
 
     def get_related_job_offers(self):
-        queryset = self.object.job_offers.all().order_by('pk')
-        paginator = Paginator(queryset, 2)
+        queryset = self.object.job_offers.all()
+        paginator = Paginator(queryset, 5)
         page = self.request.GET.get('page', 1)
 
         job_offers_in_page = paginator.get_page(page)
@@ -197,7 +197,7 @@ class MainView(LoginRequiredMixin, generic.ListView):
     template_name = 'main.html'
     context_object_name = 'offers'
     login_url = settings.LOGIN_URL
-    paginate_by = 2
+    paginate_by = 5
 
     def get_queryset(self):
         return JobOffer.enabled.all().order_by('pk')

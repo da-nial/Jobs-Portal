@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    {% load i18n %}
+    <div class="profile-screen">
+        <div class="sidebar">
+            <ul class="menu">
+                <li class="menu__item">
+                    <img class="sidebar__logo" src="{% static 'images/tailwind.png' %}"/>
+                    <h2>{% translate "Adams" %} </h2>
+                </li>
+                <li class="menu__item menu__item--selected">
+                    <span>
+                        <i class="fa fa-user fa-fw"></i>
+                        <a href="/">{% translate "Profile" %}</a>
+
+                    </span>
+                </li>
+                <li class="menu__item">
+                    <span>
+                        <i class="fa fa-edit fa-fw"></i>
+                        <a href="/edit_profile">{% translate "Edit Profile" %}</a>
+                    </span>
+                </li>
+                <li class="menu__item">
+                    <span>
+                        <i class="fa fa-envelope fa-fw"></i>
+                        <a href="/">{% translate "Sent Applications" %}</a>
+                    </span>
+                </li>
+                <li class="menu__item">
+                    <span>
+                        <i class="fa fa-bullhorn fa-fw"></i>
+                        <a href="/">{% translate "Announcements" %}</a>
+                    </span>
+                </li>
+                <li class="menu__item">
+                    <span>
+                        <i class="fa fa-cog fa-fw"></i>
+                        <a href="/">{% translate "Settings" %}</a>
+                    </span>
+                </li>
+                <hr class='divider'/>
+                <li class="menu__item">
+                    <span class="li__span">
+                        <i class="fa fa-sign-out fa-fw"></i>
+                        <a href="/">{% translate "Logout" %}</a>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        {% block main %}
+        {% endblock %}
+    </div>
+{% endblock %}

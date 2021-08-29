@@ -1,0 +1,77 @@
+{% load i18n %}
+{% load convert_numbers %}
+{% get_current_language as LANGUAGE_CODE %}
+<div class="pagination">
+    <div class="pagination-word">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}#paginated_section">
+                {% if LANGUAGE_CODE == "fa" %}
+                    <i class="fa fa-arrow-right"></i>
+                {% else %}
+                    <i class="fa fa-arrow-left"></i>
+                {% endif %}
+                {% translate "Previous" %}
+            </a>
+        {% else %}
+            <a style="color: grey">
+                {% if LANGUAGE_CODE == "fa" %}
+                    <i class="fa fa-arrow-right"></i>
+                {% else %}
+                    <i class="fa fa-arrow-left"></i>
+                {% endif %}
+                {% translate "Previous" %}
+            </a>
+        {% endif %}
+    </div>
+
+    {% if page_obj.has_other_pages %}
+        <ul class="pagination-numbers">
+            {% for n in page_obj.paginator.page_range %}
+                {% if page_obj.number|add:'-3' == n %}
+                    {# First page #}
+                    <li><a href="?page=1#paginated_section">{{ 1|translate_numbers }}</a></li>
+                    {% if n != 1 %}
+                        <li style="color: grey"><a>&#8943;</a></li>
+                    {% endif %}
+                {% elif page_obj.number == n %}
+                    {# Current page #}
+                    <li class="pagination-number-selected"><a href="#paginated_section">{{ n|translate_numbers }}</a>
+                    </li>
+                {% elif page_obj.number|add:'-3' < n and n < page_obj.number|add:'3' %}
+                    {# Pages around current page #}
+                    <li><a href="?page={{ n }}#paginated_section">{{ n|translate_numbers }}</a></li>
+                {% elif page_obj.number|add:'3' == n %}
+                    {# Last page #}
+                    {% if n != page_obj.end_index %}
+                        <li style="color: grey"><a>&#8943;</a></li>
+                    {% endif %}
+                    <li>
+                        <a href="?page={{ page_obj.paginator.num_pages }}#paginated_section">{{ page_obj.paginator.num_pages|translate_numbers }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+        <div class="pagination-word">
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}#paginated_section">
+                    {% translate "Next" %}
+                    {% if LANGUAGE_CODE == "fa" %}
+                        <i class="fa fa-arrow-left"></i>
+                    {% else %}
+                        <i class="fa fa-arrow-right"></i>
+                    {% endif %}
+                </a>
+            {% else %}
+                <a style="color: grey">
+                    {% translate "Next" %}
+                    {% if LANGUAGE_CODE == "fa" %}
+                        <i class="fa fa-arrow-left"></i>
+                    {% else %}
+                        <i class="fa fa-arrow-right"></i>
+                    {% endif %}
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>

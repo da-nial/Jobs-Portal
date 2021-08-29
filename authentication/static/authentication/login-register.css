@@ -1,0 +1,162 @@
+.login_register {
+    align-self: center;
+
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.side-wrapper {
+    width: 45%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.side {
+    width: 65%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.side__title {
+    align-self: flex-start;
+
+    margin: 0 0 5px 0;
+}
+
+.side__alter-message {
+    align-self: flex-start;
+    margin: 5px 0 0 0;
+}
+
+
+.button__wrapper {
+    margin-bottom: 30px;
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.auth-method-button {
+    background-color: white !important;
+    margin: auto 5px;
+
+    flex: 1;
+}
+
+
+.continue-with {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #000;
+    line-height: 0.1em;
+    margin: 10px 0 20px;
+}
+
+.continue-with span {
+    background: white;
+    padding: 0 10px;
+}
+
+.side__form {
+    width: 100%;
+}
+
+.input-field-wrapper {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.form__label {
+    margin-bottom: 10px;
+}
+
+.form__text-input {
+    border: 1px solid rgb(178, 180, 183);
+    border-radius: 5px;
+    font-size: 16px;
+
+    height: 30px;
+    margin-bottom: 20px;
+}
+
+.remember-me-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+#login-button {
+    margin-top: 20px;
+
+    background-color: purple;
+    border-color: purple;
+    color: white;
+
+}
+
+.dual-input-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dual-input-row span {
+    max-width: 215px;
+}
+
+
+.background {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 55%;
+
+    background: linear-gradient(-45deg, rgb(84, 38, 88), rgb(84, 38, 88), rgb(63, 24, 67), rgb(63, 24, 67));
+    background-size: 400% 400%;
+
+    animation: gradient 4s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.background__logo {
+    width: 200px;
+    height: 200px;
+}
+
+.background__wrapper {
+    width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.background__title {
+    color: white;
+    text-align: center;
+}

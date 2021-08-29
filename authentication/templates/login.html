@@ -1,18 +1,68 @@
-{{ error }}
-<form action="{% url 'auth:login' %}" method="post">
+{% extends 'login_register_base.html' %}
+{% load static %}
+{% block side %}
     {% load i18n %}
-    {% csrf_token %}
-    <fieldset>
-        <legend><h1>{% translate "Login" %}</h1></legend>
-        <label for="email">{% translate "Enter your email" %} : </label>
-        <input type="text" name="email" id="email"><br>
+    <div class="side-wrapper">
+        <div class="side">
+            <h1 class="side__title">{% translate "Sign in to your account" %}</h1>
+            <h5 class="side__alter-message">
+                <a class="purple-link" href={% url 'auth:register' %}>
+                    {% translate "Don't have an account? Create one here" %}
+                </a>
+            </h5>
 
-        <label for="password">{% translate "Enter your password" %} : </label>
-        <input type="password" name="password" id="password"><br>
-    </fieldset>
-    {% if request.GET.next %}
-        <input type="hidden" name="next" value="{{ request.GET.next }}">
-    {% endif %}
-    <input type="submit" value="{% translate 'Sign in' %}">
-</form>
-{#<a href="{% url 'auth:register' %}">{% translate "Create account here" %}.</a>#}
+            <h5>{% translate "Sign in with" %}</h5>
+            <div class="button__wrapper">
+                <button class="grey-transparent-button auth-method-button">
+                    <i class="fa fa-google"></i>
+                </button>
+
+                <button class="grey-transparent-button auth-method-button">
+                    <i class="fa fa-linkedin"></i>
+                </button>
+            </div>
+
+            <h2 class="continue-with"><span>
+                {% translate "Or continue with" %}
+            </span></h2>
+
+            {% if error %}
+                <span class="error_box"> {{ error }} </span>
+            {% endif %}
+
+            <form class="side__form" action="{% url 'auth:login' %}" method="post">
+                {% csrf_token %}
+                <span class="input-field-wrapper">
+                        <label class="form__label" for="email">
+                            {% translate "Email address" %}
+                        </label>
+                        <input class="form__text-input" type="text" id="email" name="email"/>
+                </span>
+
+                <span class="input-field-wrapper">
+                        <label class="form__label" for="password">
+                            {% translate "Password" %}
+                        </label>
+                        <input class="form__text-input" type="password"
+                               id="password" name="password"/>
+                </span>
+
+                <span class="remember-me-wrapper">
+                        <span>
+                            <input type="checkbox" id="remember-me" name="remember-me"/>
+                            <label for="remember-me">{% translate "Remember me" %}</label>
+                        </span>
+                        <a class="purple-link" href="/">
+                            {% translate "Forgot your password?" %}
+                        </a>
+                </span>
+
+                <span class="input-field-wrapper">
+                        <button class="grey-transparent-button" id="login-button">
+                            {% translate "Login" %}
+                        </button>
+                </span>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,109 +1,106 @@
-{% extends "base.html" %}
-{% block title %}
-    edit profile {{ request.user.first_name }} {{ request.user.last_name }}
-{% endblock %}
-{% block content %}
+{% extends "dashboard/base_dashboard.html" %}
+{% block title %}Edit Profile{% endblock %}
+{% load static %}
+{% block main %}
     {% load i18n %}
     {% load convert_numbers %}
-    {% include 'messages.html' %}
-    <h1 style="text-align:center;"> {% translate "edit profile" %} {{ request.user.email }}</h1>
-    <fieldset>
-        <legend><h3>{% translate "edit information" %}</h3></legend>
+    <div style="width: 100%">
+        {% include 'messages.html' %}
+        <h1> Edit Profile </h1>
         <form action="{% url 'jobs:edit_profile' %}" method="post">
+            <legend><h3>Edit Information</h3></legend>
             {% csrf_token %}
             {{ edit_profile_form.as_p }}
             <input type="submit" value="edit" name="edit">
         </form>
-    </fieldset>
-    <br/>
-    <br/>
-    <br/>
-    <fieldset>
-        <legend><h3>{% translate "edit skills" %}</h3></legend>
-        {% for skill in request.user.profile.skills.all %}
-            <fieldset>
+        <br/>
+        <br/>
+        <br/>
+        <fieldset>
+            <legend><h3>Edit Skills</h3></legend>
+            {% for skill in request.user.profile.skills.all %}
                 {{ skill.title }}
                 <form action="{% url 'jobs:delete_skill' skill.pk %}" method="get">
                     {% csrf_token %}
                     <input type="submit" name="delete_skill" value="delete">
                 </form>
-            </fieldset>
-        {% endfor %}
-        <fieldset>
+            {% endfor %}
+
             <form action="{% url 'jobs:edit_profile' %}" method="post">
                 {% csrf_token %}
                 {{ skill_form.as_p }}
                 <input type="submit" value="add" name="add_skill">
             </form>
+            <h4>{% translate "Add Skill" %}</h4>
         </fieldset>
-        <h4>{% translate " add skill " %}</h4>
-    </fieldset>
-    <br/>
-    <br/>
-    <br/>
-    <fieldset>
-        <legend><h3>{% translate "edit educational backgrounds" %} </h3></legend>
-        {% for educational_background in request.user.profile.educationalbackground_set.all %}
-            <fieldset>
-                <p> {% translate "field" %}: {{ educational_background.field }}</p>
-                <p> {% translate "institute" %}: {{ educational_background.institute }}</p>
-                <p> {% translate "level" %}: {{ educational_background.get_level_display }}</p>
-                <p> {% translate "start_year" %}: {{ educational_background.start_year|translate_numbers }}</p>
-                <p> {% translate "finish_year" %}: {{ educational_background.finish_year|translate_numbers }}</p>
-                <form action="{% url 'jobs:delete_educational_background' educational_background.pk %}" method="get">
+
+        <br/>
+        <br/>
+        <br/>
+
+        <fieldset>
+            <legend><h3>{% translate "Edit Educational Backgrounds" %} </h3></legend>
+            {% for educational_background in request.user.profile.educationalbackground_set.all %}
+                <p> {% translate "Field" %}: {{ educational_background.field }}</p>
+                <p> {% translate "Institute" %}: {{ educational_background.institute }}</p>
+                <p> {% translate "Level" %}: {{ educational_background.get_level_display }}</p>
+                <p> {% translate "Start Year" %}: {{ educational_background.start_year|translate_numbers }}</p>
+                <p> {% translate "Finish Year" %}: {{ educational_background.finish_year|translate_numbers }}</p>
+                <form action="{% url 'jobs:delete_educational_background' educational_background.pk %}"
+                      method="get">
                     {% csrf_token %}
                     <input type="submit" name="delete_educational_background" value="{% translate 'delete' %}">
                 </form>
-            </fieldset>
-        {% endfor %}
+            {% endfor %}
+        </fieldset>
+
         <fieldset>
-            <h4> {% translate "add educational background" %} </h4>
+            <h4> add educational background </h4>
             <form action="{% url 'jobs:edit_profile' %}" method="post">
                 {% csrf_token %}
                 {{ educational_background_form.as_p }}
-                <input type="submit" value="{% translate 'add' %}" name="add_educational_background">
+                <input type="submit" value="add" name="add_educational_background">
             </form>
         </fieldset>
-    </fieldset>
 
-    <br/>
-    <br/>
-    <br/>
+        <br/>
+        <br/>
+        <br/>
 
-    <fieldset>
-        <legend><h3> {% translate "Educational backgrounds" %} : </h3></legend>
-        <h4> {% translate "Add a new email" %} </h4>
-        <form method="post" action="{% url 'jobs:add_alt_email' %}">
-            {% csrf_token %}
-            {{ alt_email_form.as_p }}
-            <input type="submit" value={% translate "Submit" %}>
-        </form>
+        <fieldset>
+            <legend><h3> {% translate "Alternative Emails" %} : </h3></legend>
+            <h4> {% translate "Add a new email" %} </h4>
+            <form method="post" action="{% url 'jobs:add_alt_email' %}">
+                {% csrf_token %}
+                {{ alt_email_form.as_p }}
+                <input type="submit" value={% translate "Submit" %}>
+            </form>
 
-        <h4> {% translate "Edit existing ones" %} </h4>
-        <ul>
-            {% for email in request.user.profile.alt_emails.all %}
-                <li>
-                    <label>{{ email.address }}</label>
-                    <form method="post" action="{% url 'jobs:delete_alt_email' email.pk %}">
-                        {% csrf_token %}
-                        <input type="submit" value={% translate "Delete" %}>
-                    </form>
-                    {% if not email.is_verified %}
-                        <form method="post"
-                              action="{% url 'jobs:send-email-verification' email_pk=email.pk %}"
-                        >
+            <h4> {% translate "Edit existing ones" %} </h4>
+            <ul>
+                {% for email in request.user.profile.alt_emails.all %}
+                    <li>
+                        <label>{{ email.address }}</label>
+                        <form method="post" action="{% url 'jobs:delete_alt_email' email.pk %}">
                             {% csrf_token %}
-                            <button name="send-verification-email" value="send-verification-email">
-                                {% translate "Send Verification Email" %}
-                            </button>
+                            <input type="submit" value={% translate "Delete" %}>
                         </form>
-                    {% else %}
-                        {% translate "Email verified" %}
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-
-    </fieldset>
+                        {% if not email.is_verified %}
+                            <form method="post"
+                                  action="{% url 'jobs:send-email-verification' email_pk=email.pk %}"
+                            >
+                                {% csrf_token %}
+                                <button name="send-verification-email" value="send-verification-email">
+                                    {% translate "Send Verification Email" %}
+                                </button>
+                            </form>
+                        {% else %}
+                            {% translate "Email verified" %}
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </fieldset>
+    </div>
 
 {% endblock %}
