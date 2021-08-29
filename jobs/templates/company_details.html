@@ -1,56 +1,138 @@
 {% extends 'base.html' %}
 {% load cache %}
-
-{% block title %}
-    company {{ company.name }}
-{% endblock %}
-
 {% block content %}
     {% load convert_numbers %}
     {% load i18n %}
-    {% cache 600 Company company.id request.LANGUAGE_CODE %}
-        <li>
-            <img src="{% if company.logo %} {{ company.logo.url }} {% else %} https://via.placeholder.com/400x400.png?text=Logo+not+found {% endif %}"
-                 alt="{{ company.name }}-logo" style="width: 180px;">
-            <p>{% translate "company name" %} : {{ company.name }}</p>
-            <p>{% translate "description" %} : {{ company.description }}</p>
-        </li>
-    {% endcache %}
+    {% get_current_language as LANGUAGE_CODE %}
 
-    <h3>{% translate "Job Offers List" %}</h3>
+    <div class="company-wrapper">
+        <div class="z">
+            <div class="section-title">
+                <h3> {% translate "General Information" %}</h3>
+            </div>
 
-    {% if job_offers_page %}
-        <ul>
-            {% for job_offer in job_offers_page %}
-                <li>
-                    <a href="{% url 'jobs:job_offers' job_offer.pk %}">
-                        <p>{{ job_offer.title }}</p>
-                    </a>
-                    <p>{% translate "salary" %} : {{ job_offer.salary|translate_numbers }}</p>
-                    <p>{% translate "cooperation type" %} : {{ job_offer.get_type_of_cooperation_display }}</p>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>{% translate "No job offer has added yet." %}</p>
-    {% endif %}
+            {% cache 600 Company company.id request.LANGUAGE_CODE %}
+                <div class="company">
+                    <div class="company__upper">
+                        <img class="company-logo" src="{{ company.logo.url }}"
+                             alt="{{ company.name }}-logo">
+                        <div class="company-info">
+                            <h1> {{ company.name }}</h1>
+                            <p> {{ company.description }}</p>
 
-    <div class="pagination">
-        <span class="step-links">
-            {% if job_offers_page.has_previous %}
-                <a href="?page=1">&laquo; {% translate "First" %}</a>
-                <a href="?page={{ job_offers_page.previous_page_number }}">{% translate "Previous" %}</a>
-            {% endif %}
+                        </div>
+                    </div>
 
-            <span class="current">
-                <!-- TODO: Change Translation to blocktranslate-->
-                {% translate "Page" %} {{ job_offers_page.number|translate_numbers }} {% translate "of" %} {{ job_offers_page.paginator.num_pages|translate_numbers }}.
-            </span>
+                    <div class="company__bottom">
+                        <ul class="company-ul">
+                            <li>
+                                <i class="fa fa-phone"></i>
+                                {{ company.telephone_number|translate_numbers }}
+                            </li>
+                            <li>
+                                <i class="fa fa-map-marker"></i>
+                                {{ company.address|truncatewords:10 }}
+                            </li>
+                            <li>
+                                <i class="fa fa-external-link"></i>
+                                <a href="{{ company.link }}">{{ company.link }}</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-briefcase"></i>
+                                {{ company.joboffer_set.all|length }} {% translate "Job Openings" %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            {% endcache %}
 
-            {% if job_offers_page.has_next %}
-                <a href="?page={{ job_offers_page.next_page_number }}">{% translate "Next" %}</a>
-                <a href="?page={{ job_offers_page.paginator.num_pages }}">{% translate "Last" %} &raquo;</a>
-            {% endif %}
-        </span>
+        </div>
+
+        <hr class="divider"/>
+
+        <div class="z" style="margin-top: 40px; margin-bottom: 40px;">
+            <div class="section-title">
+                <h3>{% translate "Job Openings" %}</h3>
+            </div>
+            <div class="section-main" id="paginated_section">
+                <table class="job-offers-table">
+                    <thead>
+                    <tr>
+                        <th>{% translate "Title" %}</th>
+                        <th>{% translate "Salary" %}</th>
+                        <th>{% translate "Type of Cooperation" %}</th>
+                        <th>{% translate "Status" %}</th>
+                        <th>{% translate "More Info" %}</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% if page_obj %}
+                        {% for offer in page_obj %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'jobs:job_offers' offer.pk %}">
+                                        <p>{{ offer.title }}</p>
+                                    </a>
+                                </td>
+                                <td>
+                                    <p>{{ offer.salary|translate_numbers }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ offer.type_of_cooperation|title }}</p>
+                                </td>
+                                <td>
+                                    {% if offer.is_enabled %}
+                                        <p class="status-tag open-tag" style="margin: auto">
+                                            {% translate "Open" %}
+                                            <i class="fa fa-check"></i>
+                                        </p>
+                                    {% else %}
+                                        <p class="status-tag closed-tag">
+                                            {% translate "Closed" %}
+                                            <i class="fa fa-times"></i>
+                                        </p>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    <a href="{% url 'jobs:job_offers' offer.pk %}">
+                                        {% if LANGUAGE_CODE == 'fa' %}
+                                            <i class="fa fa-chevron-left"></i>
+                                        {% else %}
+                                            <i class="fa fa-chevron-right"></i>
+                                        {% endif %}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td>
+                                <h3>{% translate " No Job opening has been added yet." %}</h3>
+                            </td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+
+                {% include 'pagination.html' %}
+            </div>
+        </div>
+        <hr class="divider"/>
+
+        <div style="
+                    display: flex;
+                    flex-direction: column;
+                     align-items: center;
+                     justify-content: center;
+                     margin-top: 50px;
+                     margin-bottom: 50px;
+                    ">
+            <h3 style="margin: 0 auto">{% translate "Didn't find the job you're looking for?" %}</h3>
+            <h4>{% translate " You can enable suggestions in your settings, so we can notify you when your position is opened." %}
+            </h4>
+        </div>
+
     </div>
 {% endblock %}

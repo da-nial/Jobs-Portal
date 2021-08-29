@@ -1,0 +1,144 @@
+.company-wrapper {
+    width: 80%;
+    margin: 0 auto;
+
+    background-color: white;
+    padding: 10px;
+
+}
+
+/* Company Box */
+
+.z {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.section-title {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    flex-basis: 20%;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.section-main {
+    flex-basis: 80%;
+    flex-grow: 0;
+}
+
+.company {
+    padding: 20px;
+
+    border: white solid 1px;
+
+    min-height: 250px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.company__upper {
+    display: flex;
+    align-items: flex-start;
+}
+
+.company-logo {
+    width: 100px;
+    height: auto;
+}
+
+.company-info {
+    margin-left: 25px;
+}
+
+.company-info h1 {
+    margin: 0;
+}
+
+.company__bottom {
+    /*margin-top: auto;*/
+}
+
+.company-ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0;
+}
+
+.company-ul li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Job Offers List */
+.company-job-offers {
+    background-color: white;
+    min-height: 50px;
+}
+
+.job-offers-table {
+    width: 100%;
+
+    background-color: white;
+    border-collapse: collapse;
+}
+
+.job-offers-table thead {
+    background-color: rgb(245, 245, 245);
+    color: rgb(108, 114, 127);
+}
+
+.job-offers-table th,
+.job-offers-table td {
+    padding: 15px 10px;
+    text-align: center;
+    font-weight: normal;
+}
+
+.job-offers-table th:first-of-type {
+    border-top-left-radius: 5px;
+}
+
+.job-offers-table th:last-of-type {
+    border-top-right-radius: 5px;
+}
+
+.job-offers-table th:first-of-type,
+.job-offers-table td:first-of-type {
+    width: 30%;
+}
+
+
+.job-offers-table tr {
+    border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+.status-tag {
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+    padding: 2px 3px 3px;
+    max-width: 75px;
+}
+
+.open-tag {
+    background-color: lightgreen;
+}
+
+.closed-tag {
+    background-color: indianred;
+}

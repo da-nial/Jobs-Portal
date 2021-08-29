@@ -62,7 +62,7 @@ def send_email_verification(request):
     domain = get_current_site(request).domain
     mail_subject = 'Activate your Adams account.'
     token = user.verification_token
-    message = render_to_string('verification-email.html', {
+    message = render_to_string('email_templates/verification-email.html', {
         'user': request.user,
         'domain': domain,
         'token': token,

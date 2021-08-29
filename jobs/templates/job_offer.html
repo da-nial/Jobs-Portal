@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load job_extras %}
+{% load cache %}
+{% block content %}
+    {% load i18n %}
+    {% load convert_numbers %}
+
+    <div class="company-wrapper">
+        <div class="z">
+            <div class="section-title">
+                <h3>{% translate "Job Information" %}</h3>
+            </div>
+
+            <div class="y">
+                {% cache 600 JobOffer joboffer.id request.LANGUAGE_CODE %}
+                    <h1> {{ joboffer.title }} | {{ joboffer.company.name }} </h1>
+
+                    <div class="labeled-info">
+                        <h3>{% translate "Description" %}</h3>
+                        <h4>{{ joboffer.description }}</h4>
+                    </div>
+
+                    <div class="labeled-info">
+                        <h3>{% translate "Minimum Work Experience Required" %}</h3>
+                        <h4>{{ joboffer.minimum_work_experience }} y.</h4>
+                    </div>
+
+                    <div class="labeled-info">
+                        <h3>{% translate "Salary" %}</h3>
+                        <h4> {{ joboffer.salary }} IRR </h4>
+                    </div>
+
+                    <div class="labeled-info">
+                        <h3>{% translate "Cooperation Type" %}</h3>
+                        <h4>{{ joboffer.get_type_of_cooperation_display|title }}</h4>
+                    </div>
+
+                    <div class="labeled-info">
+                        <h3>{% translate "Minimum Degree Required" %}</h3>
+                        {{ joboffer.get_minimum_degree_display }}
+                    </div>
+
+                    <div class="labeled-info">
+                        <h3>{% translate "Required Skills" %}</h3>
+                        <div class='skills__container'>
+                            {% for skill in joboffer.skills_required.all %}
+                                <h4 class='info-item__value info-item__value--tag'> {{ skill }} </h4>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endcache %}
+
+                {% with request.user as user %}
+                    {% if not user.profile %}
+                        <div class="error_box">
+                            {% translate "You need to complete your profile before applying for a job." %}
+                        </div>
+                    {% else %}
+                        {% with user|get_applications_for_offer:joboffer as applications %}
+                            {% if applications %}
+                                <h4>
+                                    {% translate "Your Applications History for This Job" %}</h4>
+                                <ol>
+                                    {% for application in applications|dictsort:"created_at" %}
+                                        <li>Applied on {{ application.created_at|date:'d M Y' }} |
+                                            Result: {{ application.get_state_display }}
+                                            {% if application.reject_reason %}
+                                                <p>{{ application.reject_reason }}</p>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ol>
+                            {% endif %}
+                        {% endwith %}
+                        {% if not joboffer.is_enabled %}
+                            <div class="error_box">
+                                {% translate "This Job is currently Disabled." %}
+                            </div>
+                        {% elif not user|has_pending_application_for_offer:joboffer %}
+                            <form class="apply"
+                                  method="post"
+                                  action=" {% url 'jobs:apply' joboffer.pk %}"
+                                  enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {#                                <label> Upload your resume </label>#}
+                                {#                                <input type="file" name="resume" class="white-button">#}
+                                <label for="file-upload" class="custom-file-upload">
+                                    {% translate "Upload your resume" %}
+                                </label>
+                                <input id="file-upload" type="file"/>
+                                <button class="purple-button" type="submit">
+                                    {% translate "APPLY FOR THIS JOB" %}
+                                </button>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                    {% include 'messages.html' %}
+                {% endwith %}
+            </div>
+
+        </div>
+
+        <hr class="divider"/>
+
+        <div style="
+                    display: flex;
+                    flex-direction: column;
+                     align-items: center;
+                     justify-content: center;
+                     margin-top: 50px;
+                     margin-bottom: 50px;
+                    ">
+            <h3 style="margin: 0 auto">
+
+                <a style="color: purple" href="{% url 'jobs:main' %}#paginated_section">
+                    {% translate "Browse other job openings" %}
+                </a>
+                {% translate "or" %}
+                <a style="color: purple" href={% url 'jobs:company' joboffer.company.pk %}>
+                    {% translate "visit company page" %}
+                </a>
+            </h3>
+        </div>
+
+    </div>
+
+{% endblock %}
