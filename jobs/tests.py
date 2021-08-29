@@ -115,7 +115,7 @@ class JobOfferPageTests(TestCase):
     def test_disabled_job(self):
         create_job_offer(is_enabled=False)
         response = self.client.get('/en' + reverse('jobs:job_offers', args=[1]))
-        self.assertContains(response, 'this job is disabled')
+        self.assertContains(response, 'This Job is currently Disabled.')
 
     def tearDown(self) -> None:
         self.client.logout()
