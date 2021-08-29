@@ -1,0 +1,30 @@
+image: m.docker-registry.ir/python:3.8.10
+variables:
+  DEBUG: 'True'
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+stages:
+  - test
+
+cache:
+  paths:
+    - .cache/pip
+    - venv/
+
+before_script:
+  - pip install virtualenv
+  - virtualenv venv
+  - source venv/bin/activate
+  - pip install -r requirements.txt
+
+
+style_check:
+  stage: test
+  script:
+    - pycodestyle . --exclude="venv/","*/migrations"
+
+test:
+  stage: test
+  script:
+    - python3 manage.py migrate
+    - python3 manage.py test
