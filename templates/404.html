@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    {% load i18n %}
+    {% load convert_numbers %}
+    <div class="not-found">
+        <div class="not-found__number-wrapper">
+            <h1 class="not-found__number">{{ 404|translate_numbers }} </h1>
+        </div>
+        <div class="not-found__title-wrapper">
+            <h1 class="not-found__title">
+                {% translate "Page not found" %}
+            </h1>
+
+            <h3 class="not-found__subtitle">
+                {% translate "Please check the URL in the address bar and try again." %}
+            </h3>
+
+            <div class="not-found__buttons-wrapper">
+                <a href="{% url 'jobs:main' %}"
+                   class="not-found__button purple-button">
+                    {% translate "Go back home" %}
+                </a>
+
+                <a href="mailto:{{ email_address }}"
+                   class="purple-alter-button">
+                    {% translate "Contact Support" %}
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

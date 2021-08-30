@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-29 06:39+0000\n"
+"POT-Creation-Date: 2021-08-29 12:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,7 +95,7 @@ msgstr "اطلاعات کلی"
 
 #: jobs/templates/company_details.html:42
 #: jobs/templates/company_details.html:55 jobs/templates/main.html:42
-#: templates/base.html:34
+#: templates/base.html:35
 msgid "Job Openings"
 msgstr "موقعیت‌های شغلی"
 
@@ -425,15 +425,31 @@ msgstr "سوابق تحصیلی"
 msgid "Verified Emails"
 msgstr "ایمیل‌های تأیید شده"
 
-#: templates/base.html:33
+#: templates/404.html:12
+msgid "Page not found"
+msgstr "صفحه یافت نشد."
+
+#: templates/404.html:16
+msgid "Please check the URL in the address bar and try again."
+msgstr "لطفاً آدرس وارد شده در نوار آدرس را چک کرده، و دوباره امتحان کنید."
+
+#: templates/404.html:22
+msgid "Go back home"
+msgstr "برگشت به صفحه‌ی اصلی"
+
+#: templates/404.html:27
+msgid "Contact Support"
+msgstr "ارتباط با پشتیبانی"
+
+#: templates/base.html:34
 msgid "Home"
 msgstr "خانه"
 
-#: templates/base.html:35
+#: templates/base.html:36
 msgid "Applicants"
 msgstr "متقاضیان"
 
-#: templates/base.html:48
+#: templates/base.html:49
 msgid "Hezardastan Information Technology Development Group"
 msgstr "گروه توسعه فناوری اطلاعات هزاردستان"
 

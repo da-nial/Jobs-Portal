@@ -23,3 +23,8 @@
     margin-left: 20px;
     margin-right: auto;
 }
+
+.not-found__number {
+    border-right: none !important;
+    border-left: black solid 1px;
+}

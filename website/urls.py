@@ -19,7 +19,6 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
 
-
 urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path('auth/', include('authentication.urls')),
@@ -30,3 +29,5 @@ urlpatterns = i18n_patterns(
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
+
+handler404 = 'website.views.error_404'
