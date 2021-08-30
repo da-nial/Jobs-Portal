@@ -1,0 +1,50 @@
+.not-found {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    align-self: center;
+    width: 50%;
+}
+
+.not-found__number-wrapper {
+    height: 100%;
+}
+
+.not-found__number {
+    font-size: 300%;
+    margin-top: 0;
+    color: purple;
+    border-right: black solid 1px;
+    font-weight: bold;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.not-found__title-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.not-found__title {
+    font-size: 300%;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.not-found__subtitle {
+    margin-top: 5px;
+    color: rgb(160, 160, 160);
+}
+
+.not-found__buttons-wrapper {
+    margin-top: 20px;
+}
+
+.not-found__button {
+    margin-right: 10px;
+    margin-left: 10px;
+    color: white !important;
+}
