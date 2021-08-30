@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load cache %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'jobs/company_details.css' %}">
+{% endblock %}
 {% block content %}
     {% load convert_numbers %}
     {% load i18n %}
@@ -39,7 +43,7 @@
                             </li>
                             <li>
                                 <i class="fa fa-briefcase"></i>
-                                {{ company.joboffer_set.all|length }} {% translate "Job Openings" %}
+                                {{ company.joboffer_set.all|length }} {% translate "Career Positions" %}
                             </li>
                         </ul>
                     </div>

@@ -19,12 +19,18 @@
     border-left: solid rgb(233, 232, 234) 1px;
 }
 
-.nav__ul li:last-child {
-    margin-left: 20px;
-    margin-right: auto;
+
+.nav__ul li:nth-child(5) {
+    margin-right: auto !important;
+    margin-left: 0;
 }
 
 .not-found__number {
     border-right: none !important;
     border-left: black solid 1px;
+}
+
+.job-feature {
+    margin-right: 0 !important;
+    margin-left: 20px !important;
 }

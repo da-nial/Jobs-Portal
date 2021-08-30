@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'jobs/dashboard_base.css' %}">
+{% endblock %}
 {% block content %}
     {% load i18n %}
     <div class="profile-screen">
@@ -13,7 +16,6 @@
                     <span>
                         <i class="fa fa-user fa-fw"></i>
                         <a href="/">{% translate "Profile" %}</a>
-
                     </span>
                 </li>
                 <li class="menu__item">
@@ -44,7 +46,7 @@
                 <li class="menu__item">
                     <span class="li__span">
                         <i class="fa fa-sign-out fa-fw"></i>
-                        <a href="/">{% translate "Logout" %}</a>
+                        <a href={% url 'auth:logout' %}>{% translate "Logout" %}</a>
                     </span>
                 </li>
             </ul>

@@ -12,7 +12,7 @@ from django.views.generic import CreateView
 from authentication.forms import UserForm
 from authentication.models import CustomUser
 
-from jobs.models import UserProfile
+from django.utils.translation import ugettext_lazy as _
 
 
 class RegisterView(CreateView):
@@ -35,7 +35,7 @@ def login_user(request):
                 password=request.POST['password']
             )
         else:
-            context['error'] = 'Email and password must be provided.'
+            context['error'] = _('Email and password must be provided.')
             return render(request, 'login.html', context, status=200)
 
         if user is not None:
@@ -44,7 +44,7 @@ def login_user(request):
                 return HttpResponseRedirect(request.POST.get('next'))
             return HttpResponseRedirect(reverse('jobs:main'))
         else:
-            context['error'] = 'Wrong credentials.'
+            context['error'] = _('Wrong credentials.')
             return render(request, 'login.html', context, status=200)
 
 

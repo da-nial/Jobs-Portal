@@ -51,6 +51,7 @@
 
 
 .company-card__description {
+    min-height: 40px;
     margin-top: 5px;
     color: rgb(120, 124, 132);
 }

@@ -2,29 +2,29 @@
 {% load convert_numbers %}
 {% get_current_language as LANGUAGE_CODE %}
 <div class="pagination">
-    <div class="pagination-word">
-        {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}#paginated_section">
-                {% if LANGUAGE_CODE == "fa" %}
-                    <i class="fa fa-arrow-right"></i>
-                {% else %}
-                    <i class="fa fa-arrow-left"></i>
-                {% endif %}
-                {% translate "Previous" %}
-            </a>
-        {% else %}
-            <a style="color: grey">
-                {% if LANGUAGE_CODE == "fa" %}
-                    <i class="fa fa-arrow-right"></i>
-                {% else %}
-                    <i class="fa fa-arrow-left"></i>
-                {% endif %}
-                {% translate "Previous" %}
-            </a>
-        {% endif %}
-    </div>
-
     {% if page_obj.has_other_pages %}
+        <div class="pagination-word">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}#paginated_section">
+                    {% if LANGUAGE_CODE == "fa" %}
+                        <i class="fa fa-arrow-right"></i>
+                    {% else %}
+                        <i class="fa fa-arrow-left"></i>
+                    {% endif %}
+                    {% translate "Previous" %}
+                </a>
+            {% else %}
+                <a style="color: grey">
+                    {% if LANGUAGE_CODE == "fa" %}
+                        <i class="fa fa-arrow-right"></i>
+                    {% else %}
+                        <i class="fa fa-arrow-left"></i>
+                    {% endif %}
+                    {% translate "Previous" %}
+                </a>
+            {% endif %}
+        </div>
+
         <ul class="pagination-numbers">
             {% for n in page_obj.paginator.page_range %}
                 {% if page_obj.number|add:'-3' == n %}
@@ -35,7 +35,8 @@
                     {% endif %}
                 {% elif page_obj.number == n %}
                     {# Current page #}
-                    <li class="pagination-number-selected"><a href="#paginated_section">{{ n|translate_numbers }}</a>
+                    <li class="pagination-number-selected"><a
+                            href="#paginated_section">{{ n|translate_numbers }}</a>
                     </li>
                 {% elif page_obj.number|add:'-3' < n and n < page_obj.number|add:'3' %}
                     {# Pages around current page #}

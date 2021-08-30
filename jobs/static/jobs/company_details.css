@@ -31,6 +31,7 @@
 }
 
 .company {
+    width: 100%;
     padding: 20px;
 
     border: white solid 1px;
@@ -54,6 +55,7 @@
 
 .company-info {
     margin-left: 25px;
+    margin-right: 25px;
 }
 
 .company-info h1 {
@@ -61,7 +63,7 @@
 }
 
 .company__bottom {
-    /*margin-top: auto;*/
+    margin-top: auto;
 }
 
 .company-ul {
