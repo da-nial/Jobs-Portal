@@ -27,10 +27,18 @@
                 {% translate "Or continue with" %}
             </span></h2>
 
-            {% if error %}
-                <span class="error_box"> {{ error }} </span>
+            {#            {% if form.errors %}#}
+            {#                <span class="error_box"> {{ form.errors.as_text }} </span>#}
+            {#            {% endif %}#}
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <span class="error_box">
+                            {{ field.label }}: {{ error|escape }}
+                        </span>
+                    {% endfor %}
+                {% endfor %}
             {% endif %}
-
 
             <form class="side__form" action="{% url 'auth:register' %}" method="post">
                 {% csrf_token %}

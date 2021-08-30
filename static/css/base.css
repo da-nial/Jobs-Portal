@@ -57,6 +57,104 @@ a:hover {
     flex: 0 1 60px;
 }
 
+/* Nav bar styles */
+
+.home-anchor-wrapper {
+    width: 50px;
+    height: 50px;
+
+    padding: 0 20px 0 20px;
+    border-right: solid rgb(233, 232, 234) 1px;
+}
+
+.home-anchor {
+    background-size: 50px;
+
+    width: 50px;
+    height: 50px;
+}
+
+.nav__logo {
+    width: 50px;
+    height: 50px;
+}
+
+
+.nav__profile-photo {
+    width: 40px;
+    height: 40px;
+
+    border-style: none;
+    border-radius: 50%;
+}
+
+.nav {
+    background-color: white;
+
+    min-height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-bottom: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(233, 232, 234);
+}
+
+.nav__ul {
+    width: 100%;
+    padding: 0;
+    display: flex;
+
+
+    margin: 10px auto;
+}
+
+.nav__ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+    min-width: 80px;
+    max-width: 150px;
+
+    margin: 0 10px;
+}
+
+.nav__ul a {
+    color: black;
+    text-decoration: none;
+}
+
+.nav__ul a:hover {
+    color: purple;
+
+}
+
+.nav__ul li:first-child a {
+    font-size: 120%;
+    color: purple;
+}
+
+.nav__ul li:nth-child(5) {
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.nav__ul li:last-child {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.lang-button {
+    background-color: inherit;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
 /* Footer */
 .footer {
     display: flex;
@@ -161,7 +259,6 @@ a:hover {
 
 
 /* Pagination */
-
 .pagination {
     width: 100%;
 

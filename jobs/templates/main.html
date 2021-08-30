@@ -3,12 +3,15 @@
 {% block title %}
     Hezardastan Careers
 {% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'jobs/main.css' %}">
+{% endblock %}
 {% block content %}
     {% include 'messages.html' %}
     {% load i18n %}
     {% load convert_numbers %}
     <div class="main-wrapper">
-        <h1 class="main__title">{% translate "Our Companies" %}</h1>
+        <h1 class="main__title" id="companies">{% translate "Our Companies" %}</h1>
         {% if companies %}
             <div class="company-card-grid">
                 {% for company in companies %}
@@ -25,7 +28,7 @@
                             <h4 class="company-card__description">{{ company.description|truncatewords:10 }}</h4>
 
                             <div class="company-card__bottom">
-                                <h4> {{ company.job_offers.all|length }}{% translate "Job Opennings" %}</h4>
+                                <h4> {{ company.job_offers.all|length }} {% translate "Career Positions" %}</h4>
                                 <a href="{% url 'jobs:company' company.pk %}">
                                     <h4>{% translate "More info" %} </h4>
                                 </a>
@@ -35,7 +38,6 @@
                 {% endfor %}
             </div>
         {% else %}
-            <p></p>
             <p>{% translate "No company has been added yet." %}</p>
         {% endif %}
 

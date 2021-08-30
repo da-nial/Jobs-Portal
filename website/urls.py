@@ -20,6 +20,7 @@ from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = i18n_patterns(
+    path('i18n/set_language/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
     path('auth/', include('authentication.urls')),
     path('', include('jobs.urls')),

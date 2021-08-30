@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'authentication/login-register.css' %}">
+{% endblock %}
 {% block navbar %}
 {% endblock %}
 {% block content %}
