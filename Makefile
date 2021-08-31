@@ -21,7 +21,7 @@ build_env:
 
 # target: install - Install requirements
 install:
-	@pip install -r requirements.txt
+	@pip install -r requirements.txt; apt update; apt-get install -y gettext
 
 # target: make_migrations - Make migrations
 make_migrations:

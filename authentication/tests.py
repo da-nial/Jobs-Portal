@@ -2,6 +2,8 @@ from unittest.mock import patch
 from django.utils.crypto import get_random_string
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.translation import gettext
+
 from authentication.models import CustomUser
 from jobs.models import UserProfile
 
@@ -35,28 +37,28 @@ class LoginViewTest(TestCase):
         response = self.client.post(reverse('auth:login'), data=data)
         self.assertEqual(response.status_code, 200)
         self.assertNotIn('_auth_user_id', self.client.session)
-        self.assertEqual(response.context['error'], 'Wrong credentials.')
+        self.assertEqual(response.context['error'], gettext('Wrong credentials.'))
 
     def test_wrong_email(self):
         data = {'email': 'sara1@gmail.com', 'password': 'salamsalam1'}
         response = self.client.post(reverse('auth:login'), data=data)
         self.assertEqual(response.status_code, 200)
         self.assertNotIn('_auth_user_id', self.client.session)
-        self.assertEqual(response.context['error'], 'Wrong credentials.')
+        self.assertEqual(response.context['error'], gettext('Wrong credentials.'))
 
     def test_password_is_empty(self):
         data = {'email': 'sara@gmail.com'}
         response = self.client.post(reverse('auth:login'), data=data)
         self.assertEqual(response.status_code, 200)
         self.assertNotIn('_auth_user_id', self.client.session)
-        self.assertEqual(response.context['error'], 'Email and password must be provided.')
+        self.assertEqual(response.context['error'], gettext('Email and password must be provided.'))
 
     def test_email_is_empty(self):
         data = {'password': 'salamsalam1'}
         response = self.client.post(reverse('auth:login'), data=data)
         self.assertEqual(response.status_code, 200)
         self.assertNotIn('_auth_user_id', self.client.session)
-        self.assertEqual(response.context['error'], 'Email and password must be provided.')
+        self.assertEqual(response.context['error'], gettext('Email and password must be provided.'))
 
 
 class SendEmailVerificationViewTest(TestCase):
