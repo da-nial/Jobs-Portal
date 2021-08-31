@@ -41,4 +41,4 @@ test: compile_messages migrate
 
 # target: check_style - Style checking of project
 check_style:
-	@pycodestyle . --exclude="venv/","*/migrations"
+	@pycodestyle . --exclude="venv/","*/migrations" --max-line-length=120
