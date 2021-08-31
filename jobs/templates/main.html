@@ -16,9 +16,13 @@
             <div class="company-card-grid">
                 {% for company in companies %}
                     <div class="company-card">
-                        <a href="{% url 'jobs:company' company.pk %}">
-                            <img src="{% if company.logo %} {{ company.logo.url }} {% else %} https://via.placeholder.com/400x400.png?text=Logo+not+found {% endif %}"
-                                 style="height: 100px;">
+                        <a class="company-card__link"
+                           href="{% url 'jobs:company' company.pk %}">
+                            {% if company.logo %}
+                                <img src={{ company.logo.url }}
+                                             alt="{{ company.name }}-logo"
+                                     class="company-card__logo">
+                            {% endif %}
                         </a>
 
                         <div class="company-card-info">
