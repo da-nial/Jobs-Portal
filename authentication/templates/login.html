@@ -52,7 +52,7 @@
                             <input type="checkbox" id="remember-me" name="remember-me"/>
                             <label for="remember-me">{% translate "Remember me" %}</label>
                         </span>
-                        <a class="purple-link" href="/">
+                        <a class="purple-link" href="{% url 'auth:password_reset' %}">
                             {% translate "Forgot your password?" %}
                         </a>
                 </span>

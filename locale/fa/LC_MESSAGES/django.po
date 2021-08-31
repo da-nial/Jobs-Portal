@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-30 07:53+0000\n"
+"POT-Creation-Date: 2021-08-31 06:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,6 +34,30 @@ msgstr "پسورد باید حداقل ۱ حرف و ۱ عدد داشته باش�
 #: authentication/models.py:11
 msgid "email address"
 msgstr "آدرس ایمیل"
+
+#: authentication/templates/email_templates/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr "این ایمیل را دریافت می کنید زیرا برای %(site_name)s درخواست بازنشانی گذرواژه حساب کاربری  کرده اید."
+
+#: authentication/templates/email_templates/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr "لطفاً به صفحه زیر بروید و رمز جدید را انتخاب کنید:"
+
+#: authentication/templates/email_templates/password_reset_email.html:8
+msgid "Your username, in case you’ve forgotten:"
+msgstr "در صورت فراموش کردن نام کاربری:"
+
+#: authentication/templates/email_templates/password_reset_email.html:10
+msgid "Thanks for using our site!"
+msgstr "ممنون که از سایت ما استفاده می کنید!"
+
+#: authentication/templates/email_templates/password_reset_email.html:12
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "تیم %(site_name)s"
 
 #: authentication/templates/login.html:7
 msgid "Sign in to your account"
@@ -73,6 +97,70 @@ msgstr "ورود"
 msgid "Hezardastan Development Group Career System"
 msgstr "سامانه‌ی فرصت‌های شغلی گروه شرکت‌های هزاردستان"
 
+#: authentication/templates/password_reset.html:2
+msgid "Trouble Signing In?"
+msgstr "برای ورود به سیستم مشکل دارید؟"
+
+#: authentication/templates/password_reset.html:3
+msgid "request a password reset, and we will have you up again.."
+msgstr "درخواست بازنشانی گذرواژه کنید ، و ما دوباره شما را مطلع خواهیم کرد."
+
+#: authentication/templates/password_reset.html:8
+msgid "forgotten password"
+msgstr "فراموشی رمز عبور"
+
+#: authentication/templates/password_reset.html:12
+msgid "try signing in again?"
+msgstr "دوباره وارد سیستم شوید؟"
+
+#: authentication/templates/password_reset.html:12
+msgid "Log Into Your Account"
+msgstr "وارد حساب کاربری خود شوید"
+
+#: authentication/templates/password_reset_complete.html:4
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr "رمز عبور شما تنظیم شده است. شما می توانید پیش بروید و اکنون وارد شوید."
+
+#: authentication/templates/password_reset_complete.html:6
+msgid "Log in"
+msgstr "وارد شدن"
+
+#: authentication/templates/password_reset_confirm.html:5
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr "لطفاً گذرواژه جدید خود را دوبار وارد کنید تا بتوانیم تأیید کنیم که شما آن را به درستی وارد کرده اید."
+
+#: authentication/templates/password_reset_confirm.html:12
+msgid "New password:"
+msgstr "رمز عبور جدید"
+
+#: authentication/templates/password_reset_confirm.html:17
+msgid "Confirm password:"
+msgstr "تایید رمز عبور"
+
+#: authentication/templates/password_reset_confirm.html:20
+msgid "Change my password"
+msgstr "رمز من را تغییر دهید"
+
+#: authentication/templates/password_reset_confirm.html:26
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr "پیوند بازنشانی گذرواژه معتبر نبود ، احتمالاً به این دلیل که قبلاً استفاده شده است. لطفاً بازنشانی گذرواژه جدید را درخواست کنید."
+
+#: authentication/templates/password_reset_done.html:3
+msgid ""
+"We’ve emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr "در صورت وجود حسابی با ایمیلی که وارد کرده اید ، دستورالعمل هایی را برای شما تنظیم کرده ایم. شما باید آنها را به زودی دریافت کنید."
+
+#: authentication/templates/password_reset_done.html:5
+msgid ""
+"If you don’t receive an email, please make sure you’ve entered the address "
+"you registered with, and check your spam folder."
+msgstr "اگر ایمیلی دریافت نکردید ، لطفاً مطمئن شوید که آدرسی را که در آن ثبت نام کرده اید وارد کرده اید و پوشه هرزنامه خود را بررسی کنید"
+
 #: authentication/templates/register.html:8
 msgid "Create an account"
 msgstr "ساخت حساب کاربری"
@@ -101,11 +189,11 @@ msgstr "رمز عبور (دوباره)"
 msgid "Register"
 msgstr "ثبت نام"
 
-#: authentication/views.py:38
+#: authentication/views.py:40
 msgid "Email and password must be provided."
 msgstr "فیلدهای ایمیل و پسورد باید پر شوند."
 
-#: authentication/views.py:47
+#: authentication/views.py:49
 msgid "Wrong credentials."
 msgstr "ایمیل یا پسورد اشتباه است."
 
@@ -277,7 +365,10 @@ msgstr "دلیل رد شدن"
 msgid "General Information"
 msgstr "اطلاعات کلی"
 
-#: jobs/templates/company_details.html:46
+#: jobs/templates/company_details.html:46 jobs/templates/main.html:31
+msgid "Career Positions"
+msgstr "فرصت شغلی"
+
 #: jobs/templates/company_details.html:59 jobs/templates/main.html:44
 #: templates/base.html:31
 msgid "Job Openings"
@@ -518,10 +609,6 @@ msgstr "صفحه‌ی شرکت را چک کنید"
 #: jobs/templates/main.html:14
 msgid "Our Companies"
 msgstr "شرکت‌های ما"
-
-#: jobs/templates/main.html:31
-msgid "Career Positions"
-msgstr "فرصت شغلی"
 
 #: jobs/templates/main.html:33
 msgid "More info"

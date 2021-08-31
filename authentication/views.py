@@ -7,12 +7,14 @@ from django.core.mail import EmailMessage
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.template.loader import render_to_string
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView
 from authentication.forms import UserForm
 from authentication.models import CustomUser
-
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetDoneView, \
+    PasswordResetCompleteView
+from jobs.models import UserProfile
 
 
 class RegisterView(CreateView):
@@ -89,3 +91,22 @@ def verify_email(request, token):
 
     except CustomUser.DoesNotExist:
         return HttpResponse('Verification link is invalid!')
+
+
+class CustomPasswordResetView(PasswordResetView):
+    email_template_name = 'email_templates/password_reset_email.html'
+    template_name = 'password_reset.html'
+    success_url = reverse_lazy('auth:password_reset_done')
+
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'password_reset_confirm.html'
+    success_url = reverse_lazy('auth:password_reset_complete')
+
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'password_reset_done.html'
+
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'password_reset_complete.html'
