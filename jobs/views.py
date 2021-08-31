@@ -45,8 +45,11 @@ class JobOffersView(generic.DetailView):
     def get(self, request, *args, **kwargs):
         context = super().get(request, *args, **kwargs)
         user = request.user
+
         if user.is_authenticated and not user.has_requirement_for_offer(self.get_object()):
-            messages.warning(request, 'you have not requirement')
+            messages.warning(request, _(
+                "Based on your profile, You don't have not one of the skills,"
+                " education or location requirements of this job opening."))
         return context
 
 

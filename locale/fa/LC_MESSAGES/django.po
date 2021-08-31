@@ -431,8 +431,8 @@ msgstr "اطلاعات کلی"
 msgid "Career Positions"
 msgstr "فرصت شغلی"
 
-#: jobs/templates/company_details.html:59 jobs/templates/main.html:45
-#: templates/base.html:31
+#: jobs/templates/company_details.html:59 jobs/templates/main.html:44
+#: templates/base.html:32
 msgid "Job Openings"
 msgstr "موقعیت‌های شغلی"
 
@@ -775,7 +775,13 @@ msgstr "با موفقیت برای این موقعیت درخواست دادید
 msgid "Apply request only accepts \"POST\" method"
 msgstr "ریکوئست اپلای تنها متد POST می‌پذیرد."
 
-#: jobs/views.py:128
+#: jobs/views.py:47
+msgid ""
+"Based on your profile, You don't have not one of the skills, education or "
+"location requirements of this job opening."
+msgstr "بنا بر مشخصات پروفایلتان، شما یکی از نیازمندی‌های این موقعیت شغلی (مهارت، مدرک تحصیلی یا محل کار) را ندارید."
+
+#: jobs/views.py:120
 msgid "Successfully edited"
 msgstr "با موفقیت ویرایش شد."
 
@@ -795,15 +801,15 @@ msgstr "برگشت به صفحه‌ی اصلی"
 msgid "Contact Support"
 msgstr "ارتباط با پشتیبانی"
 
-#: templates/base.html:29
+#: templates/base.html:30
 msgid "Home"
 msgstr "خانه"
 
-#: templates/base.html:30
+#: templates/base.html:31
 msgid "Companies"
 msgstr "شرکت‌ها"
 
-#: templates/base.html:56
+#: templates/base.html:57
 msgid "Hezardastan Information Technology Development Group"
 msgstr "گروه توسعه فناوری اطلاعات هزاردستان"
 
