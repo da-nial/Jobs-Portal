@@ -33,7 +33,7 @@ migrate:
 
 # target: run_server - Run server of project
 run_server: compile_messages migrate
-	@python3 manage.py runserver
+	@python3 manage.py runserver 0.0.0.0:8000
 
 # target: test - Check tests
 test: compile_messages migrate
