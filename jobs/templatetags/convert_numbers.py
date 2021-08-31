@@ -27,4 +27,3 @@ def translate_numbers(input_string):
         except KeyError:
             return input_string
     return input_string
-

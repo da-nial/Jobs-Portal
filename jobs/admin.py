@@ -51,4 +51,3 @@ admin.site.register(Company)
 admin.site.register(Skill)
 admin.site.register(AltEmail)
 admin.site.register(EducationalBackground)
-

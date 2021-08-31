@@ -29,8 +29,3 @@ def post_save_signal_cache_handle_for_job_offer(sender, instance, **kwargs):
     for language_code in settings.LANGUAGES:
         key = make_template_fragment_key('JobOffer', (instance.id, language_code[0]))
         cache.delete(key)
-
-
-
-
-
