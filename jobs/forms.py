@@ -1,5 +1,5 @@
 from django import forms
-from jobs.models import UserProfile, Skill, EducationalBackground, JobOffer, AltEmail
+from jobs.models import UserProfile, Skill, EducationalBackground, JobOffer, AltEmail, Resume
 from proxy.models.city_api import CitiesProxy
 from django.utils.translation import ugettext_lazy as _
 
@@ -29,6 +29,8 @@ class EditProfileForm(forms.ModelForm, EditProfilePageFormMixin):
 
     def save_profile_form(self, profile):
         profile = super(EditProfileForm, self).save()
+        if self.has_changed():
+            Resume.delete_resume(profile)
         user = profile.user
         user.first_name = self.cleaned_data.get('first_name')
         user.last_name = self.cleaned_data.get('last_name')
@@ -40,6 +42,8 @@ class SkillForm(forms.Form):
     skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(), required=False, label=_('Skills'))
 
     def save_profile_form(self, profile):
+        if self.has_changed():
+            Resume.delete_resume(profile)
         for skill in self.cleaned_data.get('skills'):
             profile.skills.add(skill)
         profile.save()
@@ -52,6 +56,8 @@ class EducationalBackgroundForm(forms.ModelForm):
 
     def save_profile_form(self, profile):
         educational_background = super(EducationalBackgroundForm, self).save(commit=False)
+        if self.has_changed():
+            Resume.delete_resume(profile)
         educational_background.user_profile = profile
         educational_background.save()
         return educational_background

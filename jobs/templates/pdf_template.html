@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<pdf:language name="persian"/>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    @font-face {
+      font-family: IRANSansX;
+      src: url('assets/IRANSansX-Regular.ttf');
+      font-weight: 400;
+    }
+    html {
+      font-family: sans-serif, IRANSansX, serif;
+    }
+    @font-face {
+      font-family: IRANSansX;
+      src: url('assets/IRANSansX-Bold.ttf');
+      font-weight: 700;
+    }
+
+  </style>
+  <body class="body">
+    <aside>
+      <section>
+        <h1 class="mb-3">{{ user.first_name }} {{ user.last_name }}</h1>
+
+        {% if user.profile.bio %}
+          <p class="mb-3">
+            {{ user.profile.bio }}
+          </p>
+        {% endif %}
+
+        {% if user.email %}
+          <h4 class="mb-1">راه های ارتباطی</h4>
+        {% endif %}
+
+        <ul class="mb-3">
+          {% if user.email %}
+            <li class="mb-1">
+              <a href="mailto:{{user.email}}">
+                {{ user.email }}
+              </a>
+            </li>
+          {% endif %}
+
+          {% if user.profile.phone_number %}
+            <li class="mb-1">
+              <a href="tel:{{ user.profile.phone_number }}">{{ user.profile.phone_number }}</a>
+            </li>
+          {% endif %}
+
+          {% if user.profile.mobile_number %}
+            <li class="mb-1">
+              <a href="tel:{{ user.profile.mobile_number }}">{{ user.profile.mobile_number }}</a>
+            </li>
+          {% endif %}
+        </ul>
+
+        <ul>
+          {% if user.profile.city_of_residence %}
+            <li class="mb-2">
+              <h4>شهر محل سکونت:</h4>
+              <p>{{ user.profile.city_of_residence }}</p>
+            </li>
+          {% endif %}
+
+          {% if user.profile.address %}
+            <li class="mb-2">
+              <h4>آدرس:</h4>
+              <p>{{ user.profile.address }}</p>
+            </li>
+          {% endif %}
+
+          {% if user.profile.marital_status %}
+            <li class="mb-2">
+              <h4>وضعیت تاهل:</h4>
+              <p>{{ user.profile.get_marital_status_display }}</p>
+            </li>
+          {% endif %}
+
+          {% if user.profile.military_service %}
+            <li class="mb-2">
+              <h4>وضعیت نظام وظیفه:</h4>
+              <p>{{ user.profile.get_military_service_status_display }}</p>
+            </li>
+          {% endif %}
+
+          {% if user.profile.skills.all %}
+            <li>
+              <h4>مهارت ها</h4>
+              <ul>
+                {% for skill in user.profile.skills.all %}
+                  <li> {{ skill.title }}</li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endif %}
+
+        </ul>
+      </section>
+    </aside>
+    <main>
+      {% if user.profile.educationalbackground_set.all %}
+        <section>
+          <h4 class="mb-1">سوابق تحصیلی</h4>
+          <div class="hr" />
+          <ul>
+            {% for educational_background in user.profile.educationalbackground_set.all %}
+              <li>
+                <h4> {{ educational_background.institute }} </h4>
+                <p> {{ educational_background.field }} - {{ educational_background.get_level_display }} </p>
+                <p> {{ educational_background.start_year }} - {% if educational_background.is_currently_studying %} مشغول به تحصیل {% else %} {{ educational_background.finish_year }} {% endif %} </p>
+              </li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endif %}
+    </main>
+  </body>
+</html>

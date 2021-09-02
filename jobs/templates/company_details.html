@@ -18,7 +18,7 @@
             {% cache 600 Company company.id request.LANGUAGE_CODE %}
                 <div class="company">
                     <div class="company__upper">
-                        <img class="company-logo" src="{{ company.logo.url }}"
+                        <img src="{% if company.logo %} {{ company.logo.url }} {% else %} https://via.placeholder.com/400x400.png?text=Logo+not+found {% endif %}"
                              alt="{{ company.name }}-logo">
                         <div class="company-info">
                             <h1> {{ company.name }}</h1>

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load cache %}
+{% load job_extras %}
+
+{% block title %}
+    offer {{ joboffer.title }}
+{% endblock %}
+
+{% block content %}
+    {% load i18n %}
+    {% load convert_numbers %}
+    {% cache 600 JobOffer joboffer.id request.LANGUAGE_CODE %}
+        <h1 style="text-align:center;"> {{ joboffer.title }} </h1>
+        <h3> {% translate "Description" %} </h3>
+        {{ joboffer.description }}
+
+
+        <h3>{% translate "Minimum work experience" %}</h3>
+        {{ joboffer.minimum_work_experience|translate_numbers }} سال
+
+        <h3> {% translate "Salary" %} </h3>
+        {{ joboffer.salary|translate_numbers }} تومان
+
+        <h3> {% translate "Type of cooperation" %} </h3>
+        {{ joboffer.get_type_of_cooperation_display }}
+
+        <h3> {% translate "City" %} </h3>
+        {{ joboffer.city }}
+
+        <h3> {% translate "Minimum degree" %} </h3>
+        {{ joboffer.get_minimum_degree_display }}
+        <br/>
+        <br/>
+        <a href={{ joboffer.company.link }}> لینک شرکت </a>
+
+
+        <h3>{% translate "Skills required" %} </h3>
+        <ul>
+            {% for skill in joboffer.skills_required.all %}
+                <li> {{ skill.title }}</li>
+            {% endfor %}
+        </ul>
+    {% endcache %}
+    {% with request.user as user %}
+        {% if not user.profile %}
+            <p>{% translate "You need to complete your profile before application" %}</p>
+        {% else %}
+            {% with user|get_applications_for_offer:joboffer as applications %}
+                {% if applications %}
+                    <h4>{% translate "Applications List" %}</h4>
+                    <ol>
+                        {% for application in applications|dictsort:"created_at" %}
+                            <li>{{ application.get_state_display }}</li>
+                        {% endfor %}
+                    </ol>
+                {% endif %}
+            {% endwith %}
+            {% if joboffer.is_enabled == False %}
+                <p>{% translate "this job is disabled!" %}</p>
+            {% elif not user|has_pending_application_for_offer:joboffer %}
+                <form method="post" action=" {% url 'jobs:apply' joboffer.pk %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <p>{% translate "Upload resume" %}</p>
+                    <input type="file" name="resume" style="display: block; margin-bottom: 20px">
+                    <button type="submit">{% translate "Send Application" %}</button>
+                </form>
+            {% endif %}
+        {% endif %}
+        {% include 'messages.html' %}
+    {% endwith %}
+
+{% endblock %}
