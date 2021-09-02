@@ -26,4 +26,6 @@ urlpatterns = [
     path('verify/<str:token>/', views.verify, name='verify'),
     # ex: /job_offers/5/apply
     path('job_offers/<int:pk>/apply/', views.apply, name='apply'),
+    path('create_resume/', views.create_resume, name='create_resume'),
+
 ]

@@ -100,9 +100,12 @@
 
             <div class="labeled-info info-item--wide">
                 <h3>{% translate "About" %}</h3>
-                <h4>
-                    {{ userprofile.bio }}
-                </h4>
+                {% if userprofile.bio is not None %}
+                    <h4> {{ userprofile.bio }} </h4>
+                {% else %}
+                    {% translate "Not set" %}
+                {% endif %}
+
             </div>
 
             <div class="labeled-info info-item--wide">
@@ -143,8 +146,17 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+            <form method="post" action=" {% url 'jobs:create_resume' %}">
+                {% csrf_token %}
+                <button type="submit">{% translate "Create resume based on profile" %}</button>
+            </form>
+
         </div>
 
     </div>
 {% endblock %}
+
+
+
+
 

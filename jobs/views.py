@@ -6,12 +6,14 @@ from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import generic
-from .models import JobOffer, UserProfile, Company, EducationalBackground, Application, AltEmail
+from .models import JobOffer, UserProfile, Company, EducationalBackground, Application, AltEmail, Resume
 from django.utils.translation import ugettext_lazy as _
-from .forms import EducationalBackgroundForm, SkillForm, EditProfileForm, AltEmailForm
+from .resume_pdf_render import ResumePdfRender
+from .forms import EducationalBackgroundForm, SkillForm, EditProfileForm, AltEmailForm, EditProfilePageFormMixin
 from django.contrib import messages
 from jobs.mail_service import send_verification_email
 from django.views.decorators.http import require_http_methods
+from django.core.files import File
 
 
 @login_required
@@ -120,12 +122,14 @@ def edit_profile_view(request):
 
 
 def delete_skill(request, skill_id):
+    Resume.delete_resume(request.user.profile)
     user_profile = UserProfile.objects.get(user=request.user)
     user_profile.skills.remove(skill_id)
     return HttpResponseRedirect(reverse('jobs:edit_profile'))
 
 
 def delete_educational_background(request, educational_background_id):
+    Resume.delete_resume(request.user.profile)
     EducationalBackground.objects.get(pk=educational_background_id).delete()
     return HttpResponseRedirect(reverse('jobs:edit_profile'))
 
@@ -208,3 +212,23 @@ class MainView(LoginRequiredMixin, generic.ListView):
         if self.request.user.profile:
             context['appropriate_offers'] = JobOffer.enabled.appropriate_offers_for_profile(self.request.user.profile)
         return context
+
+
+@login_required
+def create_resume(request):
+    user = request.user
+    try:
+        resume = Resume.objects.get(user_profile=user.profile).resume_file
+    except Resume.DoesNotExist:
+        resume = None
+    if resume is None:
+        generated_resume = ResumePdfRender.render(user)
+        if generated_resume is not None:
+            Resume.objects.create(resume_file=File(generated_resume, name='user%s_resume.pdf' % user.profile.pk),
+                                  user_profile=user.profile)
+            resume = generated_resume.getvalue()
+        else:
+            return HttpResponse("Error Rendering PDF", status=500)
+    response = HttpResponse(resume, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="resume.pdf"'
+    return response

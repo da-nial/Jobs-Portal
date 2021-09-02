@@ -6,6 +6,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 from jobs.managers import EnabledManager
+from django.core.files.storage import FileSystemStorage
+from website.settings import MEDIA_URL, MEDIA_ROOT
 
 
 class EducationalLevel(models.TextChoices):
@@ -224,3 +226,20 @@ class Application(models.Model):
 
     def __str__(self):
         return f"{self.user} application for {self.offer}"
+
+
+class Resume(models.Model):
+    resume_file = models.FileField(upload_to='user_resumes', verbose_name='resume')
+    user_profile = models.OneToOneField(UserProfile, on_delete=models.CASCADE, related_name='resume')
+
+    def delete(self, using=None, keep_parents=False):
+        self.resume_file.storage.delete(self.resume_file.name)
+        super().delete()
+
+    @staticmethod
+    def delete_resume(profile):
+        try:
+            resume = Resume.objects.get(user_profile=profile)
+        except Resume.DoesNotExist:
+            return
+        resume.delete()
