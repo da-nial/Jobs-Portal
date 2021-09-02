@@ -44,12 +44,12 @@ class JobOffersView(generic.DetailView):
     def get(self, request, *args, **kwargs):
         context = super().get(request, *args, **kwargs)
         user = request.user
-        if not user.has_requirement_for_offer(self.get_object()):
+        if user.is_authenticated and not user.has_requirement_for_offer(self.get_object()):
             messages.warning(request, 'you have not requirement')
         return context
 
 
-class UserProfileView(generic.DetailView):
+class UserProfileView(LoginRequiredMixin, generic.DetailView):
     def get_object(self, queryset=None):
         try:
             return self.request.user.profile
@@ -121,6 +121,7 @@ def edit_profile_view(request):
         return render(request, template_name, get_edit_profile_context_data(request))
 
 
+@login_required
 def delete_skill(request, skill_id):
     Resume.delete_resume(request.user.profile)
     user_profile = UserProfile.objects.get(user=request.user)
@@ -128,6 +129,7 @@ def delete_skill(request, skill_id):
     return HttpResponseRedirect(reverse('jobs:edit_profile'))
 
 
+@login_required
 def delete_educational_background(request, educational_background_id):
     Resume.delete_resume(request.user.profile)
     EducationalBackground.objects.get(pk=educational_background_id).delete()
@@ -183,6 +185,7 @@ def send_email_verification(request, email_pk):
     return HttpResponseRedirect(reverse("jobs:edit_profile"))
 
 
+@login_required
 def verify(request, token):
     try:
         email = AltEmail.objects.get(verification_token=token)
@@ -197,7 +200,7 @@ def verify(request, token):
         return HttpResponse('Verification link is invalid!')
 
 
-class MainView(LoginRequiredMixin, generic.ListView):
+class MainView(generic.ListView):
     template_name = 'main.html'
     context_object_name = 'offers'
     login_url = settings.LOGIN_URL
@@ -209,7 +212,7 @@ class MainView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(MainView, self).get_context_data(**kwargs)
         context['companies'] = Company.objects.all().order_by('pk')
-        if self.request.user.profile:
+        if self.request.user.is_authenticated and self.request.user.profile:
             context['appropriate_offers'] = JobOffer.enabled.appropriate_offers_for_profile(self.request.user.profile)
         return context
 
