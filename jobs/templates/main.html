@@ -41,7 +41,9 @@
             <p>{% translate "No company has been added yet." %}</p>
         {% endif %}
 
+
         <h1 class="main__title" id="paginated_section">{% translate "Job Openings" %}</h1>
+        {% include 'filter_job.html' %}
         {% if offers %}
             <ul class="jobs-list">
                 {% for offer in offers %}

@@ -4,7 +4,7 @@ from django.db.models import Q, Count, F
 
 class EnabledManager(models.Manager):
     def get_queryset(self):
-        return super(EnabledManager, self).get_queryset().filter(is_enabled=True)
+        return JobQuerySet(self.model, using=self._db).filter(is_enabled=True)
 
     def appropriate_offers_for_profile(self, profile):
         return self.get_queryset().filter(
@@ -20,3 +20,19 @@ class EnabledManager(models.Manager):
         ).filter(
             req_skill_count=F('skills_count')
         ).order_by('-salary')[:10]
+
+
+class JobQuerySet(models.QuerySet):
+    def filter_job(self, minimum_work_experience, category, city, company=None):
+        queryset = self.filter(
+            minimum_work_experience__gte=minimum_work_experience
+        )
+        if category != "AL":
+            queryset = queryset.filter(category=category)
+
+        if city != "AL":
+            queryset = queryset.filter(city=city)
+
+        if company:
+            queryset.filter(company=company)
+        return queryset
