@@ -9,7 +9,8 @@ from django.views import generic
 from .models import JobOffer, UserProfile, Company, EducationalBackground, Application, AltEmail, Resume
 from django.utils.translation import ugettext_lazy as _
 from .resume_pdf_render import ResumePdfRender
-from .forms import EducationalBackgroundForm, SkillForm, EditProfileForm, AltEmailForm, EditProfilePageFormMixin
+from .forms import EducationalBackgroundForm, SkillForm, EditProfileForm, AltEmailForm, FilterJobOfferForm, \
+    EditProfilePageFormMixin
 from django.contrib import messages
 from jobs.mail_service import send_verification_email
 from django.views.decorators.http import require_http_methods
@@ -66,16 +67,23 @@ class CompanyView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CompanyView, self).get_context_data(**kwargs)
-
         job_offers = self.get_related_job_offers()
         context['page_obj'] = job_offers
+        context['filter_job_offer'] = FilterJobOfferForm(data=self.request.GET)
         return context
 
     def get_related_job_offers(self):
-        queryset = self.object.job_offers.all()
-        paginator = Paginator(queryset, 5)
+        check_remove_filter(self.request)
+        form = FilterJobOfferForm(data=self.request.GET)
+        filter_context = {}
+        if form.is_valid():
+            filter_context = form.cleaned_data
+        queryset = JobOffer.objects.filter_job(minimum_work_experience=filter_context['minimum_work_experience'],
+                                               category=filter_context['category'],
+                                               city=filter_context['city'],
+                                               company=self.get_queryset().get()).order_by('pk')
+        paginator = Paginator(queryset, 2)
         page = self.request.GET.get('page', 1)
-
         job_offers_in_page = paginator.get_page(page)
         return job_offers_in_page
 
@@ -200,20 +208,40 @@ def verify(request, token):
         return HttpResponse('Verification link is invalid!')
 
 
-class MainView(generic.ListView):
+def check_remove_filter(request):
+    request.GET = request.GET.copy()
+    if request.GET.get('remove_filter_minimumWork'):
+        request.GET['minimum_work_experience'] = 0
+    if request.GET.get('remove_filter_city'):
+        request.GET['city'] = 'AL'
+    if request.GET.get('remove_filter_category'):
+        request.GET['category'] = 'AL'
+
+
+class MainView(LoginRequiredMixin, generic.ListView):
     template_name = 'main.html'
     context_object_name = 'offers'
     login_url = settings.LOGIN_URL
     paginate_by = 5
 
     def get_queryset(self):
-        return JobOffer.enabled.all().order_by('pk')
+        check_remove_filter(self.request)
+        form = FilterJobOfferForm(data=self.request.GET)
+        filter_context = {}
+        if form.is_valid():
+            filter_context = form.cleaned_data
+        return JobOffer.enabled.get_queryset().filter_job(
+            minimum_work_experience=filter_context['minimum_work_experience'],
+            category=filter_context['category'],
+            city=filter_context['city']).order_by('pk')
 
     def get_context_data(self, **kwargs):
         context = super(MainView, self).get_context_data(**kwargs)
         context['companies'] = Company.objects.all().order_by('pk')
-        if self.request.user.is_authenticated and self.request.user.profile:
-            context['appropriate_offers'] = JobOffer.enabled.appropriate_offers_for_profile(self.request.user.profile)
+        if self.request.user.profile:
+            context['appropriate_offers'] = JobOffer.enabled.appropriate_offers_for_profile(
+                self.request.user.profile)
+        context['filter_job_offer'] = FilterJobOfferForm(self.request.GET)
         return context
 
 

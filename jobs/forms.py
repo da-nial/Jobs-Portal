@@ -1,5 +1,5 @@
 from django import forms
-from jobs.models import UserProfile, Skill, EducationalBackground, JobOffer, AltEmail, Resume
+from jobs.models import UserProfile, Skill, EducationalBackground, JobOffer, AltEmail, CategoryJob, Resume
 from proxy.models.city_api import CitiesProxy
 from django.utils.translation import ugettext_lazy as _
 
@@ -102,3 +102,29 @@ class AltEmailForm(forms.ModelForm):
         if commit:
             email.save()
         return email
+
+
+class FilterJobOfferForm(forms.Form):
+    minimum_work_experience = forms.IntegerField(initial=0)
+    category = forms.ChoiceField(choices=())
+    city = forms.ChoiceField(choices=())
+
+    def __init__(self, *args, **kwargs):
+        super(FilterJobOfferForm, self).__init__(*args, **kwargs)
+        city_choices = CitiesProxy.get_instance().get_city_name_tuple()
+        category_choices = CategoryJob.choices
+        city_choices.append(('AL', _('All')))
+        category_choices.append(('AL', _('All')))
+        self.fields['city'].choices = city_choices
+        self.fields['category'].choices = category_choices
+        self.initial_data()
+
+    def initial_data(self):
+        data = self.data.copy()
+        if not data.get('minimum_work_experience'):
+            data['minimum_work_experience'] = 0
+        if not data.get('city'):
+            data['city'] = 'AL'
+        if not data.get('category'):
+            data['category'] = 'AL'
+        self.data = data

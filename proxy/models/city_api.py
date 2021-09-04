@@ -9,7 +9,7 @@ class CitiesProxy:
         full_data = cache.get("cities_data", None)
         if full_data is None:
             try:
-                response = requests.get("https://api.divar.ir/v8/places/cities",  timeout=1)
+                response = requests.get("https://api.divar.ir/v8/places/cities", timeout=1)
                 full_data = response.json()
                 cache.set("cities_data", full_data, 60 * 60 * 24)
             except requests.ConnectionError:

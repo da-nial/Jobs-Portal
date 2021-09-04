@@ -59,6 +59,7 @@
                 <h3>{% translate "Job Openings" %}</h3>
             </div>
             <div class="section-main" id="paginated_section">
+                {% include "filter_job.html" %}
                 <table class="job-offers-table">
                     <thead>
                     <tr>
@@ -137,6 +138,5 @@
             <h4>{% translate " You can enable suggestions in your settings, so we can notify you when your position is opened." %}
             </h4>
         </div>
-
     </div>
 {% endblock %}

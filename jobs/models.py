@@ -5,7 +5,7 @@ from authentication.models import CustomUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
-from jobs.managers import EnabledManager
+from jobs.managers import EnabledManager, JobQuerySet
 from django.core.files.storage import FileSystemStorage
 from website.settings import MEDIA_URL, MEDIA_ROOT
 
@@ -38,6 +38,19 @@ class EducationalLevel(models.TextChoices):
     @property
     def order_index(self):
         return EducationalLevel._get_educational_levels_order_list().index(self)
+
+
+class CategoryJob(models.TextChoices):
+    DataScience_and_Analytics = 'DA', _('Data')
+    Design_and_UX = 'DU', _('Design and UX')
+    Engineering = 'E', _('Engineering')
+    Finance_and_Accounting = 'FA', _('Finance and Accounting')
+    Human_Resources = 'HR', _('Human Resources')
+    Marketing_and_Communications = 'MC', _('Marketing and Communications')
+    Operation = 'O', _('Operation')
+    Product = 'P', _('Product')
+    Sales = 'S', _('Sales')
+    Other = 'OT', _('Other')
 
 
 class Company(models.Model):
@@ -82,8 +95,9 @@ class JobOffer(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name="job_offers")
     city = models.CharField(max_length=100, null=True, blank=True)
     is_enabled = models.BooleanField(default=True, db_index=True)
+    category = models.CharField(max_length=2, choices=CategoryJob.choices, null=True, blank=True)
 
-    objects = models.Manager()
+    objects = JobQuerySet.as_manager()
     enabled = EnabledManager()
 
     def __str__(self):
