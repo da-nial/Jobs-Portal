@@ -9,6 +9,20 @@ class JobOfferAdmin(admin.ModelAdmin):
     form = JobOfferForm
     filter_horizontal = ('skills_required',)
 
+    def response_add(self, request, obj, post_url_continue=None):
+        if obj.is_enabled:
+            obj.send_offer_suggestion_email_to_qualified_users()
+        return super(JobOfferAdmin, self).response_add(request, obj, post_url_continue)
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        previous_offer = JobOffer.objects.get(pk=object_id)
+        received_email_users = list(CustomUser.objects.qualified_users_for_offer(previous_offer))
+        result = super(JobOfferAdmin, self).change_view(request, object_id, form_url, extra_context)
+        new_offer = JobOffer.objects.get(pk=object_id)
+        if new_offer.is_enabled:
+            new_offer.send_offer_suggestion_email_to_qualified_users(*received_email_users)
+        return result
+
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):

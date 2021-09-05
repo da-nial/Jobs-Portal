@@ -1,4 +1,5 @@
 from django.contrib.auth.base_user import BaseUserManager
+from django.db.models import Q, Count
 
 
 class CustomUserManager(BaseUserManager):
@@ -50,3 +51,26 @@ class CustomUserManager(BaseUserManager):
             raise ValueError("Superuser must have is_superuser=True")
 
         return self._create_user(email, password, **extra_fields)
+
+    def qualified_users_for_offer(self, offer, *exceptional_users):
+        if not exceptional_users:
+            exceptional_users = {}
+        else:
+            exceptional_users = {user.pk for user in exceptional_users}
+        from jobs.models import EducationalLevel
+        return self.get_queryset().exclude(
+            pk__in=exceptional_users
+        ).filter(
+            profile__isnull=False
+        ).filter(
+            profile__city_of_residence=offer.city,
+            profile__educationalbackground__level__in=EducationalLevel(offer.minimum_degree).get_ge_educational_levels()
+        ).alias(
+            skills_count=Count(
+                'profile__skills',
+                filter=Q(profile__skills__joboffer=offer),
+                distinct=True
+            )
+        ).filter(
+            skills_count=offer.skills_required.count()
+        )

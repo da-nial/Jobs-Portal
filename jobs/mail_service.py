@@ -1,11 +1,11 @@
+from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 
 from jobs.models import AltEmail
-
-from jobs.models import AltEmail
+from django.http import HttpRequest
 
 
 def send_application_state(user, state):
@@ -39,3 +39,20 @@ def send_verification_email(request, alt_email: AltEmail):
         mail_subject, message, to=[to_email]
     )
     email_message.send()
+
+
+def send_offer_suggestion(user, offer):
+    request = HttpRequest()
+    request.META['HTTP_HOST'] = settings.SITE_URL
+    message = render_to_string('email_templates/offer_suggestion.html', {
+        'user': user,
+        'offer': offer,
+        'request': request,
+    })
+    to_email = user.email
+    mail_subject = _('Job Recommendation')
+    email = EmailMessage(
+        mail_subject, message, to=[to_email]
+    )
+    email.content_subtype = "html"
+    email.send()

@@ -6,9 +6,9 @@
 {% endblock %}
 {% load job_extras %}
 {% load cache %}
+{% load convert_numbers %}
 {% block content %}
     {% load i18n %}
-    {% load convert_numbers %}
 
     <div class="company-wrapper">
         <div class="z">
@@ -32,7 +32,7 @@
 
                     <div class="labeled-info">
                         <h3>{% translate "Salary" %}</h3>
-                        <h4> {{ joboffer.salary }} IRR </h4>
+                        <h4> {{ joboffer.salary|translate_numbers }} {% translate "IRR" %} </h4>
                     </div>
 
                     <div class="labeled-info">

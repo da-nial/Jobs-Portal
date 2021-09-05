@@ -1,0 +1,22 @@
+{% load convert_numbers %}
+{% autoescape off %}
+    {% load i18n %}
+    <div dir="rtl">
+        <h2>{% translate "hi" %} {{ user }}</h2>
+        <h3>{% translate "We have a new appropriate job offer for you with below details:" %}</h3>
+
+        <h2>
+            <a href="{{ request.META.HTTP_HOST }}{% url 'jobs:job_offers' offer.pk %}">
+                {{ offer.title }} | {{ offer.company.name }}
+            </a>
+        </h2>
+
+        <h3>{% translate "Description" %}</h3>
+        <h4>{{ offer.description }}</h4>
+
+        <h3>{% translate "Salary" %}</h3>
+        <h4> {{ offer.salary|translate_numbers }} {% translate "IRR" %} </h4>
+
+        <h4 dir="ltr"></h4>
+    </div>
+{% endautoescape %}
