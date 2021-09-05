@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  website:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+    - "8000:8000"
+    volumes:
+    - website_volume:/app
+
+volumes:
+  website_volume:
