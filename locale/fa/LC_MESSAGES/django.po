@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-04 10:53+0000\n"
+"POT-Creation-Date: 2021-09-02 13:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -229,7 +229,13 @@ msgstr "همه"
 msgid "your job application state changed"
 msgstr "وضعیت درخواست شغلی شما به در انتظار تغییر کرده است"
 
-#: jobs/models.py:14
+#: jobs/mail_service.py:53
+#, fuzzy
+#| msgid "Job Information"
+msgid "Job Recommendation"
+msgstr "اطلاعات موقعیت شغلی"
+
+#: jobs/models.py:12
 msgid "High School Diploma"
 msgstr "دیپلم مقطع دبیرستان"
 
@@ -434,8 +440,9 @@ msgstr "موقعیت‌های شغلی"
 msgid "Title"
 msgstr "عنوان"
 
-#: jobs/templates/company_details.html:67 jobs/templates/job_offer.html:34
-#: jobs/templates/main.html:86
+#: jobs/templates/company_details.html:66
+#: jobs/templates/email_templates/offer_suggestion.html:17
+#: jobs/templates/job_offer.html:34 jobs/templates/main.html:84
 msgid "Salary"
 msgstr "حقوق"
 
@@ -569,6 +576,7 @@ msgid "Email verified"
 msgstr "ایمیل تأیید شده"
 
 #: jobs/templates/email_templates/accepted_job_application.html:3
+#: jobs/templates/email_templates/offer_suggestion.html:5
 #: jobs/templates/email_templates/pending_job_application.html:3
 #: jobs/templates/email_templates/reject_job_application.html:3
 msgid "hi"
@@ -590,6 +598,20 @@ msgstr "سلام"
 msgid "Please click on the link to verify your alternative email"
 msgstr "برای تأیید ایمیل جایگزین خود، لطفاً روی لینک زیر کلیک کنید."
 
+#: jobs/templates/email_templates/offer_suggestion.html:6
+msgid "We have a new appropriate job offer for you with below details:"
+msgstr "یک پیشنهاد شفلی جدید و مناسب برای شما، با اطلاعات زیر روی سایت قرار گرفت:"
+
+#: jobs/templates/email_templates/offer_suggestion.html:14
+#: jobs/templates/job_offer.html:24
+msgid "Description"
+msgstr "توضیحات"
+
+#: jobs/templates/email_templates/offer_suggestion.html:18
+#: jobs/templates/job_offer.html:35
+msgid "IRR"
+msgstr "ریال"
+
 #: jobs/templates/email_templates/pending_job_application.html:4
 msgid "your job application status changed to pending!"
 msgstr "وضعیت درخواست شغلی شما به در انتظار تغییر کرده است"
@@ -609,10 +631,6 @@ msgstr "وضعیت درخواست شغلی شما به رد شده تغییر ک
 #: jobs/templates/job_offer.html:16
 msgid "Job Information"
 msgstr "اطلاعات موقعیت شغلی"
-
-#: jobs/templates/job_offer.html:24
-msgid "Description"
-msgstr "توضیحات"
 
 #: jobs/templates/job_offer.html:29
 msgid "Minimum Work Experience Required"

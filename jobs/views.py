@@ -81,7 +81,7 @@ class CompanyView(generic.DetailView):
         queryset = JobOffer.objects.filter_job(minimum_work_experience=filter_context['minimum_work_experience'],
                                                category=filter_context['category'],
                                                city=filter_context['city'],
-                                               company=self.get_queryset().get()).order_by('pk')
+                                               company=self.get_object()).order_by('pk')
         paginator = Paginator(queryset, 2)
         page = self.request.GET.get('page', 1)
         job_offers_in_page = paginator.get_page(page)

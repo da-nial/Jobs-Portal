@@ -103,6 +103,15 @@ class JobOffer(models.Model):
     def __str__(self):
         return self.title
 
+    def send_offer_suggestion_email_to_qualified_users(self, *exceptional_users):
+        """
+        Calling Situation:
+        This Function Should be called after saving JobOffer and setting it's m2m and foreign key relations
+        """
+        for user in CustomUser.objects.qualified_users_for_offer(self, *exceptional_users):
+            from jobs.tasks import send_offer_suggestion_email
+            send_offer_suggestion_email.delay(user.pk, self.pk)
+
     class Meta:
         ordering = ['-is_enabled']
 

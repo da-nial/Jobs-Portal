@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authentication',
     'jobs',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -146,3 +147,19 @@ CACHES = {
         'LOCATION': '127.0.0.1:11211',
     }
 }
+
+
+# Celery Configuration Options
+# CELERY_TIMEZONE = "UTC" Default
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_RESULT_BACKEND = 'django-cache'
+# CELERY_RESULT_BACKEND = 'redis://'
+CELERY_BROKER_URL = 'pyamqp://guest:guest@localhost:5672//'
+# Celery Configuration Options
+CELERY_TASK_ALWAYS_EAGER = True
+CELERY_RESULT_SERIALIZER = 'json'
+
+
+# Site Domain
+SITE_URL = 'http://localhost:8000'
