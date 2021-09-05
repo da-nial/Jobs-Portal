@@ -1,7 +1,7 @@
 SHELL=/bin/bash
-.PHONY: all help translate build_env install make_migrations migrate test run_server check_style
+.PHONY: all help translate install make_migrations migrate test run_server check_style
 # target: all - Setup of project.
-all: build_env install migrate compile_messages
+all: install migrate compile_messages
 
 # target: help - Display callable targets.
 help:
@@ -14,10 +14,6 @@ make_messages:
 # target: compile_messages - Compile messages for django translate
 compile_messages:
 	@python3 manage.py compilemessages
-
-# target: build_env - Build and activate virtual environment
-build_env:
-	@pip install virtualenv; virtualenv venv; source venv/bin/activate
 
 # target: install - Install requirements
 install:
@@ -42,3 +38,12 @@ test: compile_messages migrate
 # target: check_style - Style checking of project
 check_style:
 	@pycodestyle . --exclude="venv/","*/migrations" --max-line-length=120
+
+# target: COVERAGE - Calculates coverage
+coverage: compile_messages migrate
+	@coverage run --source='.' --omit="*venv/*","*/migrations*"  manage.py test
+
+# target: COVERAGE_REPORT - report coverage data
+coverage_report:
+	@coverage report
+

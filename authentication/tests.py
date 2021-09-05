@@ -3,7 +3,6 @@ from django.utils.crypto import get_random_string
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.translation import gettext
-
 from authentication.models import CustomUser
 from jobs.models import UserProfile, Skill, JobOffer, EducationalLevel, EducationalBackground, Company
 
