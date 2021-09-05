@@ -24,3 +24,10 @@ test:
   stage: test
   script:
     - make test
+
+coverage:
+  stage: test
+  script:
+    - make coverage
+    - make coverage_report
+  coverage: '/TOTAL.*\s+(\d+\%)/'
