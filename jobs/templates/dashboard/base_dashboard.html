@@ -9,13 +9,12 @@
         <div class="sidebar">
             <ul class="menu">
                 <li class="menu__item">
-                    <img class="sidebar__logo" src="{% static 'images/tailwind.png' %}"/>
-                    <h2>{% translate "Adams" %} </h2>
+                    <h2>{% translate "Account Management" %} </h2>
                 </li>
                 <li class="menu__item menu__item--selected">
                     <span>
                         <i class="fa fa-user fa-fw"></i>
-                        <a href="/">{% translate "Profile" %}</a>
+                        <a href={% url 'jobs:user_profile' %}>{% translate "Profile" %}</a>
                     </span>
                 </li>
                 <li class="menu__item">

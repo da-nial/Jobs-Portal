@@ -29,6 +29,7 @@
 
 .menu__item span {
     display: flex;
+    align-items: center;
 
     width: 100%;
 }

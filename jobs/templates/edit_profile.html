@@ -1,106 +1,171 @@
 {% extends "dashboard/base_dashboard.html" %}
 {% block title %}Edit Profile{% endblock %}
 {% load static %}
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'jobs/edit_profile.css' %}">
+{% endblock %}
 {% block main %}
     {% load i18n %}
     {% load extra_tags %}
-    <div style="width: 100%">
-        {% include 'messages.html' %}
-        <h1> Edit Profile </h1>
-        <form action="{% url 'jobs:edit_profile' %}" method="post">
-            <legend><h3>Edit Information</h3></legend>
-            {% csrf_token %}
-            {{ edit_profile_form.as_p }}
-            <input type="submit" value="edit" name="edit">
-        </form>
-        <br/>
-        <br/>
-        <br/>
-        <fieldset>
-            <legend><h3>Edit Skills</h3></legend>
-            {% for skill in request.user.profile.skills.all %}
-                {{ skill.title }}
-                <form action="{% url 'jobs:delete_skill' skill.pk %}" method="get">
-                    {% csrf_token %}
-                    <input type="submit" name="delete_skill" value="delete">
-                </form>
-            {% endfor %}
-
-            <form action="{% url 'jobs:edit_profile' %}" method="post">
+    {% with request.user.profile as profile %}
+        <div class="m">
+            {% include 'messages.html' %}
+            <h1> {% translate "Edit Profile" %} </h1>
+            <hr class="divider">
+            <h2> {% translate "Edit Personal Info" %} </h2>
+            <form class="form_m" action="{% url 'jobs:edit_profile' %}" method="post">
                 {% csrf_token %}
-                {{ skill_form.as_p }}
-                <input type="submit" value="add" name="add_skill">
-            </form>
-            <h4>{% translate "Add Skill" %}</h4>
-        </fieldset>
-
-        <br/>
-        <br/>
-        <br/>
-
-        <fieldset>
-            <legend><h3>{% translate "Edit Educational Backgrounds" %} </h3></legend>
-            {% for educational_background in request.user.profile.educationalbackground_set.all %}
-                <p> {% translate "Field" %}: {{ educational_background.field }}</p>
-                <p> {% translate "Institute" %}: {{ educational_background.institute }}</p>
-                <p> {% translate "Level" %}: {{ educational_background.get_level_display }}</p>
-                <p> {% translate "Start Year" %}: {{ educational_background.start_year|translate_numbers }}</p>
-                <p> {% translate "Finish Year" %}: {{ educational_background.finish_year|translate_numbers }}</p>
-                <form action="{% url 'jobs:delete_educational_background' educational_background.pk %}"
-                      method="get">
-                    {% csrf_token %}
-                    <input type="submit" name="delete_educational_background" value="{% translate 'delete' %}">
-                </form>
-            {% endfor %}
-        </fieldset>
-
-        <fieldset>
-            <h4> add educational background </h4>
-            <form action="{% url 'jobs:edit_profile' %}" method="post">
-                {% csrf_token %}
-                {{ educational_background_form.as_p }}
-                <input type="submit" value="add" name="add_educational_background">
-            </form>
-        </fieldset>
-
-        <br/>
-        <br/>
-        <br/>
-
-        <fieldset>
-            <legend><h3> {% translate "Alternative Emails" %} : </h3></legend>
-            <h4> {% translate "Add a new email" %} </h4>
-            <form method="post" action="{% url 'jobs:add_alt_email' %}">
-                {% csrf_token %}
-                {{ alt_email_form.as_p }}
-                <input type="submit" value={% translate "Submit" %}>
+                {% for field in edit_profile_form %}
+                    <div class="field {% if field|field_type == 'Textarea' or field.name == "address" %}wide{% endif %}">
+                        <label for="email">
+                            {{ field.label|title }}
+                        </label>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <input class="grey-black-button edit-button"
+                       type="submit"
+                       value="{% translate "Edit" %}"
+                       name="edit">
             </form>
 
-            <h4> {% translate "Edit existing ones" %} </h4>
-            <ul>
-                {% for email in request.user.profile.alt_emails.all %}
-                    <li>
-                        <label>{{ email.address }}</label>
-                        <form method="post" action="{% url 'jobs:delete_alt_email' email.pk %}">
+            <hr class="divider">
+
+            <h2>{% translate "Edit Skills" %}</h2>
+            <h3>{% translate "Current Skills" %}</h3>
+            <div class="form_m">
+                {% for skill in profile.skills.all %}
+                    <div class="yt">
+                        <div class="info-item__value--tag">
+                            {{ skill.title }}
+                        </div>
+                        <form action="{% url 'jobs:delete_skill' skill.pk %}" method="post">
                             {% csrf_token %}
-                            <input type="submit" value={% translate "Delete" %}>
+                            <input class="white-black-button"
+                                   type="submit"
+                                   value="{% translate 'Delete' %}"
+                                   name="delete_skill">
                         </form>
-                        {% if not email.is_verified %}
-                            <form method="post"
-                                  action="{% url 'jobs:send-email-verification' email_pk=email.pk %}"
-                            >
+                    </div>
+                {% endfor %}
+            </div>
+
+            <h3>{% translate "Add new ones" %}</h3>
+            <form style="display: flex; flex-direction: column;margin-top: 30px" action="{% url 'jobs:edit_profile' %}"
+                  method="post">
+                {% csrf_token %}
+                {% for field in skill_form %}
+                    <div class="field {% if field|field_type == 'Textarea' or field.name == "address" %}wide{% endif %}">
+                        <label for="email">
+                            {{ field.label }}
+                        </label>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <input class="grey-black-button"
+                       style="margin-top: 10px"
+                       type="submit"
+                       value={% translate "Add" %}
+                               name="add_skill">
+            </form>
+
+            <hr class="divider" style="margin-top: 50px; margin-bottom: 50px">
+
+            <h2>{% translate "Edit Educational Backgrounds" %}</h2>
+
+            {% for educational_background in profile.educationalbackground_set.all %}
+                <div class='educational-background'>
+                    <img class="educational-background__institute-logo" src={% static 'images/education.png' %}/>
+                    <div class="educational-background__details">
+                        <h4 class='info-item__value'>
+                            {{ educational_background.field }} | {{ educational_background.institute }}
+                        </h4>
+                        <h5 class="info-item__value">
+                            {{ educational_background.start_year|translate_numbers }}
+                            - {{ educational_background.finish_year|translate_numbers }}
+                        </h5>
+                    </div>
+                    <form action="{% url 'jobs:delete_educational_background' educational_background.pk %}"
+                          method="get">
+                        {% csrf_token %}
+                        <input class="grey-black-button"
+                               type="submit" name="delete_educational_background" value="{% translate 'delete' %}">
+                    </form>
+                </div>
+            {% endfor %}
+
+
+            <h3>{% translate "Add new ones" %}</h3>
+            <form class="form_m" action="{% url 'jobs:edit_profile' %}" method="post">
+                {% csrf_token %}
+                {% for field in educational_background_form %}
+                    <div class="field {% if field|field_type == 'Textarea' or field.name == "address" %}wide{% endif %}">
+                        <label for="email">
+                            {{ field.label|title }}
+                        </label>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <input class="grey-black-button edit-button"
+                       type="submit"
+                       value="{% translate "Add" %}"
+                       name="add_educational_background">
+            </form>
+
+            <br/>
+            <br/>
+            <br/>
+
+            <h2> {% translate "Edit Alternative Emails" %} : </h2>
+
+            <h3> {% translate "Edit existing ones" %} </h3>
+            <ul>
+                {% for email in profile.alt_emails.all %}
+                    <li class="alt-email-li">
+                        <label>{{ email.address }}</label>
+                        <div class="alt-email-li__button-wrapper">
+                            <form style="margin: 0 10px;" method="post"
+                                  action="{% url 'jobs:delete_alt_email' email.pk %}">
                                 {% csrf_token %}
-                                <button name="send-verification-email" value="send-verification-email">
-                                    {% translate "Send Verification Email" %}
-                                </button>
+                                <input class="grey-black-button"
+                                       type="submit"
+                                       value={% translate "Delete" %}>
                             </form>
-                        {% else %}
-                            {% translate "Email verified" %}
-                        {% endif %}
+                            {% if not email.is_verified %}
+                                <form method="post"
+                                      action="{% url 'jobs:send-email-verification' email_pk=email.pk %}"
+                                >
+                                    {% csrf_token %}
+                                    <button class="grey-black-button"
+                                            name="send-verification-email"
+                                            value="send-verification-email">
+                                        {% translate "Send Verification Email" %}
+                                    </button>
+                                </form>
+                            {% else %}
+                                {% translate "Email verified" %}
+                                <i class="fa fa-check"></i>
+                            {% endif %}
+                        </div>
                     </li>
                 {% endfor %}
             </ul>
-        </fieldset>
-    </div>
 
+            <h3> {% translate "Add a new email" %} </h3>
+            <form class="alt-email-add" method="post" action="{% url 'jobs:add_alt_email' %}">
+                {% csrf_token %}
+                <div class="field" style="margin-bottom: 10px">
+                    <label>
+                        {{ alt_email_form.address.label }}
+                    </label>
+                    {{ alt_email_form.address }}
+                </div>
+                <input class="grey-black-button"
+                       type="submit"
+                       value={% translate "Add" %}>
+            </form>
+
+        </div>
+    {% endwith %}
 {% endblock %}

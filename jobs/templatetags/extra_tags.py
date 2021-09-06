@@ -36,3 +36,13 @@ def display(attr):
         return _("Not set")
     else:
         return attr
+
+
+@register.filter(name='addclass')
+def addclass(value, arg):
+    return value.as_widget(attrs={'class': arg})
+
+
+@register.filter(name='field_type')
+def field_type(field):
+    return field.field.widget.__class__.__name__
