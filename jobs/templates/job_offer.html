@@ -19,6 +19,12 @@
             <div class="y">
                 {% cache 600 JobOffer joboffer.id request.LANGUAGE_CODE %}
                     <h1> {{ joboffer.title }} | {{ joboffer.company.name }} </h1>
+                    {% if not joboffer.is_enabled %}
+                        <form action="{% url 'jobs:edit_inform_job' joboffer.pk %}" method="get">
+                            {% csrf_token %}
+                            <input type="submit" value= "{{ inform }}" name="inform">
+                        </form>
+                    {% endif %}
 
                     <div class="labeled-info">
                         <h3>{% translate "Description" %}</h3>

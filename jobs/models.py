@@ -96,6 +96,7 @@ class JobOffer(models.Model):
     city = models.CharField(max_length=100, null=True, blank=True)
     is_enabled = models.BooleanField(default=True, db_index=True)
     category = models.CharField(max_length=2, choices=CategoryJob.choices, null=True, blank=True)
+    users_tagged_job = models.ManyToManyField(CustomUser, blank=True, related_name='tagged_jobs')
 
     objects = JobQuerySet.as_manager()
     enabled = EnabledManager()
@@ -111,6 +112,15 @@ class JobOffer(models.Model):
         for user in CustomUser.objects.qualified_users_for_offer(self, *exceptional_users):
             from jobs.tasks import send_offer_suggestion_email
             send_offer_suggestion_email.delay(user.pk, self.pk)
+
+    def send_inform_email_to_tagged_users(self):
+        from jobs.tasks import send_tagged_offer_email
+        for user in self.users_tagged_job.all():
+            send_tagged_offer_email.delay(user.pk, self.pk)
+        self.clear_tagged_job_for_users()
+
+    def clear_tagged_job_for_users(self):
+        self.users_tagged_job.clear()
 
     class Meta:
         ordering = ['-is_enabled']

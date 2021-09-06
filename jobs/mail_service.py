@@ -56,3 +56,17 @@ def send_offer_suggestion(user, offer):
     )
     email.content_subtype = "html"
     email.send()
+
+
+def send_offer_inform(user, offer):
+    message = render_to_string('email_templates/offer_inform.html', {
+        'user': user,
+        'offer': offer,
+        'domain': settings.SITE_URL,
+    })
+    to_email = user.email
+    mail_subject = _('inform tagged job')
+    email = EmailMessage(
+        mail_subject, message, to=[to_email]
+    )
+    email.send()

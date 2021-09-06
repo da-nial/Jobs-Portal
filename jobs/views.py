@@ -44,11 +44,19 @@ class JobOffersView(generic.DetailView):
     def get(self, request, *args, **kwargs):
         context = super().get(request, *args, **kwargs)
         user = request.user
-
         if user.is_authenticated and not user.has_requirement_for_offer(self.get_object()):
             messages.warning(request, _(
                 "Based on your profile, You don't have not one of the skills,"
                 " education or location requirements of this job opening."))
+        return context
+
+    def get_context_data(self, **kwargs):
+        context = super(JobOffersView, self).get_context_data()
+        user = self.request.user
+        if self.get_object().users_tagged_job.filter(pk=user.pk).exists():
+            context['inform'] = 'dont inform me'
+        else:
+            context['inform'] = 'inform me'
         return context
 
 
@@ -265,3 +273,16 @@ def create_resume(request):
     response = HttpResponse(resume, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="resume.pdf"'
     return response
+
+
+@login_required
+def edit_inform_jobOffer(request, job_offer_pk):
+    user = request.user
+    inform = request.GET.get("inform", None)
+    job_offer = JobOffer.objects.get(pk=job_offer_pk)
+    if 'dont' in inform:
+        job_offer.users_tagged_job.remove(user)
+    else:
+        job_offer.users_tagged_job.add(user)
+
+    return HttpResponseRedirect(reverse('jobs:job_offers', kwargs={'pk': job_offer_pk}))

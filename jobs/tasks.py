@@ -1,5 +1,5 @@
 from celery import shared_task
-from jobs.mail_service import send_offer_suggestion
+from jobs.mail_service import send_offer_suggestion, send_offer_inform
 from jobs.models import JobOffer
 
 
@@ -18,3 +18,14 @@ def send_offer_suggestion_email(user_id, offer_id):
 
     if user.is_email_verified:
         send_offer_suggestion(user, offer)
+
+
+@shared_task(ignore_result=True)
+def send_tagged_offer_email(user_id, offer_id):
+    from authentication.models import CustomUser
+    user = CustomUser.objects.get(pk=user_id)
+
+    offer = JobOffer.objects.get(pk=offer_id)
+
+    if user.is_email_verified:
+        send_offer_inform(user, offer)
