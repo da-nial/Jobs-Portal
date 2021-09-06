@@ -29,3 +29,12 @@ def post_save_signal_cache_handle_for_job_offer(sender, instance, **kwargs):
     for language_code in settings.LANGUAGES:
         key = make_template_fragment_key('JobOffer', (instance.id, language_code[0]))
         cache.delete(key)
+
+
+@receiver(pre_save, sender=JobOffer)
+def pre_save_signal_for_send_tagged_job_email(instance, **kwargs):
+    if instance.id is None:
+        return
+    previous = JobOffer.objects.get(id=instance.id)
+    if previous.is_enabled is False and instance.is_enabled:
+        JobOffer.send_inform_email_to_tagged_users(instance)

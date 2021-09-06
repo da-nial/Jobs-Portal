@@ -27,5 +27,6 @@ urlpatterns = [
     # ex: /job_offers/5/apply
     path('job_offers/<int:pk>/apply/', views.apply, name='apply'),
     path('create_resume/', views.create_resume, name='create_resume'),
+    path('edit_inform_joboffer/<int:job_offer_pk>/', views.edit_inform_jobOffer, name='edit_inform_job')
 
 ]

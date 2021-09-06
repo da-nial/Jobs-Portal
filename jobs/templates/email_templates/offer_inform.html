@@ -1,0 +1,11 @@
+{% load i18n %}
+{% autoescape off %}
+    {% translate 'hi' %} {{ user }}
+    {% translate 'You have already been labeled a ' %} {{ offer }}
+    {% translate 'This job is now enabled' %}
+    {% translate 'You can see the details of this job through the following link' %}
+    {% block job_offer_link %}
+        {{ domain }}{% url 'jobs:job_offers' offer.pk %}
+    {% endblock %}
+
+{% endautoescape %}

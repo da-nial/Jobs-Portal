@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-06 07:42+0000\n"
+"POT-Creation-Date: 2021-09-06 14:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,7 +87,7 @@ msgstr "مرا به خاطر بسپار"
 msgid "Forgot your password?"
 msgstr "رمز عبور خود را فروش کرده‌اید؟"
 
-#: authentication/templates/login.html:63
+#: authentication/templates/login.html:63 templates/base.html:38
 msgid "Login"
 msgstr "ورود"
 
@@ -243,6 +243,10 @@ msgstr "وضعیت درخواست شغلی شما به در انتظار تغی�
 msgid "Job Recommendation"
 msgstr "اطلاعات موقعیت شغلی"
 
+#: jobs/mail_service.py:68
+msgid "inform tagged job"
+msgstr "مرا از شغل های برچسب شده با خبر کن"
+
 #: jobs/models.py:14
 msgid "High School Diploma"
 msgstr "دیپلم مقطع دبیرستان"
@@ -311,7 +315,7 @@ msgstr "محصول"
 msgid "Sales"
 msgstr "فروش"
 
-#: jobs/models.py:53 jobs/models.py:134
+#: jobs/models.py:53 jobs/models.py:144
 msgid "Other"
 msgstr "غیره"
 
@@ -323,111 +327,111 @@ msgstr "تمام‌وقت"
 msgid "part time"
 msgstr "پاره‌وقت"
 
-#: jobs/models.py:126
+#: jobs/models.py:136
 msgid "Conscript"
 msgstr "مشمول"
 
-#: jobs/models.py:127
+#: jobs/models.py:137
 msgid "Educational Exemption"
 msgstr "معافیت تحصیلی"
 
-#: jobs/models.py:128
+#: jobs/models.py:138
 msgid "Exempt"
 msgstr "معاف"
 
-#: jobs/models.py:129
+#: jobs/models.py:139
 msgid "Discharge"
 msgstr "گذرانده"
 
-#: jobs/models.py:132
+#: jobs/models.py:142
 msgid "Male"
 msgstr "مرد"
 
-#: jobs/models.py:133
+#: jobs/models.py:143
 msgid "Female"
 msgstr "زن"
 
-#: jobs/models.py:137
+#: jobs/models.py:147
 msgid "Single"
 msgstr "مجرد"
 
-#: jobs/models.py:138
+#: jobs/models.py:148
 msgid "Married"
 msgstr "متأهل"
 
-#: jobs/models.py:145
+#: jobs/models.py:155
 msgid "Mobile number"
 msgstr "شماره موبایل"
 
-#: jobs/models.py:146
+#: jobs/models.py:156
 msgid "Phone number"
 msgstr "شماره تماس"
 
-#: jobs/models.py:147
+#: jobs/models.py:157
 msgid "Address"
 msgstr "آدرس"
 
-#: jobs/models.py:151
+#: jobs/models.py:161
 msgid "Military service status"
 msgstr "وضعیت نظام وظیفه"
 
-#: jobs/models.py:156 jobs/templates/user_profile.html:75
+#: jobs/models.py:166 jobs/templates/user_profile.html:75
 msgid "Gender"
 msgstr "جنسیت"
 
-#: jobs/models.py:161
+#: jobs/models.py:171
 msgid "Marital status"
 msgstr "وضعیت تاهل"
 
-#: jobs/models.py:163
+#: jobs/models.py:173
 msgid "City of residence"
 msgstr "شهر محل اقامت"
 
-#: jobs/models.py:164
+#: jobs/models.py:174
 msgid "Bio"
 msgstr "بیو"
 
-#: jobs/models.py:208
+#: jobs/models.py:218
 msgid "Field"
 msgstr "رشته"
 
-#: jobs/models.py:209
+#: jobs/models.py:219
 msgid "Institue"
 msgstr "موسسه"
 
-#: jobs/models.py:212
+#: jobs/models.py:222
 msgid "Level"
 msgstr "سطح"
 
-#: jobs/models.py:215
+#: jobs/models.py:225
 msgid "Start year"
 msgstr "سال آغاز"
 
-#: jobs/models.py:218
+#: jobs/models.py:228
 msgid "Finish year"
 msgstr "سال پایان"
 
-#: jobs/models.py:220
+#: jobs/models.py:230
 msgid "Is currently studying"
 msgstr "در حال تحصیل"
 
-#: jobs/models.py:239
+#: jobs/models.py:249
 msgid "Accepted"
 msgstr "قبول"
 
-#: jobs/models.py:240
+#: jobs/models.py:250
 msgid "Rejected"
 msgstr "رد"
 
-#: jobs/models.py:241
+#: jobs/models.py:251
 msgid "Pending"
 msgstr "در انتظار"
 
-#: jobs/models.py:247
+#: jobs/models.py:257
 msgid "Resume"
 msgstr "رزومه"
 
-#: jobs/models.py:248
+#: jobs/models.py:258
 msgid "Reject Reason"
 msgstr "دلیل رد شدن"
 
@@ -435,7 +439,7 @@ msgstr "دلیل رد شدن"
 msgid "General Information"
 msgstr "اطلاعات کلی"
 
-#: jobs/templates/company_details.html:43 jobs/templates/job_offer.html:38
+#: jobs/templates/company_details.html:43 jobs/templates/job_offer.html:48
 #: jobs/templates/user_profile.html:52 jobs/templates/user_profile.html:61
 #: jobs/templates/user_profile.html:70 jobs/templates/user_profile.html:79
 #: jobs/templates/user_profile.html:88 jobs/templates/user_profile.html:97
@@ -458,7 +462,7 @@ msgstr "عنوان"
 
 #: jobs/templates/company_details.html:73
 #: jobs/templates/email_templates/offer_suggestion.html:17
-#: jobs/templates/job_offer.html:34 jobs/templates/main.html:90
+#: jobs/templates/job_offer.html:44 jobs/templates/main.html:90
 msgid "Salary"
 msgstr "حقوق"
 
@@ -519,7 +523,7 @@ msgid "Profile"
 msgstr "پروفایل"
 
 #: jobs/templates/dashboard/base_dashboard.html:23
-#: jobs/templates/edit_profile.html:40 jobs/templates/user_profile.html:19
+#: jobs/templates/edit_profile.html:14 jobs/templates/user_profile.html:19
 msgid "Edit Profile"
 msgstr "ویرایش پروفایل"
 
@@ -539,64 +543,65 @@ msgstr "تنظیمات"
 msgid "Logout"
 msgstr "خروج"
 
-#: jobs/templates/edit_profile.html:42
+#: jobs/templates/edit_profile.html:16
 msgid "Edit Personal Info"
 msgstr "ویرایش اطلاعات شخصی"
 
-#: jobs/templates/edit_profile.html:56
+#: jobs/templates/edit_profile.html:29
 msgid "Edit"
 msgstr "ویرایش"
 
-#: jobs/templates/edit_profile.html:62
+#: jobs/templates/edit_profile.html:35
 msgid "Edit Skills"
 msgstr "ویرایش مهارت‌ها"
 
-#: jobs/templates/edit_profile.html:63
+#: jobs/templates/edit_profile.html:36
 msgid "Current Skills"
 msgstr "مهارت‌های فعلی"
 
-#: jobs/templates/edit_profile.html:74 jobs/templates/edit_profile.html:160
+#: jobs/templates/edit_profile.html:47 jobs/templates/edit_profile.html:133
 msgid "Delete"
 msgstr "حذف"
 
-#: jobs/templates/edit_profile.html:81 jobs/templates/edit_profile.html:126
+#: jobs/templates/edit_profile.html:54 jobs/templates/edit_profile.html:99
 msgid "Add new ones"
 msgstr "افزودن موارد جدید"
 
-#: jobs/templates/edit_profile.html:96 jobs/templates/edit_profile.html:139
-#: jobs/templates/edit_profile.html:193
+#: jobs/templates/edit_profile.html:69 jobs/templates/edit_profile.html:112
+#: jobs/templates/edit_profile.html:166
 msgid "Add"
 msgstr "افزودن"
 
-#: jobs/templates/edit_profile.html:102
+#: jobs/templates/edit_profile.html:75
 msgid "Edit Educational Backgrounds"
 msgstr "ویرایش سوابق تحصیلی"
 
-#: jobs/templates/edit_profile.html:120
+#: jobs/templates/edit_profile.html:93
 msgid "delete"
 msgstr "حذف"
 
-#: jobs/templates/edit_profile.html:147
+#: jobs/templates/edit_profile.html:120
 msgid "Edit Alternative Emails"
 msgstr "ویرایش ایمیل‌های جایگزین"
 
-#: jobs/templates/edit_profile.html:149
+#: jobs/templates/edit_profile.html:122
 msgid "Edit existing ones"
 msgstr "ویرایش ایمیل‌های موجود"
 
-#: jobs/templates/edit_profile.html:170
+#: jobs/templates/edit_profile.html:143
 msgid "Send Verification Email"
 msgstr "ارسال ایمیل تایید"
 
-#: jobs/templates/edit_profile.html:174 jobs/templates/user_profile.html:145
+#: jobs/templates/edit_profile.html:147 jobs/templates/user_profile.html:145
 msgid "Email verified"
 msgstr "ایمیل تأیید شده"
 
-#: jobs/templates/edit_profile.html:182
+#: jobs/templates/edit_profile.html:155
 msgid "Add a new email"
 msgstr "اضافه کردن ایمیل جدید"
 
 #: jobs/templates/email_templates/accepted_job_application.html:3
+#: jobs/templates/email_templates/offer_inform.html:3
 #: jobs/templates/email_templates/offer_suggestion.html:5
 #: jobs/templates/email_templates/pending_job_application.html:3
 #: jobs/templates/email_templates/reject_job_application.html:3
@@ -619,18 +624,30 @@ msgstr "سلام"
 msgid "Please click on the link to verify your alternative email"
 msgstr "برای تأیید ایمیل جایگزین خود، لطفاً روی لینک زیر کلیک کنید."
 
+#: jobs/templates/email_templates/offer_inform.html:4
+msgid "You have already been labeled a "
+msgstr "شما قبلا یرچسب زده اید"
+
+#: jobs/templates/email_templates/offer_inform.html:5
+msgid "This job is now enabled"
+msgstr "این شغل اکنون فعال شده است!"
+
+#: jobs/templates/email_templates/offer_inform.html:6
+msgid "You can see the details of this job through the following link"
+msgstr "شما می توانید جزئیات بیشتر در مورد این شغل در لینک زیر ببینید "
+
 #: jobs/templates/email_templates/offer_suggestion.html:6
 msgid "We have a new appropriate job offer for you with below details:"
 msgstr ""
 "یک پیشنهاد شفلی جدید و مناسب برای شما، با اطلاعات زیر روی سایت قرار گرفت:"
 
 #: jobs/templates/email_templates/offer_suggestion.html:14
-#: jobs/templates/job_offer.html:24
+#: jobs/templates/job_offer.html:34
 msgid "Description"
 msgstr "توضیحات"
 
 #: jobs/templates/email_templates/offer_suggestion.html:18
-#: jobs/templates/job_offer.html:36
+#: jobs/templates/job_offer.html:46
 msgid "IRR"
 msgstr "ریال"
 
@@ -654,71 +671,79 @@ msgstr "وضعیت درخواست شغلی شما به رد شده تغییر ک
 msgid "Job Information"
 msgstr "اطلاعات موقعیت شغلی"
 
-#: jobs/templates/job_offer.html:29
+#: jobs/templates/job_offer.html:26
+msgid "dont inform me"
+msgstr "مرا با خبر نکن"
+
+#: jobs/templates/job_offer.html:28
+msgid "inform me"
+msgstr "مرا از شغل های برچسب شده با خبر کن"
+
+#: jobs/templates/job_offer.html:39
 msgid "Minimum Work Experience Required"
 msgstr "کمینه تجربه‌ی کاری مورد نیاز"
 
-#: jobs/templates/job_offer.html:30
+#: jobs/templates/job_offer.html:40
 msgid "years"
 msgstr "سال"
 
-#: jobs/templates/job_offer.html:43
+#: jobs/templates/job_offer.html:53
 msgid "Cooperation Type"
 msgstr "نوع همکاری"
 
-#: jobs/templates/job_offer.html:48
+#: jobs/templates/job_offer.html:58
 msgid "Minimum Degree Required"
 msgstr "حداقل مدرک تحصیلی مورد نیاز"
 
-#: jobs/templates/job_offer.html:53
+#: jobs/templates/job_offer.html:63
 msgid "Required Skills"
 msgstr "مهارت‌های مورد نیاز"
 
-#: jobs/templates/job_offer.html:61
+#: jobs/templates/job_offer.html:71
 msgid "No Skill is specified."
 msgstr "مهارتی ذکر نشده است."
 
-#: jobs/templates/job_offer.html:69
+#: jobs/templates/job_offer.html:79
 msgid "You need to complete your profile before applying for a job."
 msgstr "قبل از ارسال درخواست، باید پروفایل خود را کامل کنید."
 
-#: jobs/templates/job_offer.html:75
+#: jobs/templates/job_offer.html:85
 msgid "Your Applications History for This Job"
 msgstr "تاریخچه‌ی درخواست‌های شما برای این موقعیت شغلی"
 
-#: jobs/templates/job_offer.html:78
+#: jobs/templates/job_offer.html:88
 msgid "Applied on "
 msgstr "درخواست داده در "
 
-#: jobs/templates/job_offer.html:79
+#: jobs/templates/job_offer.html:89
 msgid "Result"
 msgstr "نتیجه"
 
-#: jobs/templates/job_offer.html:81
+#: jobs/templates/job_offer.html:91
 msgid "Reason"
 msgstr "دلیل"
 
-#: jobs/templates/job_offer.html:90
+#: jobs/templates/job_offer.html:100
 msgid "This Job is currently Disabled."
 msgstr "این شغل غیرفعال شده است!"
 
-#: jobs/templates/job_offer.html:101
+#: jobs/templates/job_offer.html:111
 msgid "Upload your resume"
 msgstr "بارگذاری رزومه"
 
-#: jobs/templates/job_offer.html:105
+#: jobs/templates/job_offer.html:115
 msgid "APPLY FOR THIS JOB"
 msgstr "درخواست برای این موقعیت"
 
-#: jobs/templates/job_offer.html:129
+#: jobs/templates/job_offer.html:139
 msgid "Browse other job openings"
 msgstr "از دیگر موقعیت‌های شغلی بازدید کنید"
 
-#: jobs/templates/job_offer.html:131
+#: jobs/templates/job_offer.html:141
 msgid "or"
 msgstr "یا"
 
-#: jobs/templates/job_offer.html:133
+#: jobs/templates/job_offer.html:143
 msgid "visit company page"
 msgstr "صفحه‌ی شرکت را چک کنید"
 
@@ -794,23 +819,23 @@ msgstr "ایمیل‌های تأیید شده"
 msgid "Create resume based on profile"
 msgstr "ساخت رزومه بر اساس پروفایل"
 
-#: jobs/views.py:25
+#: jobs/views.py:24
 msgid "Complete your profile before application"
 msgstr "قبل از ارسال درخواست، باید پروفایل خود را کامل کنید."
 
-#: jobs/views.py:31
+#: jobs/views.py:30
 msgid "Already applied for this offer"
 msgstr "قبلاً برای این موقعیت درخواست داده‌اید!"
 
-#: jobs/views.py:36
+#: jobs/views.py:35
 msgid "Successfully applied for this offer"
 msgstr "با موفقیت برای این موقعیت درخواست دادید."
 
-#: jobs/views.py:38
+#: jobs/views.py:37
 msgid "Apply request only accepts \"POST\" method"
 msgstr "ریکوئست اپلای تنها متد POST می‌پذیرد."
 
-#: jobs/views.py:51
+#: jobs/views.py:49
 msgid ""
 "Based on your profile, You don't have not one of the skills, education or "
 "location requirements of this job opening."
@@ -818,7 +843,7 @@ msgstr ""
 "بنا بر مشخصات پروفایلتان، شما یکی از نیازمندی‌های این موقعیت شغلی (مهارت، "
 "مدرک تحصیلی یا محل کار) را ندارید."
 
-#: jobs/views.py:131
+#: jobs/views.py:135
 msgid "Successfully edited"
 msgstr "با موفقیت ویرایش شد."
 
@@ -846,7 +871,7 @@ msgstr "خانه"
 msgid "Companies"
 msgstr "شرکت‌ها"
 
-#: templates/base.html:57
+#: templates/base.html:61
 msgid "Hezardastan Information Technology Development Group"
 msgstr "گروه توسعه فناوری اطلاعات هزاردستان"
 
@@ -905,11 +930,6 @@ msgstr "بعد"
 #~| msgid "Sent Applications"
 #~ msgid "Applications List"
 #~ msgstr "درخواست‌های ارسال شده"
-
-#, fuzzy
-#~| msgid "This Job is currently Disabled."
-#~ msgid "this job is disabled!"
-#~ msgstr "این شغل غیرفعال شده است!"
 
 #, fuzzy
 #~| msgid "Upload your resume"
