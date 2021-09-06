@@ -18,8 +18,10 @@
             {% cache 600 Company company.id request.LANGUAGE_CODE %}
                 <div class="company">
                     <div class="company__upper">
-                        <img src="{% if company.logo %} {{ company.logo.url }} {% else %} https://via.placeholder.com/400x400.png?text=Logo+not+found {% endif %}"
-                             alt="{{ company.name }}-logo">
+                        {% if company.logo %}
+                            <img class="company-logo" src="{{ company.logo.url }}"
+                                 alt="{{ company.name }}-logo">
+                        {% endif %}
                         <div class="company-info">
                             <h1> {{ company.name }}</h1>
                             <p> {{ company.description }}</p>
@@ -35,7 +37,11 @@
                             </li>
                             <li>
                                 <i class="fa fa-map-marker"></i>
-                                {{ company.address|truncatewords:10 }}
+                                {% if company.address != "" %}
+                                    {{ company.address|truncatewords:10 }}
+                                {% else %}
+                                    {% translate "Not set" %}
+                                {% endif %}
                             </li>
                             <li>
                                 <i class="fa fa-external-link"></i>

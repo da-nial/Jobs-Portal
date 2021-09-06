@@ -49,6 +49,13 @@
     width: 90%;
 }
 
+.company-card__link {
+    height: 100px;
+}
+
+.company-card__logo {
+    height: 100px;
+}
 
 .company-card__description {
     min-height: 40px;
