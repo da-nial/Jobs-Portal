@@ -6,7 +6,7 @@
 {% endblock %}
 {% block main %}
     {% load i18n %}
-    {% load convert_numbers %}
+    {% load extra_tags %}
     <div class='profile'>
         <div class='profile__container'>
             <div class='profile-photo-wrapper'>
@@ -110,9 +110,9 @@
 
             <div class="labeled-info info-item--wide">
                 <h3>{% translate "Skills" %}</h3>
-                <div class='skills__container'>
+                <div class='skill-tag-wrapper'>
                     {% for skill in userprofile.skills.all %}
-                        <h4 class='info-item__value info-item__value--tag'> {{ skill }} </h4>
+                        <h4 class='skill-tag'> {{ skill }} </h4>
                     {% endfor %}
                 </div>
             </div>

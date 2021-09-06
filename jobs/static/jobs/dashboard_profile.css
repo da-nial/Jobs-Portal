@@ -93,24 +93,6 @@
     grid-column: 1 / 3;
 }
 
-
-.skills__container {
-    width: 100%;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-}
-
-
-.info-item__value--tag {
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: rgb(178, 180, 183);
-    color: white;
-    margin-right: 5px;
-}
-
 .educational-background {
     display: flex;
     align-items: flex-start;

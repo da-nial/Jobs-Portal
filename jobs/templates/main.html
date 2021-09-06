@@ -9,7 +9,7 @@
 {% block content %}
     {% include 'messages.html' %}
     {% load i18n %}
-    {% load convert_numbers %}
+    {% load extra_tags %}
     <div class="main-wrapper">
         <h1 class="main__title" id="companies">{% translate "Our Companies" %}</h1>
         {% if companies %}

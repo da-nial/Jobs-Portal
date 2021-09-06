@@ -1,5 +1,5 @@
 from django.utils.translation import get_language
-from jobs.templatetags.convert_numbers import translate_numbers
+from jobs.templatetags.extra_tags import translate_numbers
 from django.db import models, IntegrityError
 from authentication.models import CustomUser
 from django.core.validators import MinValueValidator, MaxValueValidator
