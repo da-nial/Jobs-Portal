@@ -55,18 +55,19 @@ class CustomUser(AbstractUser):
 
     def has_education_for_offer(self, offer):
         from jobs.models import EducationalLevel
-        if hasattr(self, 'profile'):
-            return self.profile.educationalbackground_set.filter(
-                level__in=EducationalLevel(offer.minimum_degree).get_ge_educational_levels()
-            ).exists()
-        else:
-            return False
+        if offer.minimum_degree is None:
+            return True
+
+        user_educational_background = self.profile.educationalbackground_set
+        acceptable_levels = EducationalLevel(offer.minimum_degree).get_ge_educational_levels()
+
+        return user_educational_background.filter(level__in=acceptable_levels).exists()
 
     def has_requirement_for_offer(self, offer):
         if self.profile.city_of_residence != offer.city:
             return False
-        if self.has_skills_for_offer(offer) is False:
+        if not self.has_skills_for_offer(offer):
             return False
-        if self.has_education_for_offer(offer) is False:
+        if not self.has_education_for_offer(offer):
             return False
         return True

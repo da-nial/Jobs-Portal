@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-06 07:07+0000\n"
+"POT-Creation-Date: 2021-09-06 07:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -435,10 +435,11 @@ msgstr "دلیل رد شدن"
 msgid "General Information"
 msgstr "اطلاعات کلی"
 
-#: jobs/templates/company_details.html:43 jobs/templates/user_profile.html:52
-#: jobs/templates/user_profile.html:61 jobs/templates/user_profile.html:70
-#: jobs/templates/user_profile.html:79 jobs/templates/user_profile.html:88
-#: jobs/templates/user_profile.html:97 jobs/templates/user_profile.html:106
+#: jobs/templates/company_details.html:43 jobs/templates/job_offer.html:41
+#: jobs/templates/user_profile.html:52 jobs/templates/user_profile.html:61
+#: jobs/templates/user_profile.html:70 jobs/templates/user_profile.html:79
+#: jobs/templates/user_profile.html:88 jobs/templates/user_profile.html:97
+#: jobs/templates/user_profile.html:106 jobs/templatetags/extra_tags.py:36
 msgid "Not set"
 msgstr "عنوان نشده"
 
@@ -457,8 +458,7 @@ msgstr "عنوان"
 
 #: jobs/templates/company_details.html:73
 #: jobs/templates/email_templates/offer_suggestion.html:17
-#: jobs/templates/job_offer.html:34 jobs/templates/job_offers.html:21
-#: jobs/templates/main.html:90
+#: jobs/templates/job_offer.html:34 jobs/templates/main.html:90
 msgid "Salary"
 msgstr "حقوق"
 
@@ -620,12 +620,12 @@ msgstr ""
 "یک پیشنهاد شفلی جدید و مناسب برای شما، با اطلاعات زیر روی سایت قرار گرفت:"
 
 #: jobs/templates/email_templates/offer_suggestion.html:14
-#: jobs/templates/job_offer.html:24 jobs/templates/job_offers.html:14
+#: jobs/templates/job_offer.html:24
 msgid "Description"
 msgstr "توضیحات"
 
 #: jobs/templates/email_templates/offer_suggestion.html:18
-#: jobs/templates/job_offer.html:35
+#: jobs/templates/job_offer.html:36
 msgid "IRR"
 msgstr "ریال"
 
@@ -653,105 +653,69 @@ msgstr "اطلاعات موقعیت شغلی"
 msgid "Minimum Work Experience Required"
 msgstr "کمینه تجربه‌ی کاری مورد نیاز"
 
-#: jobs/templates/job_offer.html:39
+#: jobs/templates/job_offer.html:30
+msgid "years"
+msgstr "سال"
+
+#: jobs/templates/job_offer.html:47
 msgid "Cooperation Type"
 msgstr "نوع همکاری"
 
-#: jobs/templates/job_offer.html:44
+#: jobs/templates/job_offer.html:52
 msgid "Minimum Degree Required"
 msgstr "حداقل مدرک تحصیلی مورد نیاز"
 
-#: jobs/templates/job_offer.html:49
+#: jobs/templates/job_offer.html:57
 msgid "Required Skills"
 msgstr "مهارت‌های مورد نیاز"
 
-#: jobs/templates/job_offer.html:61
+#: jobs/templates/job_offer.html:65
+msgid "No Skill is specified."
+msgstr "مهارتی ذکر نشده است."
+
+#: jobs/templates/job_offer.html:73
 msgid "You need to complete your profile before applying for a job."
 msgstr "قبل از ارسال درخواست، باید پروفایل خود را کامل کنید."
 
-#: jobs/templates/job_offer.html:67
+#: jobs/templates/job_offer.html:79
 msgid "Your Applications History for This Job"
 msgstr "تاریخچه‌ی درخواست‌های شما برای این موقعیت شغلی"
 
 #: jobs/templates/job_offer.html:82
+msgid "Applied on "
+msgstr "درخواست داده در "
+
+#: jobs/templates/job_offer.html:83
+msgid "Result"
+msgstr "نتیجه"
+
+#: jobs/templates/job_offer.html:85
+msgid "Reason"
+msgstr "دلیل"
+
+#: jobs/templates/job_offer.html:94
 msgid "This Job is currently Disabled."
 msgstr "این شغل غیرفعال شده است!"
 
-#: jobs/templates/job_offer.html:93
+#: jobs/templates/job_offer.html:105
 msgid "Upload your resume"
 msgstr "بارگذاری رزومه"
 
-#: jobs/templates/job_offer.html:97
+#: jobs/templates/job_offer.html:109
 msgid "APPLY FOR THIS JOB"
 msgstr "درخواست برای این موقعیت"
 
-#: jobs/templates/job_offer.html:121
+#: jobs/templates/job_offer.html:133
 msgid "Browse other job openings"
 msgstr "از دیگر موقعیت‌های شغلی بازدید کنید"
 
-#: jobs/templates/job_offer.html:123
+#: jobs/templates/job_offer.html:135
 msgid "or"
 msgstr "یا"
 
-#: jobs/templates/job_offer.html:125
+#: jobs/templates/job_offer.html:137
 msgid "visit company page"
 msgstr "صفحه‌ی شرکت را چک کنید"
-
-#: jobs/templates/job_offers.html:18
-#, fuzzy
-#| msgid "Minimum Work Experience Required"
-msgid "Minimum work experience"
-msgstr "کمینه تجربه‌ی کاری مورد نیاز"
-
-#: jobs/templates/job_offers.html:24
-#, fuzzy
-#| msgid "Type of Cooperation"
-msgid "Type of cooperation"
-msgstr "نوع همکاری"
-
-#: jobs/templates/job_offers.html:27
-msgid "City"
-msgstr ""
-
-#: jobs/templates/job_offers.html:30
-#, fuzzy
-#| msgid "Minimum Degree Required"
-msgid "Minimum degree"
-msgstr "حداقل مدرک تحصیلی مورد نیاز"
-
-#: jobs/templates/job_offers.html:37
-msgid "Skills required"
-msgstr ""
-
-#: jobs/templates/job_offers.html:46
-#, fuzzy
-#| msgid "You need to complete your profile before applying for a job."
-msgid "You need to complete your profile before application"
-msgstr "قبل از ارسال درخواست، باید پروفایل خود را کامل کنید."
-
-#: jobs/templates/job_offers.html:50
-#, fuzzy
-#| msgid "Sent Applications"
-msgid "Applications List"
-msgstr "درخواست‌های ارسال شده"
-
-#: jobs/templates/job_offers.html:59
-#, fuzzy
-#| msgid "This Job is currently Disabled."
-msgid "this job is disabled!"
-msgstr "این شغل غیرفعال شده است!"
-
-#: jobs/templates/job_offers.html:63
-#, fuzzy
-#| msgid "Upload your resume"
-msgid "Upload resume"
-msgstr "بارگذاری رزومه"
-
-#: jobs/templates/job_offers.html:65
-#, fuzzy
-#| msgid "Sent Applications"
-msgid "Send Application"
-msgstr "درخواست‌های ارسال شده"
 
 #: jobs/templates/main.html:14
 msgid "Our Companies"
@@ -908,6 +872,46 @@ msgstr "قبل"
 #: templates/pagination.html:59 templates/pagination.html:68
 msgid "Next"
 msgstr "بعد"
+
+#, fuzzy
+#~| msgid "Minimum Work Experience Required"
+#~ msgid "Minimum work experience"
+#~ msgstr "کمینه تجربه‌ی کاری مورد نیاز"
+
+#, fuzzy
+#~| msgid "Type of Cooperation"
+#~ msgid "Type of cooperation"
+#~ msgstr "نوع همکاری"
+
+#, fuzzy
+#~| msgid "Minimum Degree Required"
+#~ msgid "Minimum degree"
+#~ msgstr "حداقل مدرک تحصیلی مورد نیاز"
+
+#, fuzzy
+#~| msgid "You need to complete your profile before applying for a job."
+#~ msgid "You need to complete your profile before application"
+#~ msgstr "قبل از ارسال درخواست، باید پروفایل خود را کامل کنید."
+
+#, fuzzy
+#~| msgid "Sent Applications"
+#~ msgid "Applications List"
+#~ msgstr "درخواست‌های ارسال شده"
+
+#, fuzzy
+#~| msgid "This Job is currently Disabled."
+#~ msgid "this job is disabled!"
+#~ msgstr "این شغل غیرفعال شده است!"
+
+#, fuzzy
+#~| msgid "Upload your resume"
+#~ msgid "Upload resume"
+#~ msgstr "بارگذاری رزومه"
+
+#, fuzzy
+#~| msgid "Sent Applications"
+#~ msgid "Send Application"
+#~ msgstr "درخواست‌های ارسال شده"
 
 #~ msgid "Job Opennings"
 #~ msgstr "موقعیت‌های شغلی"

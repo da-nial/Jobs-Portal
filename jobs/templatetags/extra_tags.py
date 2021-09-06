@@ -1,6 +1,7 @@
 from django import template
 from django.template.defaultfilters import stringfilter
 from django.utils.translation import get_language
+from django.utils.translation import gettext_lazy as _
 
 NUMBER_MAP = {
     "0": "۰",
@@ -27,3 +28,11 @@ def translate_numbers(input_string):
         except KeyError:
             return input_string
     return input_string
+
+
+@register.filter()
+def display(attr):
+    if attr is None or attr == "":
+        return _("Not set")
+    else:
+        return attr

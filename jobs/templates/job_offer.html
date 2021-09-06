@@ -6,9 +6,9 @@
 {% endblock %}
 {% load job_extras %}
 {% load cache %}
-{% load convert_numbers %}
 {% block content %}
     {% load i18n %}
+    {% load extra_tags %}
 
     <div class="company-wrapper">
         <div class="z">
@@ -22,17 +22,21 @@
 
                     <div class="labeled-info">
                         <h3>{% translate "Description" %}</h3>
-                        <h4>{{ joboffer.description }}</h4>
+                        <h4>{{ joboffer.description|display }}</h4>
                     </div>
 
                     <div class="labeled-info">
                         <h3>{% translate "Minimum Work Experience Required" %}</h3>
-                        <h4>{{ joboffer.minimum_work_experience }} y.</h4>
+                        <h4>{{ joboffer.minimum_work_experience|translate_numbers }} {% translate "years" %}</h4>
                     </div>
 
                     <div class="labeled-info">
                         <h3>{% translate "Salary" %}</h3>
-                        <h4> {{ joboffer.salary|translate_numbers }} {% translate "IRR" %} </h4>
+                        {% if joboffer.salary is not None %}
+                            <h4> {{ joboffer.salary|translate_numbers }} {% translate "IRR" %} </h4>
+                        {% else %}
+                            {% translate "Not set" %}
+                        {% endif %}
                     </div>
 
                     <div class="labeled-info">
@@ -42,16 +46,20 @@
 
                     <div class="labeled-info">
                         <h3>{% translate "Minimum Degree Required" %}</h3>
-                        {{ joboffer.get_minimum_degree_display }}
+                        {{ joboffer.get_minimum_degree_display|display }}
                     </div>
 
                     <div class="labeled-info">
                         <h3>{% translate "Required Skills" %}</h3>
-                        <div class='skills__container'>
-                            {% for skill in joboffer.skills_required.all %}
-                                <h4 class='info-item__value info-item__value--tag'> {{ skill }} </h4>
-                            {% endfor %}
-                        </div>
+                        {% if joboffer.skills_required.all %}
+                            <div class='skill-tag-wrapper'>
+                                {% for skill in joboffer.skills_required.all %}
+                                    <h4 class='skill-tag'> {{ skill }} </h4>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <h4>{% translate "No Skill is specified." %}</h4>
+                        {% endif %}
                     </div>
                 {% endcache %}
 
@@ -67,10 +75,10 @@
                                     {% translate "Your Applications History for This Job" %}</h4>
                                 <ol>
                                     {% for application in applications|dictsort:"created_at" %}
-                                        <li>Applied on {{ application.created_at|date:'d M Y' }} |
-                                            Result: {{ application.get_state_display }}
+                                        <li>{% translate "Applied on " %} {{ application.created_at|date:'d M Y' }}|
+                                            {% translate "Result" %}: {{ application.get_state_display }}
                                             {% if application.reject_reason %}
-                                                <p>{{ application.reject_reason }}</p>
+                                                <p>{% translate "Reason" %}: {{ application.reject_reason }}</p>
                                             {% endif %}
                                         </li>
                                     {% endfor %}
