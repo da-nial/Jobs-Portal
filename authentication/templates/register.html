@@ -85,6 +85,16 @@
                     </button>
                 </span>
             </form>
+            <form action="{% url 'set_language' %}" method="post">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ redirect_to }}">
+                {% get_current_language as LANGUAGE_CODE %}
+                {% if LANGUAGE_CODE == "fa" %}
+                    <input class="lang-button" type="submit" value="en" name="language">
+                {% else %}
+                    <input class="lang-button" type="submit" value="fa" name="language">
+                {% endif %}
+            </form>
         </div>
     </div>
 {% endblock %}
