@@ -230,11 +230,12 @@ a:hover {
     border: solid rgb(255, 210, 210) 1px;
     border-radius: 7px;
     margin: 10px 0;
+    padding: 5px;
 
     color: red;
 
     width: 100%;
-    height: 40px;
+    max-height: 75px;
 }
 
 .labeled-info {

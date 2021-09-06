@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.http import HttpResponse, HttpResponseRedirect
@@ -9,19 +10,19 @@ from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView
-from authentication.forms import UserForm
 from authentication.models import CustomUser
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetDoneView, \
     PasswordResetCompleteView
-from jobs.models import UserProfile
+from .forms import UserForm
 
 
-class RegisterView(CreateView):
+class RegisterView(SuccessMessageMixin, CreateView):
     model = CustomUser
     template_name = 'register.html'
     form_class = UserForm
     success_url = settings.LOGIN_URL
+    success_message = _("Your account has been created successfully.")
 
 
 def login_user(request):
