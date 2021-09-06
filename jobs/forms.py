@@ -27,6 +27,11 @@ class EditProfileForm(forms.ModelForm, EditProfilePageFormMixin):
         fields = ['mobile_number', 'phone_number', 'address', 'military_service_status', 'gender',
                   'marital_status', 'city_of_residence', 'bio']
 
+    field_order = ['first_name', 'last_name', 'mobile_number',
+                   'phone_number', 'military_service_status',
+                   'gender', 'marital_status', 'city_of_residence',
+                   'address', 'bio']
+
     def save_profile_form(self, profile):
         profile = super(EditProfileForm, self).save()
         if self.has_changed():

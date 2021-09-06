@@ -128,14 +128,15 @@
                                 {{ educational_background.field }} | {{ educational_background.institute }}
                             </h4>
                             <h5 class="info-item__value">
-                                {{ educational_background.start_year }} - {{ educational_background.finish_year }}
+                                {{ educational_background.start_year|translate_numbers }}
+                                - {{ educational_background.finish_year|translate_numbers }}
                             </h5>
                         </div>
                     </div>
                 {% endfor %}
             </div>
 
-            <h3> {% translate "Verified Emails" %}: </h3>
+            <h3 class='info-item__title'> {% translate "Verified Emails" %}: </h3>
             <ul>
                 {% for email in request.user.profile.alt_emails.all %}
                     {% if email.is_verified %}
