@@ -9,8 +9,7 @@ from django.views import generic
 from .models import JobOffer, UserProfile, Company, EducationalBackground, Application, AltEmail, Resume
 from django.utils.translation import ugettext_lazy as _
 from .resume_pdf_render import ResumePdfRender
-from .forms import EducationalBackgroundForm, SkillForm, EditProfileForm, AltEmailForm, FilterJobOfferForm, \
-    EditProfilePageFormMixin
+from .forms import EducationalBackgroundForm, SkillForm, EditProfileForm, AltEmailForm, FilterJobOfferForm
 from django.contrib import messages
 from jobs.mail_service import send_verification_email
 from django.views.decorators.http import require_http_methods
@@ -221,7 +220,7 @@ def check_remove_filter(request):
         request.GET['category'] = 'AL'
 
 
-class MainView(LoginRequiredMixin, generic.ListView):
+class MainView(generic.ListView):
     template_name = 'main.html'
     context_object_name = 'offers'
     login_url = settings.LOGIN_URL
@@ -241,7 +240,7 @@ class MainView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(MainView, self).get_context_data(**kwargs)
         context['companies'] = Company.objects.all().order_by('pk')
-        if self.request.user.profile:
+        if self.request.user.is_authenticated and self.request.user.profile:
             context['appropriate_offers'] = JobOffer.enabled.appropriate_offers_for_profile(
                 self.request.user.profile)
         context['filter_job_offer'] = FilterJobOfferForm(self.request.GET)

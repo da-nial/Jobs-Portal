@@ -30,9 +30,13 @@
             <li><a href={% url 'jobs:main' %}>{% translate 'Home' %}</a></li>
             <li><a href="{% url 'jobs:main' %}#companies">{% translate 'Companies' %} </a></li>
             <li><a href="{% url 'jobs:main' %}#paginated_section">{% translate 'Job Openings' %} </a></li>
-            <li><a href={% url 'jobs:user_profile' %}>
-                <img class="nav__profile-photo" src="{% static '/images/profile.png' %}" alt=""/>
-            </a></li>
+            {% if request.user.is_authenticated %}
+                <li><a href={% url 'jobs:user_profile' %}>
+                    <img class="nav__profile-photo" src="{% static '/images/profile.png' %}" alt=""/>
+                </a></li>
+            {% else %}
+                <li><a href="{% url 'auth:login' %}">{% translate 'Login' %} </a></li>
+            {% endif %}
             <li>
                 <form action="{% url 'set_language' %}" method="post">
                     {% csrf_token %}
