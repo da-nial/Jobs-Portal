@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jobs
+  namespace: sc-development
+spec:
+  rules:
+    - host: jobs.k8s-summercamp.divar.ir
+      http:
+        paths:
+          - backend:
+              service:
+                name: jobs
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix

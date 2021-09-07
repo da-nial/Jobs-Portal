@@ -47,6 +47,17 @@ coverage: compile_messages migrate
 coverage_report:
 	@coverage report
 
+# target: run_gunicorn - Run server of project
+run_gunicorn: compile_messages migrate
+	@gunicorn website.wsgi:application \
+	 --name jobs-gunicorn \
+	 --bind 0.0.0.0:80 \
+	 --workers=10 \
+	 --log-level=info \
+	 --log-file=- \
+	 --timeout 120 \
+	 --reload
+
 # If the first argument is "docker-compose"...
 ifeq (docker-compose, $(firstword $(MAKECMDGOALS)))
   # use the rest as arguments for "docker-compose"

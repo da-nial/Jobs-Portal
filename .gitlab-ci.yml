@@ -2,10 +2,15 @@ image: m.docker-registry.ir/python:3.8.10
 variables:
   DEBUG: 'True'
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  CI_USER: $CI_DEPLOY_USER
+  ACCESS_TOKEN: $CI_DEPLOY_TOKEN
+  KUBERNETES_CONFIG: $KUBER_CONFIG
+
 
 stages:
   - test
   - build-and-push
+  - deploy
 
 cache:
   paths:
@@ -43,5 +48,15 @@ build-and-push:
     - docker build . -t $CI_REGISTRY/backend/jobs:latest -t $CI_REGISTRY/backend/jobs:$CI_COMMIT_SHA
     - docker push $CI_REGISTRY/backend/jobs:latest
     - docker push $CI_REGISTRY/backend/jobs:$CI_COMMIT_SHA
-  only:
-    - master
+
+deploy:
+  stage: deploy
+  image: quay.io/aminrf/docker-kubectl
+  before_script:
+    - ''
+  script:
+    - echo $KUBERNETES_CONFIG|base64 -d > kube_config
+    - kubectl apply -f manifest/configmap.yml --kubeconfig kube_config
+    - kubectl set image deployment/jobs jobs=registry.git-summercamp.divar.ir/backend/jobs:$CI_BUILD_REF --kubeconfig kube_config
+    - rm kube_config
+  when: manual

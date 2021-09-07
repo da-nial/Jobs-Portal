@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: jobs
+  name: jobs
+  namespace: sc-development
+spec:
+  selector:
+    name: jobs
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+      name: app-port
+      protocol: TCP
