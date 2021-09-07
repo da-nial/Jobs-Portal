@@ -19,12 +19,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@^!5$+257v(&ouz(%%n&eclm)3g@=j1jkyi$mh)z^11n51xzu$'
+SECRET_KEY = os.environ.get("SECRET_KEY", "jobs")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", default="True") == "True"
 
-ALLOWED_HOSTS = ['*', ]
+
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost 127.0.0.1 0.0.0.0 [::1]").split(" ")
 
 # Application definition
 
@@ -83,6 +84,19 @@ DATABASES = {
     }
 }
 
+POSTGRES_ENABLE = os.getenv("POSTGRES_ENABLE", "False") == "True"
+if POSTGRES_ENABLE:
+    DATABASES = {
+        "default": {
+            "ENGINE": os.getenv("POSTGRES_ENGINE"),
+            "NAME": os.getenv("POSTGRES_DB"),
+            "USER": os.getenv("POSTGRES_USER"),
+            "PASSWORD": os.getenv("POSTGRES_PASSWORD", ""),
+            "HOST": os.getenv("POSTGRES_HOST"),
+            "PORT": os.getenv("POSTGRES_PORT"),
+        }
+    }
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -139,14 +153,20 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Login Settings
 LOGIN_URL = '/auth/login/'
+LOGOUT_REDIRECT_URL = '/auth/login/'
+
 
 # Send email settings
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'adams.job.offer@gmail.com'
-EMAIL_HOST_PASSWORD = 'S^\+FBsS<z,7w"_$'  # noqa
-EMAIL_PORT = 587
-LOGOUT_REDIRECT_URL = '/auth/login/'
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True") == "True"
+EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.gmail.com")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "adams.job.offer@gmail.com")
+# EMAIL_HOST_PASSWORD Has no default variable and you can't send email without it
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", '')
+EMAIL_PORT = os.getenv("EMAIL_PORT", "587")
+
+
+# Cache Configs
+
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
@@ -154,18 +174,25 @@ CACHES = {
     }
 }
 
+REDIS_ENABLE = os.getenv("REDIS_ENABLE", "False") == "True"
+if REDIS_ENABLE:
+    CACHES = {
+        'default': {
+            'BACKEND': os.getenv("REDIS_BACKEND"),
+            'LOCATION': os.getenv("REDIS_LOCATION"),
+            'OPTIONS': {
+                'DB': os.getenv("REDIS_DB"),
+                'PASSWORD': os.getenv("REDIS_PASSWORD", ""),
+                'PARSER_CLASS': os.getenv("REDIS_PARSER_CLASS"),
+                'PICKLE_VERSION': os.getenv("REDIS_PICKLE_VERSION"),
+            },
+        },
+    }
 
-# Celery Configuration Options
-# CELERY_TIMEZONE = "UTC" Default
-CELERY_TASK_TRACK_STARTED = True
-CELERY_TASK_TIME_LIMIT = 30 * 60
-CELERY_RESULT_BACKEND = 'django-cache'
-# CELERY_RESULT_BACKEND = 'redis://'
-CELERY_BROKER_URL = 'pyamqp://guest:guest@localhost:5672//'
-# Celery Configuration Options
-CELERY_TASK_ALWAYS_EAGER = True
-CELERY_RESULT_SERIALIZER = 'json'
+
+# Celery Configs
+CELERY_TASK_ALWAYS_EAGER = os.getenv("CELERY_TASK_ALWAYS_EAGER", "True") == "True"
 
 
 # Site Domain
-SITE_URL = 'http://localhost:8000'
+SITE_URL = os.getenv("SITE_URL", "http://localhost:8000")

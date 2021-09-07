@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  website:
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - config/.env.prod
+    environment:
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - REDIS_PASSWORD
+      - CELERY_TASK_ALWAYS_EAGER
+
+  redis:
+    image: m.docker-registry.ir/redis:latest
+    restart: always
+    environment:
+      - REDIS_PASSWORD
+      - REDIS_DISABLE_COMMANDS
+    volumes:
+      - redis_data:/redis/data
+
+  db:
+    image: m.docker-registry.ir/postgres:latest
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local

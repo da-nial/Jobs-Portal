@@ -2,11 +2,14 @@ FROM m.docker-registry.ir/python
 
 WORKDIR /app
 
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
 COPY requirements.txt .
 COPY Makefile .
 
 RUN pip install --upgrade pip
-RUN make build_env
 RUN make install
 
 COPY . .
