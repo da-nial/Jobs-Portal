@@ -2,6 +2,10 @@
 <h2>{% translate "Filter Job Offers" %} </h2>
 <form action="" method="get">
     {% csrf_token %}
+    <h3> {% translate "search title" %}  </h3>
+    {{ filter_job_offer.title_search }}
+    <input type="submit" value="search">
+    <br>
     <h3> {% translate "minimum work experience" %}  </h3>
     {{ filter_job_offer.minimum_work_experience }}
     <input type="submit" value="remove filter" name="remove_filter_minimumWork">

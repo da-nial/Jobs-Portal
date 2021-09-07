@@ -1,13 +1,11 @@
-import datetime
 
-from django.contrib.auth import authenticate
 from django.test import TestCase
 
 from django.urls import reverse
 
 from authentication.models import CustomUser
-from .models import Company, JobOffer, UserProfile, Skill, EducationalLevel, EducationalBackground
-from django.contrib.messages import get_messages
+from proxy.models.city_api import CitiesProxy
+from .models import Company, JobOffer, UserProfile, Skill, EducationalLevel, EducationalBackground, CategoryJob
 
 
 class CompanyModelTests(TestCase):
@@ -37,18 +35,23 @@ def create_company():
                    logo='images/test.jpg')
 
 
-def create_job_offer(skill_list=None,
+def create_job_offer(title='test_title',
+                     skill_list=None,
                      company=None,
                      minimum_degree=EducationalLevel.BACHELORS_DEGREE,
+                     minimum_work_experience=1,
+                     category="",
                      is_enabled=True,
                      city='Tehran'):
     if company is None:
         company = create_company()
 
-    job_offer = JobOffer(title='test_title',
+    job_offer = JobOffer(title=title,
                          description='test_description',
                          company=company,
                          minimum_degree=minimum_degree,
+                         minimum_work_experience=minimum_work_experience,
+                         category=category,
                          is_enabled=is_enabled,
                          city=city)
     company.save()
@@ -287,3 +290,41 @@ class WarningRequirementOffer(TestCase):
                                                                          finish_year=1395,
                                                                          user_profile=user_1_profile)
         self.assertEqual(False, self.user_1.has_requirement_for_offer(self.job_offer))
+
+
+class TestSearchMainPageAndCompanyPage(TestCase):
+    def test_different_title_search(self):
+        offer = create_job_offer(title="fullstack website developer")
+        response = self.client.get(reverse("jobs:main"), {'title_search': 'front-end'})
+        self.assertNotIn(offer, response.context['offers'])
+        response = self.client.get(reverse("jobs:company", kwargs={'pk': offer.company.pk}),
+                                   {'title_search': 'front-end'})
+        self.assertNotIn(offer, response.context['page_obj'])
+
+    def test_similar_title_search(self):
+        offer = create_job_offer(title="cloth shop keeper")
+        response = self.client.get(reverse("jobs:main"), {'title_search': 'shop keeper'})
+        self.assertIn(offer, response.context['offers'])
+        response = self.client.get(reverse("jobs:company", kwargs={'pk': offer.company.pk}),
+                                   {'title_search': 'shop keeper'})
+        self.assertIn(offer, response.context['page_obj'])
+
+    def test_all_filters(self):
+        city_choices = CitiesProxy.get_instance().get_city_name_tuple()
+        city_choices = city_choices if city_choices else ['یزد']
+        category_choices = CategoryJob.choices
+        offer = create_job_offer(title="cloth shop keeper",
+                                 minimum_work_experience=4,
+                                 category=category_choices[0][0],
+                                 city=city_choices[0][0])
+        response = self.client.get(reverse("jobs:main"), {'title_search': 'shop keeper',
+                                                          'minimum_work_experience': 3,
+                                                          'category': category_choices[0][0],
+                                                          'city': city_choices[0]})
+        self.assertIn(offer, response.context['offers'])
+        response = self.client.get(reverse("jobs:company", kwargs={'pk': offer.company.pk}),
+                                   {'title_search': 'shop keeper',
+                                    'minimum_work_experience': 3,
+                                    'category': category_choices[0][0],
+                                    'city': city_choices[0]})
+        self.assertIn(offer, response.context['page_obj'])
