@@ -17,7 +17,7 @@ compile_messages:
 
 # target: install - Install requirements
 install:
-	@pip install -r requirements.txt; apt update; apt-get install -y gettext
+	@apt-get update; apt-get install libpq-dev; pip install -r requirements.txt; apt-get install -y gettext
 
 # target: make_migrations - Make migrations
 make_migrations:
@@ -47,3 +47,22 @@ coverage: compile_messages migrate
 coverage_report:
 	@coverage report
 
+# If the first argument is "docker-compose"...
+ifeq (docker-compose, $(firstword $(MAKECMDGOALS)))
+  # use the rest as arguments for "docker-compose"
+  COMPOSE_TYPE := $(word 2,$(MAKECMDGOALS))
+  COMPOSE_ARGS := $(wordlist 3,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  # ...and turn them into do-nothing targets
+  $(eval $(COMPOSE_TYPE):;@:)
+  $(eval $(COMPOSE_ARGS):;@:)
+endif
+
+# target: docker-compose
+docker-compose:
+ifeq ($(COMPOSE_TYPE),$(filter $(COMPOSE_TYPE), prod dev))
+	@echo docker-compose -f docker-compose.yml -f docker-compose.$(COMPOSE_TYPE).yml $(subst *,=,$(COMPOSE_ARGS))
+	@docker-compose -f docker-compose.yml -f docker-compose.$(COMPOSE_TYPE).yml $(subst *,=,$(COMPOSE_ARGS))
+else
+	@echo wrong compose type: $(COMPOSE_TYPE)
+	@echo use dev or prod instead
+endif

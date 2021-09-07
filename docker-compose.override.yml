@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  website:
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_ENABLE=Fasle
+      - POSTGRES_ENABLE=False
+      - DEBUG
+      - SECRET_KEY
+      - DJANGO_ALLOWED_HOSTS
+      - SITE_URL
+      - CELERY_TASK_ALWAYS_EAGER
