@@ -1,3 +1,4 @@
+from django.core.exceptions import FieldError
 from django.db import models
 from django.db.models import Q, Count, F
 
@@ -23,15 +24,22 @@ class EnabledManager(models.Manager):
 
 
 class JobQuerySet(models.QuerySet):
-    def filter_job(self, minimum_work_experience, category, city, company=None):
+    def filter_job(self, title_search, minimum_work_experience, category, city, company=None):
         queryset = self.filter(
             minimum_work_experience__gte=minimum_work_experience
         )
+
         if category != "AL":
             queryset = queryset.filter(category=category)
 
         if city != "AL":
             queryset = queryset.filter(city=city)
+
+        if title_search:
+            try:
+                queryset = queryset.filter(title__search=title_search)
+            except FieldError:
+                queryset = queryset.filter(title__icontains=title_search)
 
         if company:
             queryset.filter(company=company)

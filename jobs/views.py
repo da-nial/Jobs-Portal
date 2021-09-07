@@ -85,16 +85,17 @@ class CompanyView(generic.DetailView):
     def get_related_job_offers(self):
         check_remove_filter(self.request)
         form = FilterJobOfferForm(data=self.request.GET)
-        filter_context = {}
+        job_offers_in_page = []
         if form.is_valid():
             filter_context = form.cleaned_data
-        queryset = JobOffer.objects.filter_job(minimum_work_experience=filter_context['minimum_work_experience'],
-                                               category=filter_context['category'],
-                                               city=filter_context['city'],
-                                               company=self.get_object()).order_by('pk')
-        paginator = Paginator(queryset, 2)
-        page = self.request.GET.get('page', 1)
-        job_offers_in_page = paginator.get_page(page)
+            queryset = JobOffer.objects.filter_job(title_search=filter_context['title_search'],
+                                                   minimum_work_experience=filter_context['minimum_work_experience'],
+                                                   category=filter_context['category'],
+                                                   city=filter_context['city'],
+                                                   company=self.get_object()).order_by('pk')
+            paginator = Paginator(queryset, 2)
+            page = self.request.GET.get('page', 1)
+            job_offers_in_page = paginator.get_page(page)
         return job_offers_in_page
 
 
@@ -237,13 +238,15 @@ class MainView(generic.ListView):
     def get_queryset(self):
         check_remove_filter(self.request)
         form = FilterJobOfferForm(data=self.request.GET)
-        filter_context = {}
+
         if form.is_valid():
             filter_context = form.cleaned_data
-        return JobOffer.enabled.get_queryset().filter_job(
-            minimum_work_experience=filter_context['minimum_work_experience'],
-            category=filter_context['category'],
-            city=filter_context['city']).order_by('pk')
+            return JobOffer.enabled.get_queryset().filter_job(
+                title_search=filter_context['title_search'],
+                minimum_work_experience=filter_context['minimum_work_experience'],
+                category=filter_context['category'],
+                city=filter_context['city']).order_by('pk')
+        return []
 
     def get_context_data(self, **kwargs):
         context = super(MainView, self).get_context_data(**kwargs)
@@ -251,7 +254,7 @@ class MainView(generic.ListView):
         if self.request.user.is_authenticated and self.request.user.profile:
             context['appropriate_offers'] = JobOffer.enabled.appropriate_offers_for_profile(
                 self.request.user.profile)
-        context['filter_job_offer'] = FilterJobOfferForm(self.request.GET)
+        context['filter_job_offer'] = FilterJobOfferForm(data=self.request.GET)
         return context
 
 

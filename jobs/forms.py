@@ -110,9 +110,10 @@ class AltEmailForm(forms.ModelForm):
 
 
 class FilterJobOfferForm(forms.Form):
-    minimum_work_experience = forms.IntegerField(initial=0)
-    category = forms.ChoiceField(choices=())
-    city = forms.ChoiceField(choices=())
+    title_search = forms.CharField(initial="", max_length=100, required=False)
+    minimum_work_experience = forms.IntegerField(initial=0, required=False)
+    category = forms.ChoiceField(choices=(), required=False)
+    city = forms.ChoiceField(choices=(), required=False)
 
     def __init__(self, *args, **kwargs):
         super(FilterJobOfferForm, self).__init__(*args, **kwargs)
@@ -126,6 +127,8 @@ class FilterJobOfferForm(forms.Form):
 
     def initial_data(self):
         data = self.data.copy()
+        if not data.get('title_search'):
+            data['title_search'] = ""
         if not data.get('minimum_work_experience'):
             data['minimum_work_experience'] = 0
         if not data.get('city'):
