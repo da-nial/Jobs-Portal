@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: jobs
+  name: jobs
+  namespace: sc-development
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: jobs
+  template:
+    metadata:
+      labels:
+        name: jobs
+    spec:
+      containers:
+        - name: jobs
+          image: registry.git-summercamp.divar.ir/backend/jobs:latest
+          imagePullPolicy: Always
+          command: ["make"]
+          args: ["run_gunicorn"]
+          ports:
+            - containerPort: 80
+              name: app-port
+              protocol: TCP
+
+          envFrom:
+            - configMapRef:
+                name: jobs
+
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  key: DB_USER
+                  name: jobs
+
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  key: DB_PASS
+                  name: jobs
+
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+      imagePullSecrets:
+        - name: registry-secret

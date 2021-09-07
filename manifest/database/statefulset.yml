@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    name: jobs-db
+  name: jobs-db
+  namespace: sc-development
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: jobs-db
+  serviceName: jobs-db
+  template:
+    metadata:
+      labels:
+        name: jobs-db
+    spec:
+      containers:
+        - name: jobs-db
+          image: registry.git-summercamp.divar.ir/backend/wallet/wallet-common/postgres:10.10
+          resources:
+            limits:
+              cpu: 400m
+              memory: 512Mi
+              ephemeral-storage: 100Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+              ephemeral-storage: 50Mi
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_NAME
+                  name: jobs
+
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  key: DB_USER
+                  name: jobs
+
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: DB_PASS
+                  name: jobs
+          ports:
+            - containerPort: 5432
+              name: db-port
+
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: jobs-db-data
+              readOnly: false
+      imagePullSecrets:
+        - name: registry-secret
+      volumes: []
+  volumeClaimTemplates:
+    - metadata:
+        labels:
+          name: jobs-db
+        name: jobs-db-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: "local-path"
+        resources:
+          requests:
+            storage: 1Gi
