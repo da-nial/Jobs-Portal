@@ -6,7 +6,6 @@ COPY requirements.txt .
 COPY Makefile .
 
 RUN pip install --upgrade pip
-RUN make build_env
 RUN make install
 
 COPY . .

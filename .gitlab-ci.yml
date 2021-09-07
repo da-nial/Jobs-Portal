@@ -5,6 +5,7 @@ variables:
 
 stages:
   - test
+  - build-and-push
 
 cache:
   paths:
@@ -31,3 +32,16 @@ coverage:
     - make coverage
     - make coverage_report
   coverage: '/TOTAL.*\s+(\d+\%)/'
+
+build-and-push:
+  stage: build-and-push
+  image: quay.io/aminrf/docker-kubectl
+  before_script:
+    - ''
+  script:
+    - docker login $CI_REGISTRY -u $CI_USER -p $ACCESS_TOKEN
+    - docker build . -t $CI_REGISTRY/backend/jobs:latest -t $CI_REGISTRY/backend/jobs:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY/backend/jobs:latest
+    - docker push $CI_REGISTRY/backend/jobs:$CI_COMMIT_SHA
+  only:
+    - master
