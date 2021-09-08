@@ -7,6 +7,7 @@ data:
   DEBUG: 'False'
   APP_MODE: 'PRODUCTION'
   DJANGO_ALLOWED_HOSTS: 'jobs.k8s-summercamp.divar.ir'
+  POSTGRES_ENABLE: "True"
   DB_HOST: 'jobs-db.sc-development.svc'
   DB_PORT: '5432'
   DB_NAME: 'jobs-db'

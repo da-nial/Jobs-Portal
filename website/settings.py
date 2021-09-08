@@ -24,7 +24,6 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "jobs")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", default="True") == "True"
 
-
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost 127.0.0.1 0.0.0.0 [::1]").split(" ")
 
 # Application definition
@@ -88,12 +87,12 @@ POSTGRES_ENABLE = os.getenv("POSTGRES_ENABLE", "False") == "True"
 if POSTGRES_ENABLE:
     DATABASES = {
         "default": {
-            "ENGINE": os.getenv("POSTGRES_ENGINE"),
-            "NAME": os.getenv("POSTGRES_DB"),
-            "USER": os.getenv("POSTGRES_USER"),
-            "PASSWORD": os.getenv("POSTGRES_PASSWORD", ""),
-            "HOST": os.getenv("POSTGRES_HOST"),
-            "PORT": os.getenv("POSTGRES_PORT"),
+            "ENGINE": 'django.db.backends.postgresql',
+            "NAME": os.getenv("DB_NAME"),
+            "USER": os.getenv("DB_USER"),
+            "PASSWORD": os.getenv("DB_PASS", ""),
+            "HOST": os.getenv("DB_HOST"),
+            "PORT": os.getenv("DB_PORT"),
         }
     }
 
@@ -155,7 +154,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 LOGIN_URL = '/auth/login/'
 LOGOUT_REDIRECT_URL = '/auth/login/'
 
-
 # Send email settings
 EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True") == "True"
 EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.gmail.com")
@@ -163,7 +161,6 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "adams.job.offer@gmail.com")
 # EMAIL_HOST_PASSWORD Has no default variable and you can't send email without it
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", '')
 EMAIL_PORT = os.getenv("EMAIL_PORT", "587")
-
 
 # Cache Configs
 
@@ -189,10 +186,8 @@ if REDIS_ENABLE:
         },
     }
 
-
 # Celery Configs
 CELERY_TASK_ALWAYS_EAGER = os.getenv("CELERY_TASK_ALWAYS_EAGER", "True") == "True"
-
 
 # Site Domain
 SITE_URL = os.getenv("SITE_URL", "http://localhost:8000")
