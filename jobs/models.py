@@ -225,7 +225,9 @@ class EducationalBackground(models.Model):
                                      verbose_name=_('Start year'))
     finish_year = models.IntegerField(validators=[MinValueValidator(MIN_YEAR),
                                                   MaxValueValidator(MAX_YEAR)],
-                                      verbose_name=_('Finish year'))
+                                      verbose_name=_('Finish year'),
+                                      null=False,
+                                      blank=True)
 
     is_currently_studying = models.BooleanField(verbose_name=_('Is currently studying'))
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
