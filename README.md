@@ -1,9 +1,11 @@
 # Jobs Portal Application
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 This is a Django web application developed as an internship project for Divar SummerCamp 2021. 
 The app allows companies to create profiles and post job openings, and job seekers to create profiles and apply for their desired opportunities.
 
-Additionally, the project has been **dockerized**, offering compatibility with both `docker-compose` for local usage and deployment via `kubernetes` for more extensive environments. The project also includes predefined stages for an example CI/CD pipeline.
+The project has also been **dockerized**, offering compatibility with both `docker-compose` for local usage and deployment via `kubernetes` for more extensive environments. The project also includes predefined stages for an example CI/CD pipeline.
 
 ## Features
 
@@ -15,8 +17,7 @@ Additionally, the project has been **dockerized**, offering compatibility with b
 
 ## Getting started
 
-The Makefile includes common Django commands for:
-To start working with this  project, using the provided Makefile, you can follow the following stages.
+To start working with this project using the provided Makefile, you can follow the following stages.
 
 - Installation: `make install`
 - Running migrations: `make migrate` 
@@ -38,5 +39,3 @@ For a visual overview, check out the figure below:
 - **Semester**: Summer 2021
 
 Let me know if you have any questions!
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
