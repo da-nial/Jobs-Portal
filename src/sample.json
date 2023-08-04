@@ -1,0 +1,436 @@
+[
+  {
+    "model": "authentication.customuser",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$Bz2WbSAylZ3whzKPKx6jQo$yeujPUAQSJvj6IQGCP3SObs41qwH74q2g0OrG2cIx8U=",
+      "last_login": "2021-08-21T05:44:05.192Z",
+      "is_superuser": true,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2021-08-17T12:25:34.310Z",
+      "email": "danial@gmail.com",
+      "verification_token": null,
+      "is_email_verified": false,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "authentication.customuser",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$0zYY8yMqEs1mKFn4rhjBIK$3pe+uqcmmeonb9cGHzIJb6MxBEoQwjyvP8W+j7kNnPU=",
+      "last_login": "2023-08-04T16:04:45.781Z",
+      "is_superuser": false,
+      "first_name": "sina",
+      "last_name": "rezayi",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-08-17T12:30:19.355Z",
+      "email": "danialz@aut.ac.ir",
+      "verification_token": "EMIGwYm2Cwz6nAEgG6q44iLEtjjSxPoFD1ge7BUzeosn3a5zOG",
+      "is_email_verified": false,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "authentication.customuser",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$7oKd7E1lKjY9ECpBKmPScq$UHIThRzkiu4OOoHoUy5Lm3zKoaM8FtT9Nkszo32t4JA=",
+      "last_login": "2021-08-19T20:37:58.364Z",
+      "is_superuser": false,
+      "first_name": "Reza",
+      "last_name": "Vaezi",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-08-19T20:27:04.553Z",
+      "email": "Reza@gmail.com",
+      "verification_token": null,
+      "is_email_verified": false,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "authentication.customuser",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$qCXzpXCyHmsDR1OZlI5G8S$n5/g0gV3B95238UxlHSa6CM1TAqPtj29FhGFIxHXrXw=",
+      "last_login": "2023-08-04T15:52:27.098Z",
+      "is_superuser": true,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2023-08-04T15:52:23.296Z",
+      "email": "danial.hamdi@divar.ir",
+      "verification_token": null,
+      "is_email_verified": false,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "jobs.company",
+    "pk": 1,
+    "fields": {
+      "name": "Divar",
+      "address": "Address: No 8, 2d Peyvand Alley, Farhang Sq, Sa'adat Abad, Tehran, Iran",
+      "logo": "images/divar_logo.png",
+      "description": "Divar (Persian: دیوار‎ lit. wall) is an Iranian Farsi classified ads and E-commerce mobile app and online platform for users in Iran[1] and/or Afghanistan.[2] َ[3]Animal rights had written a letter asking the app to remove the animal trade section.[4] It is in top 10 Iranian websites inside Alexa Internet, top Iranian apps[5] in Café Bazar, it has been downloaded 20 million times in 2020.[6] [7]It has 35 million installs.[8] It had 17 million real estate listings in 2019.",
+      "link": "https://divar.ir",
+      "telephone_number": "02143000300"
+    }
+  },
+  {
+    "model": "jobs.company",
+    "pk": 2,
+    "fields": {
+      "name": "Cafe Bazaar",
+      "address": "Address: No 8, 2d Peyvand Alley, Farhang Sq, Sa'adat Abad, Tehran, Iran",
+      "logo": "images/cafebazaar_logo.jpg",
+      "description": "“Bazaar” is a platform for the offering of Android applications and games developed by the Avayeh Hooshmand Hamrah Hezardastan company and is currently owned by the Hezardastan Technology Development Group.\r\n\r\nCafe Bazaar was established in January of 2011 by graduates and students of Iranian universities and has, since then, sought to provide a comprehensive platform of digital services and products to Android users with the collaboration of enthusiastic and talented Iranian developers.",
+      "link": "https://cafebazaar.ir",
+      "telephone_number": "0219100223"
+    }
+  },
+  {
+    "model": "jobs.company",
+    "pk": 3,
+    "fields": {
+      "name": "Balad",
+      "address": "No 8, 2d Peyvand Alley, Farhang Sq, Sa'adat Abad, Tehran, Iran",
+      "logo": "images/balad_logo.png",
+      "description": "Balad is a speaker map and navigation that helps you find the best route for inner-city and extra-urban travel and choosing the best place for fun, excursions, services, and more. With Balad, you will not have to worry about getting lost and not finding the address, you will not be stuck in traffic and fined because Balad, the police, the accident, the speed camera, the accelerator and all the accidents will warn you accurately and instantly and offer the best and The fastest routes will be with you.",
+      "link": "https://balad.ir",
+      "telephone_number": "02174314000"
+    }
+  },
+  {
+    "model": "jobs.company",
+    "pk": 4,
+    "fields": {
+      "name": "Gharar",
+      "address": "Nobody knows.",
+      "logo": "images/gharar_logo.png",
+      "description": "Not only video calls, \"Gharar\" has extended the world of communication to online events; From private classes to large conferences. In the \"Gharar\" online events platform, you can participate in online events, or even hold the event!A comprehensive and advanced solution for all types of online communications.",
+      "link": "https://gharar.ir",
+      "telephone_number": "02122384259"
+    }
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "Accounting",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "Agile Principles",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "Ansible",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "CI/CD",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "Critical Thinking",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "Docker",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "Golang",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "Kubernetes",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "Linux",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "Mentoring",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "Problem Solving",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "Prometheus",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "PyTorch",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "Python",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "React.JS",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "Research",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "Selenium",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "Tensorflow",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "Testing",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "Visualization",
+    "fields": {}
+  },
+  {
+    "model": "jobs.skill",
+    "pk": "Vue.JS",
+    "fields": {}
+  },
+  {
+    "model": "jobs.joboffer",
+    "pk": 1,
+    "fields": {
+      "title": "Senior Software Engineer",
+      "description": "The most important thing is that you are a Senior Software Engineer. You are going to have time, resources, sharp teammates and you will get proficient with our tools and technologies. So if you are good with any programming language and any technology stack, then it is the job for you.",
+      "salary": null,
+      "minimum_work_experience": 5,
+      "type_of_cooperation": "full_time",
+      "minimum_degree": "B",
+      "company": 1,
+      "city": "تهران",
+      "is_enabled": true,
+      "category": "E",
+      "skills_required": [
+        "Docker",
+        "Golang",
+        "Linux",
+        "Python"
+      ],
+      "users_tagged_job": []
+    }
+  },
+  {
+    "model": "jobs.joboffer",
+    "pk": 2,
+    "fields": {
+      "title": "DevOps Engineer - TP",
+      "description": "The Infrastructure team’s mission is to provide building blocks for higher availability and scalability, and faster iteration in our products. As a DevOps engineer, you will research, deploy and maintain infrastructure services such as Kubernetes, Ceph, ELK, CI/CD, Prometheus, and many other tools for our product teams to build better products with ease.",
+      "salary": null,
+      "minimum_work_experience": 3,
+      "type_of_cooperation": "full_time",
+      "minimum_degree": "B",
+      "company": 2,
+      "city": "تهران",
+      "is_enabled": true,
+      "category": "E",
+      "skills_required": [
+        "CI/CD",
+        "Docker",
+        "Kubernetes",
+        "Prometheus"
+      ],
+      "users_tagged_job": []
+    }
+  },
+  {
+    "model": "jobs.joboffer",
+    "pk": 3,
+    "fields": {
+      "title": "Agile People Coach",
+      "description": "We are seeking an experienced and highly motivated Agile Coach to join our dynamic team at Sotoon. As an Agile Coach, you will play a critical role in facilitating the adoption and implementation of the Agile mindset and Software Methodologies. You will work closely with our Product teams to facilitate and lead their tasks with your guidance and follow-up.",
+      "salary": 28000000,
+      "minimum_work_experience": 1,
+      "type_of_cooperation": "full_time",
+      "minimum_degree": "DI",
+      "company": 3,
+      "city": "تهران",
+      "is_enabled": true,
+      "category": "P",
+      "skills_required": [
+        "Agile Principles",
+        "Critical Thinking",
+        "Mentoring",
+        "Problem Solving"
+      ],
+      "users_tagged_job": []
+    }
+  },
+  {
+    "model": "jobs.joboffer",
+    "pk": 4,
+    "fields": {
+      "title": "Front-End Developer - TP",
+      "description": "We are seeking talented front-end developers to take part in the implementation of our web applications.\r\n\r\nWe encourage collaboration and provide an agile environment in which teams of talented developers can respond to changing requirements quickly.",
+      "salary": null,
+      "minimum_work_experience": 0,
+      "type_of_cooperation": "full_time",
+      "minimum_degree": "DI",
+      "company": 1,
+      "city": "تهران",
+      "is_enabled": true,
+      "category": "E",
+      "skills_required": [
+        "CI/CD",
+        "Problem Solving",
+        "React.JS",
+        "Testing",
+        "Vue.JS"
+      ],
+      "users_tagged_job": []
+    }
+  },
+  {
+    "model": "jobs.joboffer",
+    "pk": 5,
+    "fields": {
+      "title": "Data Scientist",
+      "description": "Cafebazaar is looking for a rock-star data scientist with independent research ability and passion for implementing new and innovative approaches to analytics and model development to join our high-impact team. So, you are supposed to:",
+      "salary": null,
+      "minimum_work_experience": 2,
+      "type_of_cooperation": "full_time",
+      "minimum_degree": "M",
+      "company": 2,
+      "city": "تهران",
+      "is_enabled": true,
+      "category": null,
+      "skills_required": [
+        "PyTorch",
+        "Tensorflow",
+        "Visualization"
+      ],
+      "users_tagged_job": []
+    }
+  },
+  {
+    "model": "jobs.joboffer",
+    "pk": 6,
+    "fields": {
+      "title": "Senior Product Manager",
+      "description": "At Cafe Bazaar, we always put users first and prioritize our resources to meet their needs. From implementing robust and innovative payment methods, building attractive and tailored app catalogues and designing easy to use products, to paying attention to the smallest details of our products, has made us the leading Iranian company in every single market we operate in.",
+      "salary": null,
+      "minimum_work_experience": 2,
+      "type_of_cooperation": "full_time",
+      "minimum_degree": "B",
+      "company": 2,
+      "city": "تهران",
+      "is_enabled": true,
+      "category": "P",
+      "skills_required": [
+        "Agile Principles",
+        "Critical Thinking",
+        "Mentoring",
+        "Problem Solving"
+      ],
+      "users_tagged_job": []
+    }
+  },
+  {
+    "model": "jobs.userprofile",
+    "pk": 1,
+    "fields": {
+      "user": 2,
+      "mobile_number": "09011234040",
+      "phone_number": null,
+      "address": null,
+      "military_service_status": "E",
+      "gender": "M",
+      "marital_status": "S",
+      "city_of_residence": "تهران",
+      "bio": "I am Sina Rezayi, and I am thrilled to have the opportunity to introduce myself to this esteemed job-seeking platform. With a diverse background and a strong passion for [mention your field or industry], I am excited to explore new avenues and contribute my skills to a dynamic and forward-thinking team.",
+      "skills": [
+        "Agile Principles",
+        "Critical Thinking",
+        "Mentoring",
+        "Problem Solving"
+      ]
+    }
+  },
+  {
+    "model": "jobs.userprofile",
+    "pk": 2,
+    "fields": {
+      "user": 3,
+      "mobile_number": "09122194219",
+      "phone_number": "02122214569",
+      "address": "48rd Fl., No.289, Shahid Kolahdouz St., Shariati St., Tehran, Iran",
+      "military_service_status": "CO",
+      "gender": "M",
+      "marital_status": "S",
+      "city_of_residence": "Tehran",
+      "bio": "I'm good.",
+      "skills": [
+        "Critical Thinking",
+        "Docker",
+        "Golang"
+      ]
+    }
+  },
+  {
+    "model": "jobs.educationalbackground",
+    "pk": 1,
+    "fields": {
+      "field": "Computer Engineering",
+      "institute": "Amirkabir University of Technology",
+      "level": "B",
+      "start_year": 1397,
+      "finish_year": 1401,
+      "is_currently_studying": true,
+      "user_profile": 2
+    }
+  },
+  {
+    "model": "jobs.educationalbackground",
+    "pk": 2,
+    "fields": {
+      "field": "Computer Engineering",
+      "institute": "Sharif University of Technology",
+      "level": "M",
+      "start_year": 1401,
+      "finish_year": 1403,
+      "is_currently_studying": false,
+      "user_profile": 2
+    }
+  }
+]

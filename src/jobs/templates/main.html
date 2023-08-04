@@ -94,7 +94,7 @@
                 {% endfor %}
             </ul>
         {% elif not request.user.profile %}
-            <p>{% translate "You dont have profile." %}</p>
+            <p>{% translate "You havent created your profile yet." %}</p>
         {% else %}
             <p>{% translate "No appropriate job offer has found." %}</p>
         {% endif %}

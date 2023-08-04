@@ -1,0 +1,39 @@
+.filter_job {
+    display: flex;
+    flex-wrap: wrap;
+    /*width: 100%;*/
+    justify-content: space-between;
+    /*margin: 20px auto;*/
+    padding: 10px;
+    padding-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.filter_job > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    width: 25%;
+    /*background-color: purple;*/
+}
+
+.filter_job h5 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.filter_job__input {
+    display: none;
+    /*!*width: 10px;*!*/
+    /*text-indent: -9999px;*/
+    /*background: url('{% static "images/magnifier.png" %}') no-repeat center center;*/
+    /*padding: 10px 20px;*/
+    /*width: 40px;*/
+    /*height: 40px;*/
+    /*border: none;*/
+    /*outline: none;*/
+    /*cursor: pointer;*/
+}

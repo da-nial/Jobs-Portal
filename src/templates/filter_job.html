@@ -1,0 +1,34 @@
+{% load i18n %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'jobs/filter_job.css' %}">
+{% endblock %}
+{#<h2>{% translate "Filter Job Offers" %} </h2>#}
+<form class="filter_job" action="" method="get">
+    {% csrf_token %}
+    <div>
+        <h5> {% translate "Title" %}  </h5>
+        {{ filter_job_offer.title_search }}
+        <input class="filter_job__input" type="submit" value="search">
+    </div>
+    {#    <br>#}
+    <div>
+        <h5> {% translate "Minimum Work Experience" %}  </h5>
+        {{ filter_job_offer.minimum_work_experience }}
+        <input class="filter_job__input" type="submit" value={% translate "Clear" %} name="remove_filter_minimumWork">
+    </div>
+    {#    <br>#}
+    <div>
+        <h5>{% translate "Category" %}  </h5>
+        {{ filter_job_offer.category }}
+        <input class="filter_job__input" type="submit" value={% translate "Clear" %} name="remove_filter_category">
+    </div>
+    {#    <br>#}
+    <div>
+        <h5>{% translate "City" %}  </h5>
+        {{ filter_job_offer.city }}
+        <input class="filter_job__input" type="submit" value={% translate "Clear" %} name="remove_filter_city">
+        {#    <br>#}
+    </div>
+
+</form>
